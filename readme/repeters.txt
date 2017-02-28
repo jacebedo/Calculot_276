@@ -1,0 +1,13 @@
+Ryan Peterson
+
+repeters@sfu.ca
+
+301279616
+
+
+
+My roll in this sprint cycle was to work on the UI Mockup as well as the desired functionality portion of the requirement document.
+
+JP and I worked together on the UI mockup in Eclipse, each completing roughly half the work.
+
+Kenneth and I together worked on the desired functionality portion of the requirement document, brainstorming ideas and carefully documenting features we would like to see accomplished.
