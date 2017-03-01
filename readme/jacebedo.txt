@@ -1,0 +1,21 @@
+Jean Pierre Acebedo
+jacebedo@sfu.ca
+301284530
+
+- Led discussions regarding the elicitation and parts of the specification for the project idea.
+
+- Produced a backlog for gathering specifications and creating a requirements document.
+
+- Designed the following activities of the UI Mock-up (Worked with Ryan Peterson):
+	- TopicActivity
+	- Topic11
+	- ProfileActivity
+	- MenuActivity
+
+- Generated the functional requirements for the required functionality (non-functional portion done by Levent Kylych)
+
+- Compiled all of the requirements document parts together to produce the final copy.
+
+- Handled submission to coursys.
+
+
