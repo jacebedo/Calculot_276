@@ -19,6 +19,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_ID = "_id";
     private static final String TABLE_USERNAME = "Username";
     private static final String TABLE_FIRSTNAME = "First Name";
+    private static final String TABLE_PASSWORD = "Password";
     private static final String TABLE_TOTALXP = "Total XP";
     private static final String TABLE_LEARNINGXP = "Learning XP";
     private static final String TABLE_PRACTICEXP = "Practice XP";
@@ -27,6 +28,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
             TABLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TABLE_USERNAME + " TEXT NOT NULL, " +
             TABLE_FIRSTNAME + " TEXT NOT NULL, " +
+            TABLE_PASSWORD + " TEXT NOT NULL, " +
             TABLE_TOTALXP + " INTEGER NOT NULL, " +
             TABLE_LEARNINGXP + " INTEGER NOT NULL, " +
             TABLE_PRACTICEXP + " INTEGER NOT NULL " +
@@ -50,4 +52,6 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
+
+
 }
