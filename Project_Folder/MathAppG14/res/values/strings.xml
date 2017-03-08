@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="app_name">MathAppG14</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!-- Main Activity Strings -->
+    <string name="Login">Login</string>
+    <string name="SignUp">Sign Up</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <!-- Login Activity Strings -->
+    <string name="jacebedo">jacebedo</string>
+    <string name="kza21">kza21</string>
+    <string name="repeters">repeters</string>
+    <string name="lkylych">lkylych</string>
+    <string name="title_activity_password">PasswordActivity</string>
+    <!-- Sign Up Activity Strings -->
+    <string name="username">Username</string>
+    <string name="FirstName">First Name</string>
+    <string name="sign_up">Sign Up</string>
+    <!-- Password Activity Strings -->
+    <string name="welcome_user_1">Welcome User 1!</string>
+    <string name="enter_your_password_below">Enter your password below</string>
+    <string name="password">Password</string>
+    <string name="title_activity_topics">TopicsActivity</string>
+    <!-- Menu Activity Strings -->
+    <string name="Learn">Learn</string>
+    <string name="Practice">Practice</string>
+    <string name="Profile">Profile</string>
+    <!-- Topic Activity Strings -->
+    <string name="Differentiation">Differentiation</string>
+    <string name="Integration">Integration</string>
+    <string name="Topic1_1">Power Rule</string>
+    <string name="Topic1_2">Trigonometric Differentiation - WIP</string>
+    <string name="Topic1_3">Chain Rule - WIP</string>
+    <string name="Topic2_1">Basic Indefinite Intergrals - WIP</string>
+    <string name="Topic2_2">Substitution Rule - WIP</string>
+    <string name="Topic2_3">Integration By Parts - WIP</string>
+    <string name="Topic2_4">Trigonometic Substitution - WIP</string>
+    <string name="message">This is only a mock-up of topics and only the first topic is implemented. Please review the full list of topic content in the requirements document.</string>
+    <string name="title_activity_topic11">Topic11</string>
+    <!-- Topic 1.1 Content -->
+    <string name="Topic11_Content">In here, there will be various resources (videos, tables, text, etc.) To prepare the user for the game quizzes.</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_practice">PracticeActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <!-- profile activity strings -->
+    <string name="image">image</string>
+    <string name="Experience">Experience: 40/ 100</string>
+    <string name="Differentiation_XP">Differentiation XP: 10/50</string>
+    <string name="Integration_XP">Integration XP: 30/50</string>
+    <string name="achievements">Achievements</string>
+    <string name="xp_gained_12_">TODO</string>
+    <string name="health_remaining_72_100">TODO</string>
+</resources>

@@ -1,0 +1,89 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+	    <TextView
+	        android:id="@+id/xpgained"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="XP Gained: 12"
+	        android:paddingTop="4dp"
+	        android:layout_gravity="left"
+	        />
+	    <TextView
+	        android:id="@+id/health"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="             Health remaining: 71/100"
+	        android:layout_gravity="right"
+	        android:paddingTop="4dp"
+	        />
+	
+	    
+	</LinearLayout>    
+    <ImageView
+        android:id="@+id/gameplay"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:src="@drawable/games" />
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What is the derivative of 2x?"
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:paddingBottom="8dp"
+        android:layout_gravity="center_horizontal"/>
+    
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:gravity="center_horizontal"
+        android:weightSum="2">
+        
+        <Button
+        android:id="@+id/mcanswer1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="2" />
+        
+        <Button
+        android:id="@+id/mcanswer2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="x" />
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:weightSum="2">
+        
+        <Button
+        android:id="@+id/mcanswer3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="2x" />
+        
+        <Button
+        android:id="@+id/mcanswer4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="2/x" />
+    </LinearLayout>
+
+    
+
+</LinearLayout>

@@ -1,0 +1,119 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="cmpt276.g14.mathappg14.Topics.TopicsActivity" >
+
+    <LinearLayout
+        android:id="@+id/Topics_Topic1Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/Topics_Topic1Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Differentiation"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/Topic1_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="@string/Topic1_1"
+            android:padding="5dp"
+            android:textColor="@color/green"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/Topic1_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="@string/Topic1_2"
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/Topic1_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="@string/Topic1_3"
+            android:padding="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Topics_Topic2Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/Topic2_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Integration"
+                android:padding="5dp"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/Topic2_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+           		android:clickable="true"
+            	android:text="@string/Topic2_1"
+            	android:padding="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/Topic2_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+            	android:clickable="true"
+            	android:text="@string/Topic2_2"
+            	android:padding="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/Topic2_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+            	android:clickable="true"
+            	android:text="@string/Topic2_3"
+            	android:padding="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/Topic2_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+            	android:clickable="true"
+            	android:text="@string/Topic2_4"
+            	android:padding="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:textColor="@color/transparent_gray"
+            android:text="@string/message" />
+
+</LinearLayout>
