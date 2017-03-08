@@ -17,7 +17,7 @@ public class User {
     // Add int array for achievements? or topics completed?
 
     // CONSTRUCTOR METHOD
-    public void User(String _username, String _firstname, String _password) {
+    public User(String _username, String _firstname, String _password) {
         username = _username;
         firstname= _firstname;
         password = _password;
@@ -72,7 +72,7 @@ public class User {
 
     // SET USERNAME
     public void setUsername(String _username) {
-        username = _username
+        username = _username;
     }
 
     // SET FIRST NAME
@@ -113,7 +113,7 @@ public class User {
 
     // Check the password if it contains at least 1 uppercase and 1 number
     private boolean checkPassword(String password) {
-        /* TO DO */
+        // TO IMPLEMENT
         return true;
     }
 }

@@ -24,6 +24,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_LEARNINGXP = "Learning XP";
     private static final String TABLE_PRACTICEXP = "Practice XP";
 
+    // onCreate statement
     private static final String STATEMENT = "CREATE TABLE "  + TABLE_NAME + "( " +
             TABLE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TABLE_USERNAME + " TEXT NOT NULL, " +
