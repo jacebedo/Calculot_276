@@ -114,6 +114,13 @@ public class User {
     // Check the password if it contains at least 1 uppercase and 1 number
     private boolean checkPassword(String password) {
         // TO IMPLEMENT
+    //import needed
+        if (    TextUtils.isEmpty(password)
+            ||  !(password.matches(".*[0-9].*")
+            || !(password.matches(".*[A-Z].*")
+        )
+            return false;
+        else
         return true;
     }
 }
