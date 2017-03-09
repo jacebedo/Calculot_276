@@ -51,7 +51,7 @@ public class User {
     }
 
     // Private String for security.
-    private String getPassword() {
+    public String getPassword() {
         return password;
     }
 

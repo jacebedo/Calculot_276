@@ -1,8 +1,11 @@
 package calculotprototype.g14.cmpt276.calculot_prototype.Databases;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import calculotprototype.g14.cmpt276.calculot_prototype.Classes.User;
 
 /**
  * Created by ephronax on 3/7/2017.
@@ -54,5 +57,20 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public long insertUser(User user) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(TABLE_USERNAME,user.getUsername());
+        cv.put(TABLE_FIRSTNAME,user.getFirstname());
+        cv.put(TABLE_PASSWORD,user.getPassword());
+        cv.put(TABLE_TOTALXP,0);
+        cv.put(TABLE_LEARNINGXP,0);
+        cv.put(TABLE_PRACTICEXP,0);
+
+        return db.insert(TABLE_NAME,null,cv);
+
+    }
 
 }

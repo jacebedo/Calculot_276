@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.splashscreen);
         splashy();
         //Code here will run during splashscreen
-        // Master commit attempt - jacebedo
-    }
+
+}
 
     public void splashy(){
         Log.i("splashy","Splashy started");
