@@ -86,7 +86,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
                 String username = cursor.getString(0);
                 String password = cursor.getString(2);
 
-                if ( username == _username && password == _password) {
+                if ( username.equals(_username) && password.equals(_password)) {
                     cursor.close();
                     return true;
                 }
@@ -105,7 +105,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Stores user information into the parameter 'user' -- TO TEST
-    public void getUser(String _username, String _password, User user) {
+    public void getUser(String _username, User user) {
 
         // Initialize Database and Cursor
         SQLiteDatabase db = this.getReadableDatabase();
@@ -117,7 +117,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
                 String username = cursor.getString(0);
                 // Check if this user is the correct user we are trying to access
-                if (username == _username) {
+                if (username.equals(_username) ) {
 
                     // Query all of the values from the table to the user parameter.
                     user.setFirstname(cursor.getString(1));
