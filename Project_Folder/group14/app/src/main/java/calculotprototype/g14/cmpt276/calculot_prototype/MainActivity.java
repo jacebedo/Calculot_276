@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import calculotprototype.g14.cmpt276.calculot_prototype.Databases.UserDatabaseHelper;
 
+
 public class MainActivity extends AppCompatActivity {
     //MainActivity will act as the splashscreen, as well as to load anything you need to do before main menu
     @Override
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.splashscreen);
         splashy();
         //Code here will run during splashscreen
-
+        // Master commit attempt - jacebedo
     }
 
     public void splashy(){
