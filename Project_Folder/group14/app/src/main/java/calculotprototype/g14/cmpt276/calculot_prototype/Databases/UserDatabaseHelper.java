@@ -87,17 +87,73 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
                 String password = cursor.getString(2);
 
                 if ( username == _username && password == _password) {
+                    cursor.close();
                     return true;
                 }
                 else {
+                    cursor.close();
                     return false;
+
                 }
             } while (cursor.moveToNext());
         }
         else{
+            cursor.close();
             return false;
         }
 
     }
 
+    // Stores user information into the parameter 'user' -- TO TEST
+    public void getUser(String _username, String _password, User user) {
+
+        // Initialize Database and Cursor
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + TABLE_USERNAME + ", " + TABLE_FIRSTNAME + ", " + TABLE_PASSWORD + ", " +
+                TABLE_TOTALXP + ", " + TABLE_LEARNINGXP + ", " + TABLE_PRACTICEXP + " FROM " + TABLE_NAME, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+
+                String username = cursor.getString(0);
+                // Check if this user is the correct user we are trying to access
+                if (username == _username) {
+
+                    // Query all of the values from the table to the user parameter.
+                    user.setFirstname(cursor.getString(1));
+                    user.setTotalXP(cursor.getInt(3));
+                    user.setLearningXP(cursor.getInt(4));
+                    user.setPracticeXP(cursor.getInt(5));
+                }
+            } while(cursor.moveToNext());
+        }
+
+        // Destroy cursor
+        cursor.close();
+
+    }
+
+    // EDITS XP VALUES TO THE PARAMETERS NEEDED -- TO TEST
+    public void editXP(int _TotalXP, int _PracticeXP, int _LearningXP, String _username) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Query statement: UPDATE User-Information SET Total XP = _TotalXP , Learning XP = _LearningXP, Practice XP = _PracticeXP WHERE Username ='_username'
+        db.execSQL("UPDATE " + TABLE_NAME + " SET " + TABLE_TOTALXP + " = " +
+                                    _TotalXP + ", " + TABLE_LEARNINGXP + " = " + _LearningXP + ", " +
+                                    TABLE_PRACTICEXP + " = " + _PracticeXP + " WHERE " + TABLE_USERNAME + " ='" +
+                                    _username + "'");
+
+    }
+
+    // EDITS THE PASSWORD OF THE USER IF THE OLD PASSWORD MATCHES THE ONE IN THE DATABASE, FROM THE USERNAME.
+    public void editPassword(String newPassword, String oldPassword, String _username){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("UPDATE " + TABLE_NAME + " SET " + TABLE_PASSWORD + " = " + newPassword +
+                                    " WHERE " + TABLE_USERNAME + " = " + "'" + _username + "'" + " AND " + TABLE_PASSWORD + " = " + "'" + oldPassword + "'" ,null);
+
+
+    }
 }
