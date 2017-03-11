@@ -52,5 +52,6 @@
         android:layout_width="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
+        android:onClick="add_user_onClick_signUp"
         android:text="@string/sign_up_button" />
 </LinearLayout>
