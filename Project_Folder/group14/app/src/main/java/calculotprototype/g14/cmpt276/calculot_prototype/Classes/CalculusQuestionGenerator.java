@@ -1,5 +1,7 @@
 package calculotprototype.g14.cmpt276.calculot_prototype.Classes;
 
+import java.util.Random;
+
 public class CalculusQuestionGenerator {    //random question generator for the Defence of Calculot Game
     //fields
     int Topic;  //0 differentiation, 1 integration, 2 combined
@@ -28,14 +30,11 @@ public class CalculusQuestionGenerator {    //random question generator for the 
     private void generateRandomQuestion() {
         //create random boolean static class?
         Random Rand = new Random();
-        int RandomBoolean = Rand.nextBoolean();
+        boolean RandomBoolean = Rand.nextBoolean();
 
-        if (RandomBoolean == 0) {
+        if (!RandomBoolean)
             generateDiffQuestion();
-        }
-        else {
-            generateIntQuestion();
-        }
+        else generateIntQuestion();
     }
 
     private void generateDiffQuestion() {

@@ -18,11 +18,11 @@ public class QuestionVector {
     //private methods
     private void setTheta(int X, int Y) {
         double YoverX = (double) Y/X;
-        Theta = Math.toDegrees(Math.tan(YoverX));
+        Theta = (int) Math.toDegrees(Math.tan(YoverX));
     }
 
     private void setNorm(int X, int Y) {
-        Norm = Math.sqrt((X*X) + (Y*Y));
+        Norm = (int) Math.sqrt((X*X) + (Y*Y));
     }
 
     //public methods
