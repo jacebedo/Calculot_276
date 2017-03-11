@@ -2,6 +2,7 @@ package calculotprototype.g14.cmpt276.calculot_prototype.Classes;
 
 import java.util.Random;
 
+//integrate this with the calcquestion class if useful, otherwise we can delete this
 public class CalculusQuestionGenerator {    //random question generator for the Defence of Calculot Game
     //fields
     int Topic;  //0 differentiation, 1 integration, 2 combined
