@@ -12,18 +12,18 @@ public class QuestionVector {
         X = _x;
         Y = _y;
         setTheta(X, Y);
-        setNorm(X, Y);
+        //setNorm(X, Y);
     }
 
     //private methods
     private void setTheta(int X, int Y) {
         double YoverX = (double) Y/X;
-        Theta = Math.toDegrees(Math.tan(YoverX));
+       // Theta = Math.toDegrees(Math.tan(YoverX));
     }
 
-    private void setNorm(int X, int Y) {
+    /*private void setNorm(int X, int Y) {
         Norm = Math.sqrt((X*X) + (Y*Y));
-    }
+    }*/
 
     //public methods
     public int getTheta() {
