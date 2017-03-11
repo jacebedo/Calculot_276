@@ -10,4 +10,5 @@ public class CalculusQuestion {
         //implement
         NumberOfTerms = _numberofterms;
     }
+
 }
