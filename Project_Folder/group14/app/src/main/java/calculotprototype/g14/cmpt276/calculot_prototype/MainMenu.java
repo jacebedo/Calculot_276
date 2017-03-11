@@ -6,7 +6,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 /**
- * Created by peter on 3/8/2017.
+ * Created by Ryan on 3/8/2017.
  */
 
 public class MainMenu extends MainActivity{
