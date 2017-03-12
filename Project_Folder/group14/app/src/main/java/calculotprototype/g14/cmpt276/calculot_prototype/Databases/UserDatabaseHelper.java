@@ -151,7 +151,6 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-
     // EDITS XP VALUES TO THE PARAMETERS NEEDED -- TO TEST
     public void editXP(int _TotalXP, int _PracticeXP, int _LearningXP, String _username) {
 
@@ -174,5 +173,18 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
                                     " WHERE " + TABLE_USERNAME + " = " + "'" + _username + "'" + " AND " + TABLE_PASSWORD + " = " + "'" + oldPassword + "'" ,null);
 
 
+    }
+
+    public int numUsers(){
+        int userCount = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + TABLE_USERNAME + ", " + TABLE_PASSWORD + " FROM " + TABLE_NAME, null);
+        if (cursor.moveToFirst()){
+            do{
+                userCount++;
+            } while(cursor.moveToNext());
+        }
+        cursor.close();
+        return userCount;
     }
 }
