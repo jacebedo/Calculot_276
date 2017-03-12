@@ -1,9 +1,13 @@
 package calculotprototype.g14.cmpt276.calculot_prototype;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import calculotprototype.g14.cmpt276.calculot_prototype.Classes.User;
+import calculotprototype.g14.cmpt276.calculot_prototype.Databases.UserDatabaseHelper;
 
 /**
  * Created by Ryan on 3/10/2017.
@@ -16,29 +20,28 @@ public class AddUser extends MainActivity {
         setContentView(R.layout.add_user);
     }
 
-    public void constRun(){
+    public void add_user_onClick_signUp(View view){ //When sign up button is pressed
         EditText firstNameET = (EditText) findViewById(R.id.addUser_firstName);
         EditText usernameET = (EditText) findViewById(R.id.addUser_username);
         EditText passwordET = (EditText) findViewById(R.id.addUser_password);
         EditText password2ET = (EditText) findViewById(R.id.addUser_retypepassword);
 
-        String passwordSt = passwordET.getText().toString();
+        String firstNameSt = firstNameET.getText().toString();
+        String usernameSt  = usernameET.getText().toString();
+        String passwordSt  = passwordET.getText().toString();
         String password2St = password2ET.getText().toString();
 
-        if (passwordSt.equals(password2St)){
-            Toast.makeText(this, "They're the same!", Toast.LENGTH_SHORT).show();
+        if (!(passwordSt.equals(password2St))){
+            Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
         }
-        //3/10/17 - Not working, maybe put it after button press?
+        else if (passwordSt.equals(password2St)){
+            User newUser = new User(usernameSt, firstNameSt, passwordSt);
+            UserDatabaseHelper DB = new UserDatabaseHelper(this);
+            DB.insertUser(newUser);
+            Log.i("InsertUser","User inserted!");
+            Toast.makeText(this, "User created!", Toast.LENGTH_SHORT).show();
+        }
 
-        /*button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Do stuff
-            }
-        });*/
-    }
-
-    public void add_user_onClick_signUp(View view){
-        Toast.makeText(this, "Clicked Sign Up... woo!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Clicked Sign Up... woo!", Toast.LENGTH_SHORT).show();
     }
 }
