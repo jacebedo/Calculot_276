@@ -21,6 +21,7 @@ public class AddUser extends MainActivity {
     }
 
     public void add_user_onClick_signUp(View view){ //When sign up button is pressed
+        //TODO: on last field, have next button submit form
         EditText firstNameET = (EditText) findViewById(R.id.addUser_firstName);
         EditText usernameET = (EditText) findViewById(R.id.addUser_username);
         EditText passwordET = (EditText) findViewById(R.id.addUser_password);
