@@ -31,17 +31,19 @@ public class AddUser extends MainActivity {
         String passwordSt  = passwordET.getText().toString();
         String password2St = password2ET.getText().toString();
 
+        UserDatabaseHelper DB = new UserDatabaseHelper(this);
+
         if (!(passwordSt.equals(password2St))){
             Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
         }
-        else if (passwordSt.equals(password2St)){
+        else if (DB.userNotTaken(usernameSt)){
             User newUser = new User(usernameSt, firstNameSt, passwordSt);
-            UserDatabaseHelper DB = new UserDatabaseHelper(this);
             DB.insertUser(newUser);
             Log.i("InsertUser","User inserted!");
             Toast.makeText(this, "User created!", Toast.LENGTH_SHORT).show();
+            finish();
+            //TODO: Set shared preferences so user is logged in
         }
-
-        //Toast.makeText(this, "Clicked Sign Up... woo!", Toast.LENGTH_SHORT).show();
+        else Toast.makeText(this, "Username already taken.", Toast.LENGTH_SHORT).show();
     }
 }
