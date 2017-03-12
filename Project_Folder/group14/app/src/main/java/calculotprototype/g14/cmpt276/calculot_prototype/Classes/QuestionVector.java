@@ -8,14 +8,24 @@ public class QuestionVector {
     private int Norm;
 
     //Constructor
-    QuestionVector(int _theta, int _x, int _y, int _norm) {
-        Theta = _theta;
+    QuestionVector(int _x, int _y) {
         X = _x;
         Y = _y;
-        Norm = _norm;
+        setTheta(X, Y);
+        setNorm(X, Y);
     }
 
-    //methods
+    //private methods
+    private void setTheta(int X, int Y) {
+        double YoverX = (double) Y/X;
+        Theta = (int) Math.toDegrees(Math.tan(YoverX));
+    }
+
+    private void setNorm(int X, int Y) {
+        Norm = (int) Math.sqrt((X*X) + (Y*Y));
+    }
+
+    //public methods
     public int getTheta() {
         return Theta;
     }

@@ -1,5 +1,7 @@
 package calculotprototype.g14.cmpt276.calculot_prototype.Classes;
 
+import android.text.TextUtils;
+
 /**
  * Created by ephronax on 3/7/2017.
  */
@@ -49,7 +51,7 @@ public class User {
     }
 
     // Private String for security.
-    private String getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -116,11 +118,8 @@ public class User {
         // TO IMPLEMENT
     //import needed
         if (    TextUtils.isEmpty(password)
-            ||  !(password.matches(".*[0-9].*")
-            || !(password.matches(".*[A-Z].*")
-        )
-            return false;
-        else
+            ||  !(password.matches(".*[0-9].*"))
+            || !(password.matches(".*[A-Z].*")))return false;
         return true;
     }
 }

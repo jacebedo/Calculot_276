@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Calculot_Prototype</string>
+    <string name="calculot_title">CALCULOT</string>
+    <string name="sign_up_button">Sign Up</string>
+    <string name="login_button">Login</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="retype_password_hint">Retype Password</string>
 </resources>

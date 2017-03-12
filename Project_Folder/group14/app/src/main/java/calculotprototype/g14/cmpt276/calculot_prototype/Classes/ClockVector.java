@@ -10,12 +10,12 @@ public class ClockVector {
     private int Speed;
 
     //Constructor
-    public QuestionVector(int _starttheta, int _norm, int _speed) {
+    public ClockVector(CrystalBall crystalBall, int _starttheta, int _speed) {
         StartTheta = _starttheta;
         CurrentTheta = StartTheta;
         setX(CurrentTheta);
         setY(CurrentTheta);
-        Norm = _norm;
+        //Norm = _norm; crystalBall.getShellLevel/getMass
         Speed = _speed;
     }
 
@@ -26,10 +26,12 @@ public class ClockVector {
 
     public void setX(int _theta) {
         //implement
+        X = (float) (Math.cos( (double) _theta ) * Norm);
     }
 
     public void setY(int _theta) {
         //implement
+        Y = (float) (Math.sin( (double) _theta ) * Norm);
     }
 
     public int getNorm() {
