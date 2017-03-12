@@ -52,10 +52,12 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
     String[] AnswerArray;
     int AnswerArrayIndex;   //Which one is the right answer?
     boolean IsComplex;
+    int AnswerArraySize;    //# of choices changes depending on difficulty?
 
     //Vector components
     String XComponent;
-    String YComponent;  //if "i" is included then Y is imaginary
+    String YComponent;  //y component without "i" regardless if imaginary
+    String iYComponent; //if "i" is included then Y is imaginary
     String ThetaComponent;
     String NormComponent;
 
@@ -78,19 +80,31 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
     private boolean generateRandomBoolean() {
         //create random boolean static class?
         Random Rand = new Random();
-        boolean RandomBoolean = Rand.nextBoolean();
+        return Rand.nextBoolean();
+    }
 
-        return RandomBoolean;
+    private String ToComplex(String _real) {    //turns a string component into an imaginary number string if vector is complex
+        String Complex = _real;
+
+        if (IsComplex) {
+            if (generateRandomBoolean())
+                Complex = "i* " + Complex;
+            else
+                Complex = Complex + " *i";
+        }
+        return Complex;
     }
 
     //Borrowed from CalcQuestion - create static class with public random methods?
     private int getRandomInt(int min,int max) {
-        Random randominteger = new Random();
-        return randominteger.nextInt((max - min) + 1) + min;
+        Random RandomInteger = new Random();
+        return RandomInteger.nextInt((max - min) + 1) + min;
     }
 
     //generate questions
     private void generateQuestion() {
+        IsComplex = generateRandomBoolean();
+
         if (Topic == 0) {
             ScoreMultiplier = 1 + (EasyLevel)/20;
 
@@ -110,21 +124,29 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
 
     private void generateEasyQuestion() {
         //implement
-        IsComplex = generateRandomBoolean();
         int RandomChoice = getRandomInt(0,2);   //decides if user should find norm, x, or y
 
         int XComponent = generateRandomX();
         int YComponent = generateRandomY();
 
         if (RandomChoice == 0) {
-            //find norm
-
+            //find norm     given x and y
+            Question = "Find the norm of the vector v";     //currently hardcoded -> we may use strings.xml or database instead
+            //generateEasyAnswer(0);
+            //implement random answer generator
         }
         else if (RandomChoice == 1) {
-            //find x
+            //find x    given norm and y
+            Question = "Find the x component of the vector v";
         }
         else {
-            //find y
+            //find y    given norm and x
+            if (IsComplex) {
+                Question = "Find the imaginary component of the complex number which represents the given vector v";
+            }
+            else {
+                Question = "Find the y component of the vector v";
+            }
         }
 
         questionVector = new QuestionVector(XComponent, YComponent);
@@ -155,15 +177,45 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
             RandomY *= -1;
         }
         YComponent = String.valueOf(RandomY);
-        if (IsComplex) {
-            if (generateRandomBoolean())
-                YComponent = "i* " + YComponent;
-            else
-                YComponent = YComponent + " *i";
-        }
+
+        iYComponent = ToComplex(iYComponent);
 
         return RandomY;
     }
 
+    //generate correct answers and random answers
+    private String generateEasyAnswer(int _type) {
+        String Answer = "";
+
+        if (_type == 0) {
+            //generate answer to question asking for: norm  given x and y
+            Answer = "sqrt( " + XComponent + "^2 + " + YComponent + "^2 )";
+        }
+        else if (_type == 1) {
+            //generate answer to question asking for: x     given norm and y
+            Answer = "sqrt( " + NormComponent + "^2 - " + YComponent + "^2 )";
+        }
+        else {//_type == 2 (if complex) or 3 (if not complex)
+            //generate answer to question asking for: y     given norm and x
+            Answer = "sqrt( " + NormComponent + "^2 - " + XComponent + "^2 )";
+        }
+        return Answer;
+    }
+
     //public methods
+    public String getQuestion() {
+        return Question;    //ie. String "Find the x component of the presented vector"
+    }
+
+    public String getQuestionInfo() {
+        return QuestionInfo;    //ie. "v = (?, 150) theta = 50 degrees"
+    }
+
+    public String[] getAnswerArray() {  //for generating buttons
+        return AnswerArray;
+    }
+
+    public int getAnswerArrayIndex() {  //for deciding which answer is correct
+        return AnswerArrayIndex;
+    }
 }
