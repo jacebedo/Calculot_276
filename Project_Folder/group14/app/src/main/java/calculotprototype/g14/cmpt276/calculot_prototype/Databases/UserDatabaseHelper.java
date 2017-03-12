@@ -133,6 +133,25 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //Returns false if username is already taken, true if still available
+    public boolean userNotTaken(String _username){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + TABLE_USERNAME + ", " + TABLE_FIRSTNAME + ", " + TABLE_PASSWORD + ", " +
+                TABLE_TOTALXP + ", " + TABLE_LEARNINGXP + ", " + TABLE_PRACTICEXP + " FROM " + TABLE_NAME, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String username = cursor.getString(0);
+                if (username.equalsIgnoreCase(_username)){
+                    return false;
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return true;
+    }
+
+
     // EDITS XP VALUES TO THE PARAMETERS NEEDED -- TO TEST
     public void editXP(int _TotalXP, int _PracticeXP, int _LearningXP, String _username) {
 
