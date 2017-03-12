@@ -201,40 +201,40 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
         AnswerArrayIndex = getRandomInt(0, AnswerArraySize - 1);
         for (int i = 0; i < AnswerArraySize; i++) {
             if (i==AnswerArrayIndex)
-                AnswerArray[i] = generateEasyAnswer(_type, true);
+                AnswerArray[i] = generateEasyRightAnswer(_type);
             else
-                AnswerArray[i] = generateEasyAnswer(_type, false);  //we need to know what a correct answer looks like -> pass to generateEasyAnswer first before calling generateEasyRandomAnswer
+                AnswerArray[i] = generateEasyWrongAnswer(_type);  //we need to know what a correct answer looks like -> pass to generateEasyAnswer first before calling generateEasyRandomAnswer
         }
     }
 
-    private String generateEasyAnswer(int _type, boolean _iscorrect) {
+    private String generateEasyRightAnswer(int _type) { //should generate a random correct answer
         String Answer = "";
 
         if (_type == 0) {//switch statement?
             //generate answer to question asking for: norm  given x and y
-            if (_iscorrect==true)
+            //if (_iscorrect==true)
                 Answer = "sqrt( " + XComponent + "^2 + " + YComponent + "^2 )"; //commutability of addition means we may randomly generate different forms of answers ie. X+Y = Y+X both correct
-            else
-                Answer = generateEasyRandomWrongAnswer(0, XComponent, YComponent, NormComponent);
+            //else
+                //Answer = generateEasyRandomWrongAnswer(0, XComponent, YComponent, NormComponent);
         }
         else if (_type == 1) {
             //generate answer to question asking for: x     given norm and y
-            if (_iscorrect)
+            //if (_iscorrect)
                 Answer = "sqrt( " + NormComponent + "^2 - " + YComponent + "^2 )";
-            else
-                Answer = generateEasyRandomWrongAnswer(1, XComponent, YComponent, NormComponent);
+            //else
+                //Answer = generateEasyRandomWrongAnswer(1, XComponent, YComponent, NormComponent);
         }
         else {//_type == 2 (if complex) or 3 (if not complex)
             //generate answer to question asking for: y     given norm and x
-            if (_iscorrect)
+            //if (_iscorrect)
                 Answer = "sqrt( " + NormComponent + "^2 - " + XComponent + "^2 )";
-            else
-                Answer = generateEasyRandomWrongAnswer(2, XComponent, YComponent, NormComponent);
+            //else
+                //Answer = generateEasyRandomWrongAnswer(2, XComponent, YComponent, NormComponent);
         }
         return Answer;
     }
 
-    private String generateEasyRandomWrongAnswer(int _type, String _xcomponent, String _ycomponent, String _normcomponent) {
+    private String generateEasyWrongAnswer(int _type) { //generate a random wrong answer with a similar form of a correct answer
         String RandomAnswer = "";
         int RandomForm;
 
