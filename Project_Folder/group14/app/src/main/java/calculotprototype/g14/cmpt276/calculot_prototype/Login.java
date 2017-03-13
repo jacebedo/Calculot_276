@@ -38,11 +38,13 @@ public class Login extends MainActivity {
                 firstNames[i] = cursor.getString(1); //Gets first name at i
                 userButton.setText(usernames[i]);   //Button displays username
                 ll.addView(userButton); //Adds new button to LinearLayout
-                final String name = firstNames[i]; //Must user final for setOnClickListener
+                final String name = usernames[i]; //Must use final for setOnClickListener
                 userButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.i("Button", name);
+                        Intent goToConfirmPassword = new Intent(Login.this, ConfirmPassword.class);
+                        goToConfirmPassword.putExtra("name",name); //Sends username to ConfirmPassword
+                        startActivity(goToConfirmPassword);
                     }
                 });
             }
