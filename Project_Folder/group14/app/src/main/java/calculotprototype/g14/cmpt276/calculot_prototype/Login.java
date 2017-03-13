@@ -21,6 +21,7 @@ public class Login extends MainActivity {
     Button userButtons[]; //So we can delete them
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("Login","onCreate started");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
     }
@@ -30,8 +31,10 @@ public class Login extends MainActivity {
         super.onResume();
         LinearLayout ll = (LinearLayout) findViewById(R.id.login_linearlayout);
         int numUsers = numUsers();
-        for (int i = 0; i < numUsers-1; i++) ll.removeView(userButtons[i]); //Deletes all dynamically added buttons so we can repopulate
-        ll.removeView(newUserButtonGlob);
+        if (userButtons != null)
+            for (int i = 0; i < userButtons.length; i++)
+                ll.removeView(userButtons[i]); //Deletes all dynamically added buttons so we can repopulate
+        ll.removeView(newUserButtonGlob); //Deletes the current global newUserButton
         populateUserButtons();
         makeNewUserButton();
     }

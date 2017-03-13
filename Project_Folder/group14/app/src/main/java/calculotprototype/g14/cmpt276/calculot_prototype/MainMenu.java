@@ -1,12 +1,14 @@
 package calculotprototype.g14.cmpt276.calculot_prototype;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import calculotprototype.g14.cmpt276.calculot_prototype.Databases.UserDatabaseHelper;
 
@@ -27,6 +29,10 @@ public class MainMenu extends MainActivity{
         login_button.startAnimation(fadein);
 
         numUsers();
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",0);
+        String username = pref.getString("username",null);
+        Toast.makeText(this, username + " is already logged in!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
