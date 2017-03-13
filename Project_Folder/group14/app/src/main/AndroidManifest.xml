@@ -19,6 +19,7 @@
         <activity android:name=".MainMenu"></activity>
         <activity android:name=".AddUser"></activity>
         <activity android:name=".Login"></activity>
+        <activity android:name=".ConfirmPassword"></activity>
     </application>
 
 </manifest>
