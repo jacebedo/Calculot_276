@@ -132,8 +132,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
     // Returns false if username is already taken, true if still available
     public boolean userNotTaken(String _username){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + TABLE_USERNAME + ", " + TABLE_FIRSTNAME + ", " + TABLE_PASSWORD + ", " +
-                TABLE_TOTALXP + ", " + TABLE_LEARNINGXP + ", " + TABLE_PRACTICEXP + " FROM " + TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT " + TABLE_USERNAME + " FROM " + TABLE_NAME, null);
 
         if (cursor.moveToFirst()) {
             do {
