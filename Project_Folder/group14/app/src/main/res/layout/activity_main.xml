@@ -33,6 +33,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="64dp"
+        android:onClick="main_onClick_login"
         android:text="@string/login_button" />
+
+    <TextView
+        android:id="@+id/numUsersTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
 </LinearLayout>
