@@ -29,6 +29,12 @@ public class MainMenu extends MainActivity{
         numUsers();
     }
 
+    @Override
+    protected void onResume(){ //Runs when you go back to the activity
+        super.onResume(); //Keep this here
+        numUsers();
+    }
+
     public void main_onClick_signUp(View view){
         Intent goToSignUpForm = new Intent(MainMenu.this, AddUser.class);
         startActivity(goToSignUpForm);
@@ -42,6 +48,6 @@ public class MainMenu extends MainActivity{
     public void numUsers(){
         UserDatabaseHelper DB = new UserDatabaseHelper(this);
         TextView numUsersTextView = (TextView) findViewById(R.id.numUsersTextView);
-        numUsersTextView.setText("numUsers = "+DB.numUsers());
+        numUsersTextView.setText("numUsers = "+DB.numUsers()+" //this is for testing");
     }
 }
