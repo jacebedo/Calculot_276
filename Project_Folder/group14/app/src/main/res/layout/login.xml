@@ -11,10 +11,22 @@
         android:id="@+id/login_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select a User"
+        android:layout_marginTop="16dp"
+        android:text="@string/calculot_title"
         android:layout_gravity="center_horizontal"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
     
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="12dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/select_a_user" />
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="16dp" />
