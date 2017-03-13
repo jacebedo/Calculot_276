@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
+
+import calculotprototype.g14.cmpt276.calculot_prototype.Databases.UserDatabaseHelper;
 
 /**
  * Created by Ryan on 3/8/2017.
@@ -22,10 +25,23 @@ public class MainMenu extends MainActivity{
         Animation fadein = AnimationUtils.loadAnimation(this, R.anim.fade_in_fast); //Get reference to fade_in animation
         sign_up_button.startAnimation(fadein);
         login_button.startAnimation(fadein);
+
+        numUsers();
     }
 
     public void main_onClick_signUp(View view){
         Intent goToSignUpForm = new Intent(MainMenu.this, AddUser.class);
         startActivity(goToSignUpForm);
+    }
+
+    public void main_onClick_login(View view){
+        Intent goToLogin = new Intent(MainMenu.this, Login.class);
+        startActivity(goToLogin);
+    }
+
+    public void numUsers(){
+        UserDatabaseHelper DB = new UserDatabaseHelper(this);
+        TextView numUsersTextView = (TextView) findViewById(R.id.numUsersTextView);
+        numUsersTextView.setText("numUsers = "+DB.numUsers());
     }
 }
