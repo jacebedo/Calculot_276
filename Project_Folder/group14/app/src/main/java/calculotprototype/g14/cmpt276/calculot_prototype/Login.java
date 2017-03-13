@@ -17,16 +17,33 @@ import calculotprototype.g14.cmpt276.calculot_prototype.Databases.UserDatabaseHe
  * Created by Ryan on 3/12/2017.
  */
 public class Login extends MainActivity {
+    Button newUserButtonGlob; //So we can delete it
+    Button userButtons[]; //So we can delete them
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        LinearLayout ll = (LinearLayout) findViewById(R.id.linearlay);
+        populateUserButtons();
+    }
 
-        final int numUsers = numUsers();
+    @Override
+    protected void onResume(){
+        super.onResume();
+        LinearLayout ll = (LinearLayout) findViewById(R.id.login_linearlayout);
+        int numUsers = numUsers();
+        for (int i = 0; i < numUsers-1; i++) ll.removeView(userButtons[i]); //Deletes all dynamically added buttons so we can repopulate
+        ll.removeView(newUserButtonGlob);
+        populateUserButtons();
+        makeNewUserButton();
+    }
+
+    public void populateUserButtons(){
+        LinearLayout ll = (LinearLayout) findViewById(R.id.login_linearlayout);
+
+        final int numUsers = (new UserDatabaseHelper(this)).numUsers();
         String usernames[] = new String[numUsers]; //String array for usernames
-        String firstNames[] = new String[numUsers]; //String array for first names
+        userButtons = new Button[numUsers];
 
         UserDatabaseHelper DB = new UserDatabaseHelper(this);
         Cursor cursor = DB.getAnyUserInfo();
@@ -35,8 +52,9 @@ public class Login extends MainActivity {
             for (int i = 0; i < numUsers; i++, cursor.moveToNext()) { //i to keep track of arrays, moves cursor in process too
                 Button userButton = new Button(this); //Creates a new button
                 usernames[i] = cursor.getString(0); //Gets username at i
-                firstNames[i] = cursor.getString(1); //Gets first name at i
                 userButton.setText(usernames[i]);   //Button displays username
+                userButton.setAllCaps(false);
+                userButtons[i] = userButton; //Adds new button to array
                 ll.addView(userButton); //Adds new button to LinearLayout
                 final String name = usernames[i]; //Must use final for setOnClickListener
                 userButton.setOnClickListener(new View.OnClickListener() {
@@ -49,10 +67,15 @@ public class Login extends MainActivity {
                 });
             }
         }
+    }
 
+    public void makeNewUserButton(){
         //Creates button to add user, that redirects to AddUser class
+        LinearLayout ll = (LinearLayout) findViewById(R.id.login_linearlayout);
         Button newUserButton = new Button(this);
-        newUserButton.setText("Add User");
+        newUserButtonGlob = newUserButton;
+        newUserButton.setText(R.string.add_user);
+        newUserButton.setAllCaps(false);
         ll.addView(newUserButton);
         newUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,15 +84,10 @@ public class Login extends MainActivity {
                 startActivity(signUp);
             }
         });
-
-
-        //buttonsFunc();
-
     }
 
     public int numUsers(){
         UserDatabaseHelper DB = new UserDatabaseHelper(this);
         return DB.numUsers();
     }
-
 }
