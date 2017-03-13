@@ -159,6 +159,43 @@ public class CalcQuestion {
     }
 
     private void getIntQuestion(int difficulty) {
+        int constant;
+        int exponent;
+
+        if (difficulty == 1) {
+            exponent = getRandomInt(1, 5);
+
+            question = "Integrate: \n" + "x^" + Integer.toString(exponent);
+            correct = "(1/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+
+            answer_1 = correct;
+            answer_2 = Integer.toString(exponent) + "x^" + Integer.toString(exponent - 1);
+            answer_3 = "x^" + Integer.toString(exponent + 1);
+            answer_4 = "(1/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent + 1);
+        } else if (difficulty == 2) {
+            constant = getRandomInt(1, 3);
+            exponent = getRandomInt(1, 5);
+            question = "Integrate: \n" + Integer.toString(constant) + "x^" + Integer.toString(exponent);
+            correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+
+            answer_1 = correct;
+            answer_2 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent + 1);
+            answer_3 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent - 1);
+            answer_4 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
+
+        } else if (difficulty == 3) {
+            constant = getRandomInt(1, 13);
+            exponent = getRandomInt(-6, -3);
+
+            question = "Integrate: \n" + Integer.toString(constant) + "/x^" + Integer.toString(-1 * exponent);
+            correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+
+            answer_1 = correct;
+            answer_2 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent + 1);
+            answer_3 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent - 1);
+            answer_4 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
+
+        }
     }
 
 
