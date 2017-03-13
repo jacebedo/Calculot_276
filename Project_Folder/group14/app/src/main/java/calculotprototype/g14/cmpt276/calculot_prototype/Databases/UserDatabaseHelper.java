@@ -84,7 +84,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 String username = cursor.getString(0);
-                String password = cursor.getString(2);
+                String password = cursor.getString(1);
 
                 if ( username.equals(_username) && password.equals(_password)) {
                     cursor.close();
