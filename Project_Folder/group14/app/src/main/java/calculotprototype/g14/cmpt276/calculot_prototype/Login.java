@@ -38,6 +38,7 @@ public class Login extends MainActivity {
         makeNewUserButton();
     }
 
+
     public void populateUserButtons(){
         LinearLayout ll = (LinearLayout) findViewById(R.id.login_linearlayout);
 
