@@ -88,7 +88,7 @@ public class CalcQuestion {
 
 
     // Figure out case when exponent = 1 ; CLEAR BUG INBOUND
-    private void getDiffQuestion( int difficulty) {
+    private void getDiffQuestion(int difficulty) {
         // Topic is based on differentiation
         int constant;
         int exponent;
@@ -172,7 +172,9 @@ public class CalcQuestion {
             answer_2 = Integer.toString(exponent) + "x^" + Integer.toString(exponent - 1);
             answer_3 = "x^" + Integer.toString(exponent + 1);
             answer_4 = "(1/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent + 1);
-        } else if (difficulty == 2) {
+        }
+
+        else if (difficulty == 2) {
             constant = getRandomInt(1, 3);
             exponent = getRandomInt(1, 5);
             question = "Integrate: \n" + Integer.toString(constant) + "x^" + Integer.toString(exponent);
@@ -183,7 +185,9 @@ public class CalcQuestion {
             answer_3 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent - 1);
             answer_4 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
 
-        } else if (difficulty == 3) {
+        }
+
+        else if (difficulty == 3) {
             constant = getRandomInt(1, 13);
             exponent = getRandomInt(-6, -3);
 

@@ -16,10 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainMenu"></activity>
-        <activity android:name=".AddUser"></activity>
-        <activity android:name=".Login"></activity>
-        <activity android:name=".ConfirmPassword"></activity>
+        <activity android:name=".MainMenu" />
+        <activity android:name=".AddUser" />
+        <activity android:name=".Login" />
+        <activity android:name=".ConfirmPassword" />
+        <activity android:name=".GameActivity"></activity>
     </application>
 
 </manifest>
