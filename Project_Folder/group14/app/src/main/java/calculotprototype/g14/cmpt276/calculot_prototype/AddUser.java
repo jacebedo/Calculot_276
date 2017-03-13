@@ -27,8 +27,8 @@ public class AddUser extends MainActivity {
         EditText passwordET = (EditText) findViewById(R.id.addUser_password);
         EditText password2ET = (EditText) findViewById(R.id.addUser_retypepassword);
 
-        String firstNameSt = firstNameET.getText().toString();
-        String usernameSt  = usernameET.getText().toString();
+        String firstNameSt = firstNameET.getText().toString().trim(); //trim removes trailing spaces
+        String usernameSt  = usernameET.getText().toString().trim();
         String passwordSt  = passwordET.getText().toString();
         String password2St = password2ET.getText().toString();
 
