@@ -90,17 +90,13 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
                     cursor.close();
                     return true;
                 }
-                else {
-                    cursor.close();
-                    return false;
-
-                }
             } while (cursor.moveToNext());
         }
         else{
             cursor.close();
             return false;
         }
+        return false;
 
     }
 
