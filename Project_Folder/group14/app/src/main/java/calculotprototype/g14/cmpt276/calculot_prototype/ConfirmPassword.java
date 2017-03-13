@@ -1,5 +1,6 @@
 package calculotprototype.g14.cmpt276.calculot_prototype;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,8 +39,19 @@ public class ConfirmPassword extends MainActivity {
         if (!loginStatus) {
             passwordET.setError("Incorrect password!");
         }
-        else Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
+        else {
+            Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
+            logUserIn(username);
+        }
         //TODO: Figure out sharedpreferences, set user as logged in
+    }
+
+    public void logUserIn(String username){
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("username",username);
+        editor.commit();
+        Toast.makeText(this, pref.getString("username",null)+" logged in!", Toast.LENGTH_SHORT).show();
     }
 
 }
