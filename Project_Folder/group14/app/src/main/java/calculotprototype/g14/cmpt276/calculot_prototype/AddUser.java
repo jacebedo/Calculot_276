@@ -27,6 +27,13 @@ public class AddUser extends MainActivity {
         EditText passwordET = (EditText) findViewById(R.id.addUser_password);
         EditText password2ET = (EditText) findViewById(R.id.addUser_retypepassword);
 
+        boolean wrong = false;
+        if (firstNameET.getText().toString().trim().equals("")) { firstNameET.setError("This field cannot be left blank."); wrong = true; }
+        if (usernameET.getText().toString().trim().equals("")) { usernameET.setError("This field cannot be left blank."); wrong = true; }
+        if (passwordET.getText().toString().equals("")) { passwordET.setError("This field cannot be left blank."); wrong = true; }
+        if (!password2ET.getText().toString().equals(passwordET.getText().toString())) { password2ET.setError("Passwords do not match."); wrong = true; }
+        if (wrong) return;
+
         String firstNameSt = firstNameET.getText().toString().trim(); //trim removes trailing spaces
         String usernameSt  = usernameET.getText().toString().trim();
         String passwordSt  = passwordET.getText().toString();
@@ -34,10 +41,8 @@ public class AddUser extends MainActivity {
 
         UserDatabaseHelper DB = new UserDatabaseHelper(this);
 
-        if (!(passwordSt.equals(password2St))){
-            Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
-        }
-        else if (DB.userNotTaken(usernameSt)){
+        if (!(passwordSt.equals(password2St)))password2ET.setError("Passwords do not match!");
+        else if (DB.userNotTaken(usernameSt)){ //Do if username is available
             User newUser = new User(usernameSt, firstNameSt, passwordSt);
             DB.insertUser(newUser);
             Log.i("InsertUser","User inserted!");
