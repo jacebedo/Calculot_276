@@ -32,7 +32,7 @@ public class AddUser extends MainActivity {
         if (usernameET.getText().toString().trim().equals("")) { usernameET.setError("This field cannot be left blank."); wrong = true; }
         if (passwordET.getText().toString().equals("")) { passwordET.setError("This field cannot be left blank."); wrong = true; }
         if (!password2ET.getText().toString().equals(passwordET.getText().toString())) { password2ET.setError("Passwords do not match."); wrong = true; }
-        if (wrong) return;
+        if (wrong) return; //Obviously don't continue if fields aren't correct
 
         String firstNameSt = firstNameET.getText().toString().trim(); //trim removes trailing spaces
         String usernameSt  = usernameET.getText().toString().trim();
