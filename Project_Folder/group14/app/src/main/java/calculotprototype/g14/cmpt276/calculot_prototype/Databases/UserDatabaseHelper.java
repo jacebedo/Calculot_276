@@ -133,7 +133,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    //Returns false if username is already taken, true if still available
+    // Returns false if username is already taken, true if still available
     public boolean userNotTaken(String _username){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT " + TABLE_USERNAME + ", " + TABLE_FIRSTNAME + ", " + TABLE_PASSWORD + ", " +
@@ -175,6 +175,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    // Returns number of users in database (for use in login)
     public int numUsers(){
         int userCount = 0;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -186,5 +187,12 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return userCount;
+    }
+
+    // Gives a cursor for acces from Java code to run through database for information
+    public Cursor getAnyUserInfo(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + TABLE_USERNAME + ", " + TABLE_FIRSTNAME + " FROM " + TABLE_NAME, null);
+        return cursor;
     }
 }
