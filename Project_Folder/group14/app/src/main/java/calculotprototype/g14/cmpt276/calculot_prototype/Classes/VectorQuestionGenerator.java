@@ -209,13 +209,22 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
 
     private String generateEasyRightAnswer(int _type) { //should generate a random correct answer
         String Answer = "";
+        int RandomForm;
 
-        if (_type == 0) {//switch statement?
+        if (_type == 0) {
             //generate answer to question asking for: norm  given x and y
-            //if (_iscorrect==true)
-                Answer = "sqrt( " + XComponent + "^2 + " + YComponent + "^2 )"; //commutability of addition means we may randomly generate different forms of answers ie. X+Y = Y+X both correct
-            //else
-                //Answer = generateEasyRandomWrongAnswer(0, XComponent, YComponent, NormComponent);
+            RandomForm = getRandomInt(0, 8);    //no duplicates possible as we only call generateEasyRightAnswer once per questionvector
+            switch (RandomForm) {
+                case 0:
+                    Answer = "sqrt( " + XComponent + "^2 + " + YComponent + "^2 )"; //commutability of addition means we may randomly generate different forms of answers ie. X+Y = Y+X both correct
+                    break;
+                case 1:
+                    Answer = "sqrt( " + XComponent + "^2 + " + YComponent + "^2 )";
+                    break;
+                case 2:
+                    Answer = "sqrt( " + XComponent + "^2 + " + YComponent + "^2 )";
+                    break;
+            }
         }
         else if (_type == 1) {
             //generate answer to question asking for: x     given norm and y
