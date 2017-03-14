@@ -161,6 +161,24 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
             return "( "+_string+" )^("+FractionNumerator+"/"+FractionDenominator+") ";
     }
 
+    private String complexComposition(String _number, int _complexity) {
+        int Number = Integer.parseInt(_number);
+        //implement
+
+        return Integer.toString(Number);
+    }
+
+    private String commutableOperation(String _stringa, String _stringb, char _operation) {
+        String Result = "";
+        if (_operation == '+') {
+            if (generateRandomBoolean())
+                Result = _stringa+" + "+_stringb;
+            else Result = _stringb+" + "+_stringa;
+        }
+        //implement for -, *, /
+        return Result;
+    }
+
     //Borrowed from CalcQuestion - create static class with public random methods?
     private int getRandomInt(int min,int max) {
         Random RandomInteger = new Random();
@@ -192,33 +210,50 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
         //implement
         int RandomChoice = getRandomInt(0,2);   //decides if user should find norm, x, or y
 
-        int XComponent = generateRandomX();
-        int YComponent = generateRandomY();
+        XComponent = Integer.toString(generateRandomX());
+        YComponent = Integer.toString(generateRandomY());
 
         if (RandomChoice == 0) {
             //find norm     given x and y
-            Question = "Find the norm of the vector v";     //currently hardcoded -> we may use strings.xml or database instead
+            if (IsComplex) {
+                Question = "Find the modulus of the complex number c = Re+Im (Shown as a vector)";     //currently hardcoded -> we may use strings.xml or database instead
+                QuestionInfo = "given Re = "+XComponent+", Im = "+iYComponent;
+            }
+            else {
+                Question = "Find the norm of the vector v = (x,y)";     //currently hardcoded -> we may use strings.xml or database instead
+                QuestionInfo = "given x = "+XComponent+", y = "+YComponent;
+            }
             //implement random answer generator
             generateEasyAnswerArray(0);
         }
         else if (RandomChoice == 1) {
             //find x    given norm and y
-            Question = "Find the x component of the vector v";
+            if (IsComplex) {
+                Question = "Find the real part of the complex number c = Re+Im (Shown as a vector)";
+                QuestionInfo = "given modulus = "+NormComponent+", Im = "+iYComponent;
+            }
+            else {
+                Question = "Find the x component of the vector v = (x,y)";
+                QuestionInfo = "given ||v|| = "+NormComponent+", y = "+YComponent;
+            }
+
             generateEasyAnswerArray(1);
         }
         else {
             //find y    given norm and x
             if (IsComplex) {
-                Question = "Find the imaginary component of the complex number which represents the given vector v";
+                Question = "Find the Imaginary part of the complex number c = Re+Im (Shown as a vector)";
+                QuestionInfo = "given modulus = "+NormComponent+", Re = "+XComponent;
             }
             else {
-                Question = "Find the y component of the vector v";
+                Question = "Find the y component of the vector v = (x,y)";
+                QuestionInfo = "given ||v|| = "+NormComponent+", x = "+XComponent;
             }
 
             generateEasyAnswerArray(2);
         }
 
-        questionVector = new QuestionVector(XComponent, YComponent);
+        questionVector = new QuestionVector( Integer.parseInt(XComponent), Integer.parseInt(YComponent));
     }
 
     private void generateMediumQuestion() {
@@ -259,28 +294,36 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
             if (i==AnswerArrayIndex)
                 AnswerArray[i] = generateEasyRightAnswer(_type);
             else
-                AnswerArray[i] = generateEasyWrongAnswer(_type);  //we need to know what a correct answer looks like -> pass to generateEasyAnswer first before calling generateEasyRandomAnswer
+                AnswerArray[i] = generateEasyWrongAnswer(_type);
         }
     }
 
     private String generateEasyRightAnswer(int _type) { //should generate a random correct answer
         String Answer = "";
+        String ComponentA = "";
+        String ComponentB = "";
         int RandomForm;
 
         if (_type == 0) {
             //generate answer to question asking for: norm  given x and y
-            RandomForm = getRandomInt(0, 8);    //no duplicates possible as we only call generateEasyRightAnswer once per questionvector
-            switch (RandomForm) {
-                case 0:
-                    Answer = "sqrt( " + XComponent + "^2 + " + YComponent + "^2 )"; //commutability of addition means we may randomly generate different forms of answers ie. X+Y = Y+X both correct
-                    break;
-                case 1:
-                    Answer = "sqrt( " + XComponent + "^2 + " + YComponent + "^2 )";
-                    break;
-                case 2:
-                    Answer = "sqrt( " + XComponent + "^2 + " + YComponent + "^2 )";
-                    break;
-            }
+            //no duplicates possible as we only call generateEasyRightAnswer once per questionvector
+            //commutability of addition means we may randomly generate different forms of answers ie. X+Y = Y+X both correct
+            ComponentA = XComponent;
+            if ( getRandomInt( (int)(EasyLevel*0.5) , EasyLevel+10)>5 ) //some way to decide if we increase complexity or not
+                ComponentA = applyPower(ComponentA, 2, 1, true);
+            else ComponentA = applyPower(ComponentA, 2, 1, false);
+
+            ComponentB = YComponent;
+            if ( getRandomInt( (int)(EasyLevel*0.5) , EasyLevel+10)>5 ) //some way to decide if we increase complexity or not
+                ComponentB = applyPower(ComponentB, 2, 1, true);
+            else ComponentB = applyPower(ComponentB, 2, 1, false);
+
+            Answer = commutableOperation(ComponentA, ComponentB, '+');
+
+            if ( getRandomInt( (int)(EasyLevel*0.5) , EasyLevel+10)>5 )
+                Answer = applyPower(Answer, 1, 2, true);
+            else Answer = applyPower(Answer, 1, 2, false);
+
         }
         else if (_type == 1) {
             //generate answer to question asking for: x     given norm and y
