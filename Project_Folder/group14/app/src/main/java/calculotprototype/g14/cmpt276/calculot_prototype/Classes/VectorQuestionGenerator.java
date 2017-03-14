@@ -105,6 +105,62 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
         return Complex;
     }
 
+    private String applyTrig(String _string, int _functiontype) {
+        String Result = _string;
+        switch (_functiontype) {
+            case 0:
+                Result = "Sin( "+_string+" )";
+                break;
+            case 1:
+                Result = "Cos( "+_string+" )";
+                break;
+            case 2:
+                Result = "Tan( "+_string+" )";
+                break;
+            case 10:
+                Result = "Arcsin( "+_string+" )";
+                break;
+            case 11:
+                Result = "Arccos( "+_string+" )";
+                break;
+            case 12:
+                Result = "Arctan( "+_string+" )";
+                break;
+        }
+        return Result;
+    }
+
+    private String applyScalar(String _string, int _scalar) {
+        if (_scalar == 1)   //enclose in brackets
+            return "("+_string+")";
+        if (_scalar == -1)
+            return "-("+_string+")";
+        else
+        return "("+_scalar+")( "+_string+" )";
+    }
+
+    private String applyPower(String _string, int _powernumerator, int _powerdenominator, boolean _reform) {
+        int FractionNumerator = _powernumerator;
+        int FractionDenominator = _powerdenominator;
+        int RandomScalar = 1;
+
+        if (_reform) {  //reform complexity level?
+            if (generateRandomBoolean())
+                RandomScalar = getRandomInt(1,4);
+            else RandomScalar = 10 * getRandomInt(1,2);
+
+            FractionNumerator *= RandomScalar;
+            FractionDenominator *= RandomScalar;
+        }
+
+        if (FractionDenominator == 1 && !_reform)   //if reform is true we may have x^(y/1) to vary the answers a bit more
+            return "( "+_string+" )^("+FractionNumerator+") ";
+        else if (FractionNumerator == 1 && FractionDenominator == 2 && !_reform)
+            return "sqrt( "+_string+" )";
+        else
+            return "( "+_string+" )^("+FractionNumerator+"/"+FractionDenominator+") ";
+    }
+
     //Borrowed from CalcQuestion - create static class with public random methods?
     private int getRandomInt(int min,int max) {
         Random RandomInteger = new Random();
