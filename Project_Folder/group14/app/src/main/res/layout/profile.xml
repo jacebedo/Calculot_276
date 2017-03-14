@@ -98,6 +98,7 @@
         android:id="@+id/learnbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="profile_onClick_learn"
         android:text="Learn" />
 </LinearLayout>
 
