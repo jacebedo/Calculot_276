@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -38,6 +39,14 @@ public class Profile extends MainActivity {
         firstNameTV.setText(user.getFirstname());
 
         user.setPracticeXP(23);
+        Button learn = (Button) findViewById(R.id.learnbtn);
+        learn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toLearn = new Intent(Profile.this, LearnActivity.class);
+                startActivity(toLearn);
+            }
+        });
     }
 
     @Override
