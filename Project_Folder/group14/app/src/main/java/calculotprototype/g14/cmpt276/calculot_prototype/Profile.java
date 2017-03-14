@@ -39,14 +39,6 @@ public class Profile extends MainActivity {
         firstNameTV.setText(user.getFirstname());
 
         user.setPracticeXP(23);
-        Button learn = (Button) findViewById(R.id.learnbtn);
-        learn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent toLearn = new Intent(Profile.this, LearnActivity.class);
-                startActivity(toLearn);
-            }
-        });
     }
 
     @Override
@@ -77,5 +69,10 @@ public class Profile extends MainActivity {
         user.setPracticeXP(user.getPracticeXP()+5);
         Log.i("Profile","Button pressed");
         updateProgress();
+    }
+
+    public void profile_onClick_learn(View view){
+        Intent toLearn = new Intent(Profile.this, LearnActivity.class);
+        startActivity(toLearn);
     }
 }
