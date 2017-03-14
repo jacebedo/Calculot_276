@@ -93,5 +93,11 @@
         android:layout_height="wrap_content"
         android:onClick="profile_onClick_addXP"
         android:text="Free XP!!!" />
+
+    <Button
+        android:id="@+id/learnbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Learn" />
 </LinearLayout>
 
