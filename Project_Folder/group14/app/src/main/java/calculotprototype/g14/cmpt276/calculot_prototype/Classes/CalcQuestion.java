@@ -1,5 +1,8 @@
 package calculotprototype.g14.cmpt276.calculot_prototype.Classes;
 
+import android.view.View;
+import android.widget.TextView;
+
 import java.util.Random;
 
 /**
@@ -57,8 +60,8 @@ public class CalcQuestion {
     }
 
     // Checks if the answer entered by the user is correct.
-    public  boolean isCorrect(String _answer) {
-        if (correct.equals(_answer)) {
+    public  boolean isCorrect(TextView v) {
+        if (correct.equals(v.getText().toString())) {
             return true;
         }
         else { return false; }
