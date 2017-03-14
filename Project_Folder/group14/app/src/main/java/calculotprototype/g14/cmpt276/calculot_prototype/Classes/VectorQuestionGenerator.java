@@ -168,15 +168,62 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
         return Integer.toString(Number);
     }
 
-    private String commutableOperation(String _stringa, String _stringb, char _operation) {
+    private String commutativeOperation(String _stringa, String _stringb, char _operation) {
         String Result = "";
+        int Choice;
+
         if (_operation == '+') {
             if (generateRandomBoolean())
                 Result = _stringa+" + "+_stringb;
             else Result = _stringb+" + "+_stringa;
         }
-        //implement for -, *, /
+        else if (_operation == '-') {
+            if (generateRandomBoolean())
+                Result = _stringa+" - "+_stringb;
+            else Result = " - "+_stringb+" + "+_stringa;
+        }
+        else if (_operation == '*') {
+            Choice = getRandomInt(0,3);
+            switch (Choice) {
+                case 0:
+                    Result = _stringa+" * "+_stringb;
+                    break;
+                case 1:
+                    Result = _stringb+" * "+_stringa;
+                    break;
+                case 2:
+                    Result = "("+_stringa+")( "+_stringb+")";
+                    break;
+                case 3:
+                    Result = "("+_stringb+")("+_stringa+")";
+                    break;
+            }
+        }
+        else if (_operation == '/') {
+            Choice = getRandomInt(0,2);
+            switch (Choice) {
+                case 0:
+                    Result = _stringa+" / ("+_stringb+")";
+                    break;
+                case 1:
+                    Result = "(1/("+_stringb+")) * "+_stringa;
+                    break;
+                case 2:
+                    Result = "(1/("+_stringb+"))("+_stringa+")";
+                    break;
+                case 3:
+                    Result = applyPower(_stringb, -1, 1, true); //use decideComplexity?
+                    Result = commutativeOperation(_stringa, _stringb, '*'); //recursive call to the '*' case
+                    break;
+            }
+        }
         return Result;
+    }
+
+    private boolean decideComplexity(int _level, int _componentnumber) {  //some way to decide if we increase complexity or not
+        //level may be easylevel, mediumlevel, or hardlevel
+        // componentnumber-1 represents the amount of changes we have already applied
+        return getRandomInt( (int)(_level*0.5) , _level+10)>(_componentnumber*2);
     }
 
     //Borrowed from CalcQuestion - create static class with public random methods?
@@ -308,36 +355,37 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
             //generate answer to question asking for: norm  given x and y
             //no duplicates possible as we only call generateEasyRightAnswer once per questionvector
             //commutability of addition means we may randomly generate different forms of answers ie. X+Y = Y+X both correct
+            //answer form: sqrt ( X^2 + Y^2 )
             ComponentA = XComponent;
-            if ( getRandomInt( (int)(EasyLevel*0.5) , EasyLevel+10)>5 ) //some way to decide if we increase complexity or not
-                ComponentA = applyPower(ComponentA, 2, 1, true);
-            else ComponentA = applyPower(ComponentA, 2, 1, false);
-
             ComponentB = YComponent;
-            if ( getRandomInt( (int)(EasyLevel*0.5) , EasyLevel+10)>5 ) //some way to decide if we increase complexity or not
-                ComponentB = applyPower(ComponentB, 2, 1, true);
-            else ComponentB = applyPower(ComponentB, 2, 1, false);
 
-            Answer = commutableOperation(ComponentA, ComponentB, '+');
-
-            if ( getRandomInt( (int)(EasyLevel*0.5) , EasyLevel+10)>5 )
-                Answer = applyPower(Answer, 1, 2, true);
-            else Answer = applyPower(Answer, 1, 2, false);
+            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1));
+            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
+            Answer = commutativeOperation(ComponentA, ComponentB, '+');
+            Answer = applyPower(Answer, 1, 2, decideComplexity(EasyLevel, 3));
 
         }
         else if (_type == 1) {
             //generate answer to question asking for: x     given norm and y
-            //if (_iscorrect)
-                Answer = "sqrt( " + NormComponent + "^2 - " + YComponent + "^2 )";
-            //else
-                //Answer = generateEasyRandomWrongAnswer(1, XComponent, YComponent, NormComponent);
+            //answer form: sqrt ( N^2 - Y^2 )
+            ComponentA = NormComponent;
+            ComponentB = YComponent;
+
+            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1));
+            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
+            Answer = commutativeOperation(ComponentA, ComponentB, '-');
+            Answer = applyPower(Answer, 1, 2, decideComplexity(EasyLevel, 3));
         }
         else {//_type == 2 (if complex) or 3 (if not complex)
             //generate answer to question asking for: y     given norm and x
-            //if (_iscorrect)
-                Answer = "sqrt( " + NormComponent + "^2 - " + XComponent + "^2 )";
-            //else
-                //Answer = generateEasyRandomWrongAnswer(2, XComponent, YComponent, NormComponent);
+            //answer form: sqrt ( N^2 - X^2 )
+            ComponentA = NormComponent;
+            ComponentB = XComponent;
+
+            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1));
+            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
+            Answer = commutativeOperation(ComponentA, ComponentB, '-');
+            Answer = applyPower(Answer, 1, 2, decideComplexity(EasyLevel, 3));
         }
         return Answer;
     }
@@ -346,8 +394,8 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
         String RandomAnswer = "";
         int RandomForm;
 
-        if (_type == 0) {   // need some more structure to this madness
-            RandomForm = getRandomInt(0, 8);    //need to avoid duplicate random answers
+        if (_type == 0) {   // need some more structure -> similar to generateEasyRightAnswer
+            RandomForm = getRandomInt(0, 8);    //need to avoid duplicate random answers - scan through AnswerArray for equal strings
             switch (RandomForm) {
                 case 0:
                     RandomAnswer = "sqrt( " + XComponent + "^2 - " + YComponent + "^2 )";
