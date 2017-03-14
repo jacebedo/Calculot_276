@@ -75,4 +75,9 @@ public class Profile extends MainActivity {
         Intent toLearn = new Intent(Profile.this, LearnActivity.class);
         startActivity(toLearn);
     }
+
+    public void profile_onClick_game(View view){
+        Intent goToGameActivity = new Intent(Profile.this, GameActivity.class);
+        startActivity(goToGameActivity);
+    }
 }
