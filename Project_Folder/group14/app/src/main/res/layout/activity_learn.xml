@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="calculotprototype.g14.cmpt276.calculot_prototype.LearnActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="81dp">
+
+    <LinearLayout
+        android:id="@+id/learnLayout"
+        android:layout_width="390dp"
+        android:layout_height="518dp"
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="-4dp">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="317dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Differentiation"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:typeface="normal" />
+
+        <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/diffView"
+            android:layout_width="331dp"
+
+            android:layout_height="wrap_content"
+            android:layout_weight="0.23" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="305dp"
+            android:layout_height="wrap_content"
+            android:text="Player should work on device with youtube app, but does not work on emulator"
+            android:textSize="16sp"
+            android:layout_weight="0.04" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

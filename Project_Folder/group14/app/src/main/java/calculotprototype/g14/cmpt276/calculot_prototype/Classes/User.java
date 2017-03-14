@@ -28,6 +28,14 @@ public class User {
         PracticeXP = 0;
     }
 
+    public User(String _username, String _firstname, String _password, int _totalXP, int _learningXP, int _practiceXP) {
+        username = _username;
+        firstname= _firstname;
+        password = _password;
+        TotalXP = _totalXP;
+        LearningXP = _learningXP;
+        PracticeXP = _practiceXP;
+    }
     // GET METHODS;
 
     // Levels go in increments of 500 XP.

@@ -9,4 +9,6 @@
     <string name="retype_password_hint">Retype Password</string>
     <string name="add_user">Add User</string>
     <string name="select_a_user">Select a User</string>
+    <string name="practice_xp">Practice XP:</string>
+    <string name="learning_xp">Learning XP:</string>
 </resources>

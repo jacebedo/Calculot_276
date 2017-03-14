@@ -101,8 +101,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Stores user information into the parameter 'user' -- TO TEST
-    public void getUser(String _username, User user) {
-
+    public User getUser(String _username) {
         // Initialize Database and Cursor
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT " + TABLE_USERNAME + ", " + TABLE_FIRSTNAME + ", " + TABLE_PASSWORD + ", " +
@@ -110,22 +109,24 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-
                 String username = cursor.getString(0);
                 // Check if this user is the correct user we are trying to access
-                if (username.equals(_username) ) {
-
+                if (username.equals(_username)) {
                     // Query all of the values from the table to the user parameter.
-                    user.setFirstname(cursor.getString(1));
-                    user.setTotalXP(cursor.getInt(3));
-                    user.setLearningXP(cursor.getInt(4));
-                    user.setPracticeXP(cursor.getInt(5));
+                    User user = new User(cursor.getString(0), //username
+                            cursor.getString(1), //first_name
+                            cursor.getString(2), //password
+                            cursor.getInt(3), //totalXP
+                            cursor.getInt(4), //learningXP
+                            cursor.getInt(5)); //practiceXP
+                    cursor.close();
+                    return user;
                 }
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
-
         // Destroy cursor
         cursor.close();
+        return null;
 
     }
 
