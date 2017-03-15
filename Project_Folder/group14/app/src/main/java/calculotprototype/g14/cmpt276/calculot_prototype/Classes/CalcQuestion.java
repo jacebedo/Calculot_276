@@ -159,16 +159,52 @@ public class CalcQuestion {
                 correct = Integer.toString(constant*exponent) + "x^" + Integer.toString(exponent-1);
 
                 if (exponent == 0 || constant == 0) { correct = "0"; }
-                // find a way to randomize these fields
-                answer_1 = correct;
 
-                answer_2 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent+1) + ") x^" + Integer.toString(exponent+1);
+                if(randomCorrect == 1){
+                    answer_1 = correct;
 
-                if (exponent == 1) { answer_3 = "0"; }
-                else{ answer_3 = Integer.toString(constant * (exponent-1)) + "x^" + Integer.toString(exponent-1); }
+                    answer_2 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent+1) + ") x^" + Integer.toString(exponent+1);
+
+                    if (exponent == 1) { answer_3 = "0"; }
+                    else{ answer_3 = Integer.toString(constant * (exponent-1)) + "x^" + Integer.toString(exponent-1); }
 
 
-                answer_4 = Integer.toString(exponent) + "x^" + Integer.toString(constant);
+                    answer_4 = Integer.toString(exponent) + "x^" + Integer.toString(constant);
+                }
+                if(randomCorrect == 2){
+                    answer_2 = correct;
+
+                    answer_3 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent+1) + ") x^" + Integer.toString(exponent+1);
+
+                    if (exponent == 1) { answer_4 = "0"; }
+                    else{ answer_4 = Integer.toString(constant * (exponent-1)) + "x^" + Integer.toString(exponent-1); }
+
+
+                    answer_1 = Integer.toString(exponent) + "x^" + Integer.toString(constant);
+                }
+                if(randomCorrect == 3){
+                    answer_3 = correct;
+
+                    answer_4 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent+1) + ") x^" + Integer.toString(exponent+1);
+
+                    if (exponent == 1) { answer_1 = "0"; }
+                    else{ answer_1 = Integer.toString(constant * (exponent-1)) + "x^" + Integer.toString(exponent-1); }
+
+
+                    answer_2 = Integer.toString(exponent) + "x^" + Integer.toString(constant);
+                }
+                if(randomCorrect == 4){
+                    answer_4 = correct;
+
+                    answer_1 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent+1) + ") x^" + Integer.toString(exponent+1);
+
+                    if (exponent == 1) { answer_2 = "0"; }
+                    else{ answer_2 = Integer.toString(constant * (exponent-1)) + "x^" + Integer.toString(exponent-1); }
+
+
+                    answer_3 = Integer.toString(exponent) + "x^" + Integer.toString(constant);
+                }
+
             }
             else {
                 // Difficulty = 3 ; 2 terms with increased range
@@ -182,16 +218,51 @@ public class CalcQuestion {
 
                 correct = Integer.toString(constant_1 * exponent_1) + "x^" + Integer.toString(exponent_1 - 1) + " + " +
                         Integer.toString(constant_2 * exponent_2) + "x^" + Integer.toString(exponent_2 - 1);
+                if(randomCorrect == 1){
+                    answer_1 = correct;
 
-                answer_1 = correct;
+                    answer_2 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(exponent_1) + ")x^" + Integer.toString(exponent_1+1) + " + " +
+                            Integer.toString(constant_2*(exponent_2+1)) + "x^" + Integer.toString(exponent_2 - 1);
 
-                answer_2 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(exponent_1) + ")x^" + Integer.toString(exponent_1+1) + " + " +
-                        Integer.toString(constant_2*(exponent_2+1)) + "x^" + Integer.toString(exponent_2 - 1);
+                    answer_3 = Integer.toString(constant_1) + "x^" + Integer.toString(exponent_1 - 1) + " + " +
+                            Integer.toString(constant_2) + "x^" + Integer.toString(exponent_2 - 1);
 
-                answer_3 = Integer.toString(constant_1) + "x^" + Integer.toString(exponent_1 - 1) + " + " +
-                        Integer.toString(constant_2) + "x^" + Integer.toString(exponent_2 - 1);
+                    answer_4 = "(" + Integer.toString(constant_1) + " * " + Integer.toString(constant_2) + ")x^" + Integer.toString(exponent_1 + exponent_2);
+                }
+                if(randomCorrect == 2){
+                    answer_2 = correct;
 
-                answer_4 = "(" + Integer.toString(constant_1) + " * " + Integer.toString(constant_2) + ")x^" + Integer.toString(exponent_1 + exponent_2);
+                    answer_3 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(exponent_1) + ")x^" + Integer.toString(exponent_1+1) + " + " +
+                            Integer.toString(constant_2*(exponent_2+1)) + "x^" + Integer.toString(exponent_2 - 1);
+
+                    answer_4 = Integer.toString(constant_1) + "x^" + Integer.toString(exponent_1 - 1) + " + " +
+                            Integer.toString(constant_2) + "x^" + Integer.toString(exponent_2 - 1);
+
+                    answer_1 = "(" + Integer.toString(constant_1) + " * " + Integer.toString(constant_2) + ")x^" + Integer.toString(exponent_1 + exponent_2);
+                }
+                if(randomCorrect == 3){
+                    answer_3 = correct;
+
+                    answer_4 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(exponent_1) + ")x^" + Integer.toString(exponent_1+1) + " + " +
+                            Integer.toString(constant_2*(exponent_2+1)) + "x^" + Integer.toString(exponent_2 - 1);
+
+                    answer_1 = Integer.toString(constant_1) + "x^" + Integer.toString(exponent_1 - 1) + " + " +
+                            Integer.toString(constant_2) + "x^" + Integer.toString(exponent_2 - 1);
+
+                    answer_2 = "(" + Integer.toString(constant_1) + " * " + Integer.toString(constant_2) + ")x^" + Integer.toString(exponent_1 + exponent_2);
+                }
+                if(randomCorrect == 4){
+                    answer_4 = correct;
+
+                    answer_1 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(exponent_1) + ")x^" + Integer.toString(exponent_1+1) + " + " +
+                            Integer.toString(constant_2*(exponent_2+1)) + "x^" + Integer.toString(exponent_2 - 1);
+
+                    answer_2 = Integer.toString(constant_1) + "x^" + Integer.toString(exponent_1 - 1) + " + " +
+                            Integer.toString(constant_2) + "x^" + Integer.toString(exponent_2 - 1);
+
+                    answer_3 = "(" + Integer.toString(constant_1) + " * " + Integer.toString(constant_2) + ")x^" + Integer.toString(exponent_1 + exponent_2);
+                }
+
 
             }
     }

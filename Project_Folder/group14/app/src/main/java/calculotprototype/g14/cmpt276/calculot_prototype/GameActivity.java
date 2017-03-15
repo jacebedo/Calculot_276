@@ -1,5 +1,6 @@
 package calculotprototype.g14.cmpt276.calculot_prototype;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +32,7 @@ public class GameActivity extends AppCompatActivity {
         final TextView answer2 = (TextView) findViewById(R.id.game_answer2);
         final TextView answer3 = (TextView) findViewById(R.id.game_answer3);
         final TextView answer4 = (TextView) findViewById(R.id.game_answer4);
-
+        final Intent gameOver = new Intent(GameActivity.this, GameOverActivity.class);
         setQuestion(question, answer1, answer2, answer3, answer4, calc);
 
         answer1.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +51,9 @@ public class GameActivity extends AppCompatActivity {
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
                 healthfield.setText("Health: " + Integer.toString(info[0]));
+                if(info[0]==0){
+                    startActivity(gameOver);
+                }
             }
         });
 
@@ -70,6 +74,9 @@ public class GameActivity extends AppCompatActivity {
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
                 healthfield.setText("Health: " + Integer.toString(info[0]));
+                if(info[0]==0){
+                    startActivity(gameOver);
+                }
             }
         });
         answer3.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +95,9 @@ public class GameActivity extends AppCompatActivity {
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
                 healthfield.setText("Health: " + Integer.toString(info[0]));
+                if(info[0]==0){
+                    startActivity(gameOver);
+                }
             }
         });
         answer4.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +116,9 @@ public class GameActivity extends AppCompatActivity {
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
                 healthfield.setText("Health: " + Integer.toString(info[0]));
+                if(info[0]==0){
+                    startActivity(gameOver);
+                }
             }
         });
 
