@@ -51,7 +51,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
                 healthfield.setText("Health: " + Integer.toString(info[0]));
-                if(info[0]==0){
+                if(info[0]<=0){
                     startActivity(gameOver);
                 }
             }
@@ -74,7 +74,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
                 healthfield.setText("Health: " + Integer.toString(info[0]));
-                if(info[0]==0){
+                if(info[0]<=0){
                     startActivity(gameOver);
                 }
             }
@@ -95,7 +95,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
                 healthfield.setText("Health: " + Integer.toString(info[0]));
-                if(info[0]==0){
+                if(info[0]<=0){
                     startActivity(gameOver);
                 }
             }
@@ -116,7 +116,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
                 healthfield.setText("Health: " + Integer.toString(info[0]));
-                if(info[0]==0){
+                if(info[0]<=0){
                     startActivity(gameOver);
                 }
             }
