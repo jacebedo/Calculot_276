@@ -59,9 +59,53 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (calc.isCorrect(answer2) == true) {
                     // Do something if correct
+                    info[3]++;
+                    checkLevel(info);
+
+                    calc.getNewQuestion(0, info[2]);
+                    setQuestion(question, answer1, answer2, answer3, answer4, calc);
                 } else {
                     // Do something else if wrong
+                    info[0]--;
                 }
+                xpfield.setText("XP Gained: " + Integer.toString(info[1]));
+                healthfield.setText("Health: " + Integer.toString(info[0]));
+            }
+        });
+        answer3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (calc.isCorrect(answer3) == true) {
+                    // Do something if correct
+                    info[3]++;
+                    checkLevel(info);
+
+                    calc.getNewQuestion(0, info[2]);
+                    setQuestion(question, answer1, answer2, answer3, answer4, calc);
+                } else {
+                    // Do something else if wrong
+                    info[0]--;
+                }
+                xpfield.setText("XP Gained: " + Integer.toString(info[1]));
+                healthfield.setText("Health: " + Integer.toString(info[0]));
+            }
+        });
+        answer4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (calc.isCorrect(answer4) == true) {
+                    // Do something if correct
+                    info[3]++;
+                    checkLevel(info);
+
+                    calc.getNewQuestion(0, info[2]);
+                    setQuestion(question, answer1, answer2, answer3, answer4, calc);
+                } else {
+                    // Do something else if wrong
+                    info[0]--;
+                }
+                xpfield.setText("XP Gained: " + Integer.toString(info[1]));
+                healthfield.setText("Health: " + Integer.toString(info[0]));
             }
         });
 
