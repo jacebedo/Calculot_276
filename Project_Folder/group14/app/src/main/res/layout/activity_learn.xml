@@ -15,11 +15,11 @@
         android:layout_height="518dp"
         android:orientation="vertical"
         android:weightSum="1"
-        tools:layout_editor_absoluteX="6dp"
-        tools:layout_editor_absoluteY="-4dp">
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="-1dp">
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/diffR"
             android:layout_width="317dp"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
@@ -32,10 +32,11 @@
 
         <com.google.android.youtube.player.YouTubePlayerView
             android:id="@+id/diffView"
-            android:layout_width="331dp"
+            android:layout_width="320dp"
 
             android:layout_height="wrap_content"
-            android:layout_weight="0.23" />
+            android:visibility="visible"
+            android:layout_weight="0.60" />
 
         <TextView
             android:id="@+id/textView2"
@@ -44,6 +45,115 @@
             android:text="Player should work on device with youtube app, but does not work on emulator"
             android:textSize="16sp"
             android:layout_weight="0.04" />
+
+        <ScrollView
+            android:layout_width="315dp"
+            android:layout_height="266dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/q11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Slope = change in" />
+
+                    <EditText
+                        android:id="@+id/inputq11"
+                        android:layout_width="38dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="text" />
+
+                    <TextView
+                        android:id="@+id/q12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="divided by change in" />
+
+                    <EditText
+                        android:id="@+id/inputq12"
+                        android:layout_width="39dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/q21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tangent line at a point a is a" />
+
+                    <EditText
+                        android:id="@+id/inputq21"
+                        android:layout_width="38dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+
+                    <TextView
+                        android:id="@+id/q22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="of (f(a+h)-f(a))/h" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/q31"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="d/dx A*f(x) = " />
+
+                    <EditText
+                        android:id="@+id/inputq31"
+                        android:layout_width="47dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.58"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+
+                    <TextView
+                        android:id="@+id/q32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="*d/dx f(x)" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/learnbtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Verify" />
+
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
