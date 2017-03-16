@@ -133,7 +133,7 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
     private String applyScalar(String _string, int _scalar) {
         if (_scalar == 1)   //enclose in brackets
             return "("+_string+")";
-        if (_scalar == -1)
+        if (_scalar == -1)  //random sign -> pull number if not a composition and multiply by -1 turning int back to string
             return "-("+_string+")";
         else
         return "("+_scalar+")( "+_string+" )";
@@ -153,10 +153,12 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
             FractionDenominator *= RandomScalar;
         }
 
-        if (FractionDenominator == 1 && !_reform)   //if reform is true we may have x^(y/1) to vary the answers a bit more
+        if (FractionDenominator == 1 && !_reform)   //if reform is true we may have x^(y/1) to vary the answers a bit more -> also allow decimal exponents
             return "( "+_string+" )^("+FractionNumerator+") ";
         else if (FractionNumerator == 1 && FractionDenominator == 2 && !_reform)
             return "sqrt( "+_string+" )";
+        else if (_reform && generateRandomBoolean())
+            return "( "+_string+" )^("+(float) FractionNumerator/FractionDenominator+") ";
         else
             return "( "+_string+" )^("+FractionNumerator+"/"+FractionDenominator+") ";
     }
@@ -218,6 +220,23 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
             }
         }
         return Result;
+    }
+
+    private char randomCharOperation(char _notchar) {
+        int Random;
+        char Operation = _notchar;
+
+        while (Operation == _notchar) {
+            Random = getRandomInt(0,3);
+            if (Random == 0)
+                Operation = '+';
+            else if (Random == 1)
+                Operation = '-';
+            else if (Random == 2)
+                Operation = '*';
+            else Operation = '/';   //Random == 3
+        }
+        return Operation;
     }
 
     private boolean decideComplexity(int _level, int _componentnumber) {  //some way to decide if we increase complexity or not
@@ -340,8 +359,14 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
         for (int i = 0; i < AnswerArraySize; i++) {
             if (i==AnswerArrayIndex)
                 AnswerArray[i] = generateEasyRightAnswer(_type);
-            else
+            else {
                 AnswerArray[i] = generateEasyWrongAnswer(_type);
+                //check for duplicates as answers are being generated
+                for (int j = 0; j < i-1; j++) {
+                    if (AnswerArray[j] == AnswerArray[i])
+                        AnswerArray[i] = generateEasyWrongAnswer(_type);
+                }
+            }
         }
     }
 
@@ -392,47 +417,39 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
 
     private String generateEasyWrongAnswer(int _type) { //generate a random wrong answer with a similar form of a correct answer
         String RandomAnswer = "";
+        String ComponentA = "";
+        String ComponentB = "";
         int RandomForm;
 
-        if (_type == 0) {   // need some more structure -> similar to generateEasyRightAnswer
-            RandomForm = getRandomInt(0, 8);    //need to avoid duplicate random answers - scan through AnswerArray for equal strings
-            switch (RandomForm) {
-                case 0:
-                    RandomAnswer = "sqrt( " + XComponent + "^2 - " + YComponent + "^2 )";
-                    break;
-                case 1:
-                    RandomAnswer = "sqrt( " + XComponent + "^2 * " + YComponent + "^2 )";
-                    break;
-                case 2:
-                    RandomAnswer = "sqrt( " + XComponent + "^2 / " + YComponent + "^2 )";
-                    break;
+        if (_type == 0) {   // need some more randomization of answers -> perhaps vary powers
 
-                case 3:
-                    RandomAnswer = "sqrt( " + YComponent + "^2 - " + XComponent + "^2 )";
-                    break;
-                case 4:
-                    RandomAnswer = "sqrt( " + YComponent + "^2 * " + XComponent + "^2 )";
-                    break;
-                case 5:
-                    RandomAnswer = "sqrt( " + YComponent + "^2 / " + XComponent + "^2 )";
-                    break;
+            ComponentA = XComponent;
+            ComponentB = YComponent;
 
-                case 6:
-                    RandomAnswer = "( " + XComponent + "^2 - " + YComponent + "^2 )^(0.5)";
-                    break;
-                case 7:
-                    RandomAnswer = "( " + XComponent + "^2 + " + YComponent + "^2 )^(-1/2)";
-                    break;
-                case 8:
-                    RandomAnswer = "( " + XComponent + "^2 / " + YComponent + "^2 )^(1/2)";
-                    break;
-            }
+            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1));
+            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
+            RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('+'));
+            RandomAnswer = applyPower(RandomAnswer, 1, 2, decideComplexity(EasyLevel, 3));
         }
         else if (_type == 1) {
             //implement
+            ComponentA = NormComponent;
+            ComponentB = YComponent;
+
+            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1));
+            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
+            RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('-'));
+            RandomAnswer = applyPower(RandomAnswer, 1, 2, decideComplexity(EasyLevel, 3));
         }
         else if (_type == 2) {
             //implement
+            ComponentA = NormComponent;
+            ComponentB = XComponent;
+
+            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1));
+            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
+            RandomAnswer = commutativeOperation(ComponentA, ComponentB, '-');
+            RandomAnswer = applyPower(RandomAnswer, 1, 2, decideComplexity(EasyLevel, 3));
         }
         return RandomAnswer;
     }
