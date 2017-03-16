@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.CalcQuestion;
 
@@ -37,8 +38,10 @@ public class GameActivity extends AppCompatActivity {
         final TextView answer4 = (TextView) findViewById(R.id.game_answer4);
         final Intent gameOver = new Intent(GameActivity.this, GameOverActivity.class);
 
-        // Set up countdown timer ( 5 seconds currently - 1s = 1000ms)
-        final CountDownTimer timer = new CountDownTimer(5000,1000) {
+        // set toast for taking damage
+        final Toast damageTaken = Toast.makeText(getApplicationContext(),"You have lost a life!", Toast.LENGTH_SHORT);
+        // Set up countdown timer ( 7 seconds currently - 1s = 1000ms)
+        final CountDownTimer timer = new CountDownTimer(7000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -46,9 +49,12 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 info[0]--;
+                damageTaken.show();
+                calc.getNewQuestion(0, info[2]);
                 setQuestion(question, answer1, answer2, answer3, answer4, calc, this);
                 healthfield.setText("Health: " + Integer.toString(info[0]));
                 if (info[0] == 0) {
+                    this.cancel();
                     startActivity(gameOver);
                 }
             }
@@ -70,10 +76,14 @@ public class GameActivity extends AppCompatActivity {
                 } else {
                     // Do something else if incorrect
                     info[0]--;
+                    damageTaken.show();
+                    calc.getNewQuestion(0, info[2]);
+                    setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
                 healthfield.setText("Health: " + Integer.toString(info[0]));
                 if(info[0]<=0){
+                    timer.cancel();
                     startActivity(gameOver);
                 }
             }
@@ -93,10 +103,14 @@ public class GameActivity extends AppCompatActivity {
                 } else {
                     // Do something else if wrong
                     info[0]--;
+                    damageTaken.show();
+                    calc.getNewQuestion(0, info[2]);
+                    setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
                 healthfield.setText("Health: " + Integer.toString(info[0]));
                 if(info[0]<=0){
+                    timer.cancel();
                     startActivity(gameOver);
                 }
             }
@@ -116,10 +130,14 @@ public class GameActivity extends AppCompatActivity {
                 } else {
                     // Do something else if wrong
                     info[0]--;
+                    damageTaken.show();
+                    calc.getNewQuestion(0, info[2]);
+                    setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
                 healthfield.setText("Health: " + Integer.toString(info[0]));
                 if(info[0]<=0){
+                    timer.cancel();
                     startActivity(gameOver);
                 }
             }
@@ -139,10 +157,14 @@ public class GameActivity extends AppCompatActivity {
                 } else {
                     // Do something else if wrong
                     info[0]--;
+                    damageTaken.show();
+                    calc.getNewQuestion(0, info[2]);
+                    setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
                 healthfield.setText("Health: " + Integer.toString(info[0]));
                 if(info[0]<=0){
+                    timer.cancel();
                     startActivity(gameOver);
                 }
             }
@@ -164,8 +186,14 @@ public class GameActivity extends AppCompatActivity {
         if (info[3] % 10 == 0) {
             info[1]+= 100;
             info[2]++;
-            if (info[2] == 2) { info[1] += 50; }
-            if (info[2] == 3) { info[1] += 100;}
+            if (info[2] == 2) {
+                info[1] += 50;
+            Toast.makeText(getApplicationContext(),"LEVEL: 2",Toast.LENGTH_SHORT).show();
+            }
+            if (info[2] == 3) {
+                info[1] += 100;
+                Toast.makeText(getApplicationContext(),"LEVEL: 3",Toast.LENGTH_SHORT).show();
+                ;}
 
             return false;
         }
