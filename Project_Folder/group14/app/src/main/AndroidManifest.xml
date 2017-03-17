@@ -24,10 +24,12 @@
         <activity android:name=".AddUser" />
         <activity android:name=".Login" />
         <activity android:name=".ConfirmPassword" />
-        <activity android:name=".GameActivity" />
+        <activity android:name=".calcGame.GameActivity" />
         <activity android:name=".Profile" />
         <activity android:name=".LearnActivity" />
-        <activity android:name=".GameOverActivity"></activity>
+        <activity android:name=".calcGame.GameOverActivity" />
+        <activity
+            android:name=".calcGame.GameWinActivity" />
     </application>
 
 </manifest>

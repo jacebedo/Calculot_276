@@ -11,4 +11,7 @@
     <string name="select_a_user">Select a User</string>
     <string name="practice_xp">Practice XP:</string>
     <string name="learning_xp">Learning XP:</string>
+    <string name="title_activity_game_win">GameWinActivity</string>
+    <string name="Congratulations">Congratulations!</string>
+    <string name="WinMessage">You have successfully defended against the forces of evil and have earned:</string>
 </resources>

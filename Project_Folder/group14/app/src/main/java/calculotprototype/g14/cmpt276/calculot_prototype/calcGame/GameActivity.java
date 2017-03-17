@@ -1,4 +1,4 @@
-package calculotprototype.g14.cmpt276.calculot_prototype;
+package calculotprototype.g14.cmpt276.calculot_prototype.calcGame;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.CalcQuestion;
+import calculotprototype.g14.cmpt276.calculot_prototype.R;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -38,7 +39,7 @@ public class GameActivity extends AppCompatActivity {
         final TextView answer4 = (TextView) findViewById(R.id.game_answer4);
         final Intent gameOver = new Intent(GameActivity.this, GameOverActivity.class);
 
-        
+
         // set toast for taking damage
         final Toast damageTaken = Toast.makeText(getApplicationContext(),"You have lost a life!", Toast.LENGTH_SHORT);
         // Set up countdown timer ( 7 seconds currently - 1s = 1000ms)
@@ -54,8 +55,9 @@ public class GameActivity extends AppCompatActivity {
                 calc.getNewQuestion(0, info[2]);
                 setQuestion(question, answer1, answer2, answer3, answer4, calc, this);
                 healthfield.setText("Health: " + Integer.toString(info[0]));
-                if (info[0] == 0) {
+                if (info[0] <= 0) {
                     this.cancel();
+                    gameOver.putExtra("xp",info[1]);
                     startActivity(gameOver);
                 }
             }
@@ -85,6 +87,7 @@ public class GameActivity extends AppCompatActivity {
                 healthfield.setText("Health: " + Integer.toString(info[0]));
                 if(info[0]<=0){
                     timer.cancel();
+                    gameOver.putExtra("xp",info[1]);
                     startActivity(gameOver);
                 }
             }
@@ -112,6 +115,7 @@ public class GameActivity extends AppCompatActivity {
                 healthfield.setText("Health: " + Integer.toString(info[0]));
                 if(info[0]<=0){
                     timer.cancel();
+                    gameOver.putExtra("xp",info[1]);
                     startActivity(gameOver);
                 }
             }
@@ -139,6 +143,7 @@ public class GameActivity extends AppCompatActivity {
                 healthfield.setText("Health: " + Integer.toString(info[0]));
                 if(info[0]<=0){
                     timer.cancel();
+                    gameOver.putExtra("xp",info[1]);
                     startActivity(gameOver);
                 }
             }
@@ -166,6 +171,7 @@ public class GameActivity extends AppCompatActivity {
                 healthfield.setText("Health: " + Integer.toString(info[0]));
                 if(info[0]<=0){
                     timer.cancel();
+                    gameOver.putExtra("xp",info[1]);
                     startActivity(gameOver);
                 }
             }
@@ -175,12 +181,14 @@ public class GameActivity extends AppCompatActivity {
     }
 
     // Checks if the user can advance into the next level
-    private boolean checkLevel(int[] info) {
+    private void checkLevel(int[] info) {
 
         // End the game ( Level 3 and the user has answered 10 questions at level 3)
         if (info[2] == 3 && info[3] % 10 == 0) {
-            info[1] += 1000;
-            return true;
+            info[1] += 200;
+            Intent gameWin = new Intent(GameActivity.this,GameWinActivity.class);
+            gameWin.putExtra("xp",info[1]);
+            startActivity(gameWin);
         }
 
         // If the user has answered 10 questions at the current level, give the user XP and advance into the next level
@@ -196,10 +204,10 @@ public class GameActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"LEVEL: 3",Toast.LENGTH_SHORT).show();
                 ;}
 
-            return false;
+            ;
         }
 
-        return false;
+
     }
 
 
