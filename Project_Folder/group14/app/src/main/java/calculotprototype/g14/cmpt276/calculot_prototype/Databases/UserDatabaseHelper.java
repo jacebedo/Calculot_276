@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.User;
 
@@ -173,9 +174,19 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
     public void addPracticeXP(String _username,int xpgained) {
         // Query DB for _username.
-        // Read DB with username to get total XP and practice XP;
-        // Write DB with username to add xpgained to practice XP and total XP;
+        // Write DB with username to add xpgained to practice XP and total XP - DONE;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String QUERY = "UPDATE " + TABLE_NAME + " SET " + TABLE_TOTALXP + " = " + TABLE_TOTALXP + " + " + Integer.toString(xpgained) +
+                ", " + TABLE_PRACTICEXP + " = " + TABLE_PRACTICEXP + " + " + Integer.toString(xpgained) + " WHERE " + TABLE_USERNAME + " = "
+                + "'" +  _username + "';";
+
+        db.execSQL(QUERY);
+
+        db.close();
+
     }
+
 
     // Returns number of users in database (for use in login)
     public int numUsers(){
