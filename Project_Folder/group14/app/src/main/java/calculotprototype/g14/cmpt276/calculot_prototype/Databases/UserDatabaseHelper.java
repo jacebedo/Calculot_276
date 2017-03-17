@@ -171,6 +171,12 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public void addPracticeXP(String _username,int xpgained) {
+        // Query DB for _username.
+        // Read DB with username to get total XP and practice XP;
+        // Write DB with username to add xpgained to practice XP and total XP;
+    }
+
     // Returns number of users in database (for use in login)
     public int numUsers(){
         int userCount = 0;
