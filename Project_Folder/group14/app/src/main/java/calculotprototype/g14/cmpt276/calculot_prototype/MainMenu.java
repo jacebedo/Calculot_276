@@ -28,8 +28,6 @@ public class MainMenu extends MainActivity{
         sign_up_button.startAnimation(fadein);
         login_button.startAnimation(fadein);
 
-        numUsers();
-
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",0);
         String username = pref.getString("username",null);
         Toast.makeText(this, username + " is already logged in!", Toast.LENGTH_SHORT).show();
@@ -38,7 +36,6 @@ public class MainMenu extends MainActivity{
     @Override
     protected void onResume(){ //Runs when you go back to the activity
         super.onResume(); //Keep this here
-        numUsers();
     }
 
     public void main_onClick_signUp(View view){
@@ -49,11 +46,5 @@ public class MainMenu extends MainActivity{
     public void main_onClick_login(View view){
         Intent goToLogin = new Intent(MainMenu.this, Login.class);
         startActivity(goToLogin);
-    }
-
-    public void numUsers(){
-        UserDatabaseHelper DB = new UserDatabaseHelper(this);
-        TextView numUsersTextView = (TextView) findViewById(R.id.numUsersTextView);
-        numUsersTextView.setText("numUsers = "+DB.numUsers()+" //this is for testing");
     }
 }
