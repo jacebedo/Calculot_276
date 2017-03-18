@@ -1,8 +1,10 @@
 package calculotprototype.g14.cmpt276.calculot_prototype.Classes;
 
+import java.util.Arrays;
 import java.util.Random;
 
-public class VectorQuestionGenerator {    //random question generator for the Crystal Ball Game
+public class VectorQuestionGenerator {
+    //random question generator for the Crystal Ball Game
     /* responsible for receiving the difficulty (Acts as the Topic): Easy, Medium, Hard upon game start (decided on previous activity)
         also receives the player level in each difficulty setting
 
@@ -39,6 +41,7 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
                 as it may change the focus from the learned material too much as calculations become more difficult under time pressure
         As hardlevel increases -> user progresses through Phases from A to D
     */
+    //Fields
     int Topic;
     double ScoreMultiplier = 1;    //multiplier bonus for increasing level difficulty/difficulty setting+phase
     int EasyLevel;
@@ -251,25 +254,29 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
     private String findAnswer(int _type) {
         String FindAnswer = "";
 
-        if (_type == 0) {
-            //find Re/x
-            if (AnswerComplex)
-                FindAnswer = "Find the Real Component of the complex number c = x + iy";
-            else FindAnswer = "Find the X Component of the vector v = (x,y)";
-        }
-        else if (_type == 1) {
-            //find Im/y
-            if (AnswerComplex)
-                FindAnswer = "Find the Imaginary Component of the complex number c = x + iy";
-            else FindAnswer = "Find the Y Component of the vector v = (x,y)";
-        }
-        else {  //_type == 3
+        if (_type == 0 || _type == 8 || _type == 10) {
             //find radius/norm/modulus
             if (AnswerPolar)
-                FindAnswer = "Find the Radius of the vector in polar form (r, theta)";
+                FindAnswer = "Find the Radius r of the vector in polar form (r, theta)";
             else if (AnswerComplex)
-                FindAnswer = "Find the Modulus of the complex number c = x + iy";
-            else FindAnswer = "Find the Norm of the vector v = (x,y)";
+                FindAnswer = "Find the Modulus |c| of the complex number c = Re+Im";
+            else FindAnswer = "Find the Norm ||v|| of the vector v = (x,y)";
+        }
+        else if (_type == 2 || _type == 7 || _type == 11) {
+            //find Im/y
+            if (AnswerComplex)
+                FindAnswer = "Find the Imaginary Component of the complex number c = Re+Im";
+            else FindAnswer = "Find the Y Component of the vector v = (x,y)";
+        }
+        else if (_type == 4 || _type == 6 || _type == 9) {
+            //find Re/x
+            if (AnswerComplex)
+                FindAnswer = "Find the Real Component of the complex number c = Re+Im";
+            else FindAnswer = "Find the X Component of the vector v = (x,y)";
+        }
+        else {  //_type == 1, 3, 5
+            //find theta
+            FindAnswer = "Find the angle Theta of the vector in polar form (r, theta)";
         }
         return FindAnswer;
     }
@@ -427,23 +434,43 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
         YComponent = Integer.toString(generateRandomY());
 
         //Ask Question
+        Question = findAnswer(QuestionType);
+
         if (QuestionType <= 1) {
             //given Re/x,Im/y find radius/norm/modulus or theta
+            if (QuestionComplex)
+                QuestionInfo = "given the Real Component = "+XComponent+", Imaginary Component = "+iYComponent;
+            else QuestionInfo = "given X = "+XComponent+", Y = "+YComponent;
         }
         else if (QuestionType <= 3) {
             //given modulus/norm, Re/x find Im/y or theta
+            if (QuestionComplex)
+                QuestionInfo = "given modulus = "+NormComponent+", Re = "+XComponent;
+            else QuestionInfo = "given ||v|| = "+NormComponent+", X = "+XComponent;
         }
         else if (QuestionType <= 5) {
             //given modulus/norm, Im/y find Re/x or theta
+            if (QuestionComplex)
+                QuestionInfo = "given modulus = "+NormComponent+", Im = "+iYComponent;
+            else QuestionInfo = "given ||v|| = "+NormComponent+", Y = "+YComponent;
         }
         else if (QuestionType <= 7) {
             //given theta, radius (norm/modulus?) find Re/x or Im/y
+            //if (QuestionComplex)
+                QuestionInfo = "given Theta = "+ThetaComponent+", Radius = "+NormComponent;
+            //else QuestionInfo = "given Theta = "+ThetaComponent+", Re = "+XComponent;
         }
         else if (QuestionType <= 9) {
             //given theta, Im/y find (radius/norm/modulus) or Re/x
+            if (QuestionComplex)
+                QuestionInfo = "given Theta = "+ThetaComponent+", Im = "+iYComponent;
+            else QuestionInfo = "given Theta = "+ThetaComponent+", Y = "+YComponent;
         }
         else if (QuestionType <= 11) {
             //given theta, Re/x find (radius/norm/modulus) or Im/y
+            if (QuestionComplex)
+                QuestionInfo = "given Theta = "+ThetaComponent+", Re = "+XComponent;
+            else QuestionInfo = "given Theta = "+ThetaComponent+", X = "+XComponent;
         }
     }
 
@@ -476,17 +503,18 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
 
     //Generate correct answers and random answers
     private void generateEasyAnswerArray(int _type) {
+        String TempAnswer = "";
         AnswerArrayIndex = getRandomInt(0, AnswerArraySize - 1);
         for (int i = 0; i < AnswerArraySize; i++) {
             if (i==AnswerArrayIndex)
                 AnswerArray[i] = generateEasyRightAnswer(_type);
             else {
-                AnswerArray[i] = generateEasyWrongAnswer(_type);
                 //check for duplicates as answers are being generated
-                for (int j = 0; j < i-1; j++) {
-                    if (AnswerArray[j] == AnswerArray[i])
-                        AnswerArray[i] = generateEasyWrongAnswer(_type);
-                }
+                do {
+                    TempAnswer = generateEasyWrongAnswer(_type);
+                } while (Arrays.asList(AnswerArray).contains(TempAnswer));
+
+                AnswerArray[i] = TempAnswer;
             }
         }
     }
@@ -572,6 +600,50 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
             RandomAnswer = commutativeOperation(ComponentA, ComponentB, '-');
             RandomAnswer = applyPower(RandomAnswer, 1, 2, decideComplexity(EasyLevel, 3));
         }
+        return RandomAnswer;
+    }
+
+    //generating medium questions
+    private void generateMediumAnswerArray(int _type) {
+        String TempAnswer = "";
+        AnswerArrayIndex = getRandomInt(0, AnswerArraySize - 1);
+        for (int i = 0; i < AnswerArraySize; i++) {
+            if (i==AnswerArrayIndex)
+                AnswerArray[i] = generateMediumRightAnswer(_type);
+            else {
+                //check for duplicates as answers are being generated
+                do {
+                    TempAnswer = generateMediumWrongAnswer(_type);
+                } while (Arrays.asList(AnswerArray).contains(TempAnswer));
+
+                AnswerArray[i] = TempAnswer;
+            }
+        }
+    }
+
+    private String generateMediumRightAnswer(int _type) { //should generate a random correct answer
+        String Answer = "";
+        String ComponentA = "";
+        String ComponentB = "";
+        int RandomForm;
+
+        if (_type == 0) {
+            //implement
+
+        }
+        return Answer;
+    }
+
+    private String generateMediumWrongAnswer(int _type) { //generate a random wrong answer with a similar form of a correct answer
+        String RandomAnswer = "";
+        String ComponentA = "";
+        String ComponentB = "";
+        int RandomForm;
+
+        if (_type == 0) {
+            //implement
+        }
+
         return RandomAnswer;
     }
 
