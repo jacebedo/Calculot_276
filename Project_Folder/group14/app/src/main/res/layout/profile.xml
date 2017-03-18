@@ -94,18 +94,5 @@
         android:onClick="profile_onClick_addXP"
         android:text="Free XP!!!" />
 
-    <Button
-        android:id="@+id/learnbtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="profile_onClick_learn"
-        android:text="Learn" />
-
-    <Button
-        android:id="@+id/profile_button_goToGame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="profile_onClick_game"
-        android:text="Game" />
 </LinearLayout>
 

@@ -67,14 +67,4 @@ public class Profile extends MainActivity {
         Log.i("Profile","Button pressed");
         updateProgress();
     }
-
-    public void profile_onClick_learn(View view){
-        Intent toLearn = new Intent(Profile.this, LearnActivity.class);
-        startActivity(toLearn);
-    }
-
-    public void profile_onClick_game(View view){
-        Intent goToGameActivity = new Intent(Profile.this, GameActivity.class);
-        startActivity(goToGameActivity);
-    }
 }
