@@ -60,7 +60,10 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
     String QuestionInfo;
     String[] AnswerArray;
     int AnswerArrayIndex;   //Which one is the right answer?
-    boolean IsComplex;
+    boolean QuestionComplex;
+    boolean AnswerComplex;
+    boolean QuestionPolar;
+    boolean AnswerPolar;
     int AnswerArraySize;    //# of choices changes depending on difficulty?
 
     //Vector components
@@ -96,7 +99,7 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
     private String ToComplex(String _real) {    //turns a string component into an imaginary number string if vector is complex
         String Complex = _real;
 
-        if (IsComplex) {
+        if (AnswerComplex) {
             if (generateRandomBoolean())
                 Complex = "i* " + Complex;
             else
@@ -245,6 +248,32 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
         return getRandomInt( (int)(_level*0.5) , _level+10)>(_componentnumber*2);
     }
 
+    private String findAnswer(int _type) {
+        String FindAnswer = "";
+
+        if (_type == 0) {
+            //find Re/x
+            if (AnswerComplex)
+                FindAnswer = "Find the Real Component of the complex number c = x + iy";
+            else FindAnswer = "Find the X Component of the vector v = (x,y)";
+        }
+        else if (_type == 1) {
+            //find Im/y
+            if (AnswerComplex)
+                FindAnswer = "Find the Imaginary Component of the complex number c = x + iy";
+            else FindAnswer = "Find the Y Component of the vector v = (x,y)";
+        }
+        else {  //_type == 3
+            //find radius/norm/modulus
+            if (AnswerPolar)
+                FindAnswer = "Find the Radius of the vector in polar form (r, theta)";
+            else if (AnswerComplex)
+                FindAnswer = "Find the Modulus of the complex number c = x + iy";
+            else FindAnswer = "Find the Norm of the vector v = (x,y)";
+        }
+        return FindAnswer;
+    }
+
     //Borrowed from CalcQuestion - create static class with public random methods?
     private int getRandomInt(int min,int max) {
         Random RandomInteger = new Random();
@@ -253,27 +282,34 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
 
     //Generate Questions
     private void generateQuestion() {
-        IsComplex = generateRandomBoolean();
 
         if (Topic == 0) {
             ScoreMultiplier = 1 + (EasyLevel)/20;
 
+            AnswerArraySize = Math.max(getRandomInt(2, EasyLevel),5);
             generateEasyQuestion();
         }
         else if (Topic == 1) {
             ScoreMultiplier = 1.5 + (MediumLevel)/10;
 
+            AnswerArraySize = Math.max(getRandomInt(2, MediumLevel),5);
             generateMediumQuestion();
         }
         else {  //Topic == 2
             ScoreMultiplier = 2 + (HardLevel)/5;
 
+            AnswerArraySize = Math.max(getRandomInt(2, HardLevel),5);
             generateHardQuestion();
         }
     }
 
     private void generateEasyQuestion() {
         //implement
+        QuestionComplex = generateRandomBoolean();
+        AnswerComplex = QuestionComplex;
+        QuestionPolar = false;
+        AnswerPolar = false;
+
         int RandomChoice = getRandomInt(0,2);   //decides if user should find norm, x, or y
 
         XComponent = Integer.toString(generateRandomX());
@@ -281,7 +317,7 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
 
         if (RandomChoice == 0) {
             //find norm     given x and y
-            if (IsComplex) {
+            if (AnswerComplex) {
                 Question = "Find the modulus of the complex number c = Re+Im (Shown as a vector)";     //currently hardcoded -> we may use strings.xml or database instead
                 QuestionInfo = "given Re = "+XComponent+", Im = "+iYComponent;
             }
@@ -294,7 +330,7 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
         }
         else if (RandomChoice == 1) {
             //find x    given norm and y
-            if (IsComplex) {
+            if (AnswerComplex) {
                 Question = "Find the real part of the complex number c = Re+Im (Shown as a vector)";
                 QuestionInfo = "given modulus = "+NormComponent+", Im = "+iYComponent;
             }
@@ -307,7 +343,7 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
         }
         else {
             //find y    given norm and x
-            if (IsComplex) {
+            if (AnswerComplex) {
                 Question = "Find the Imaginary part of the complex number c = Re+Im (Shown as a vector)";
                 QuestionInfo = "given modulus = "+NormComponent+", Re = "+XComponent;
             }
@@ -324,6 +360,91 @@ public class VectorQuestionGenerator {    //random question generator for the Cr
 
     private void generateMediumQuestion() {
         //implement
+        int QuestionType = getRandomInt(0,11); //range from 0-11
+        int TempRandom;
+
+        if (QuestionType <= 5) {
+            QuestionPolar = false;
+            QuestionComplex = generateRandomBoolean();
+
+            if (QuestionType % 2 == 1) {    //questiontype = 1, 3, 5 -> find theta
+                AnswerPolar = true;
+                AnswerComplex = false;
+            }
+            else {  //questiontype 0, 2, 4 -> find Re/x, Im/y, radius/norm/modulus
+                TempRandom = getRandomInt(0,2); // 1/3 chance to find radius, norm, or modulus -> turn into method?
+                switch (TempRandom) {
+                    case 0:
+                        AnswerPolar = true;
+                        AnswerComplex = false;
+                        break;
+                    case 1:
+                        AnswerPolar = false;
+                        AnswerComplex = false;
+                        break;
+                    case 2:
+                        AnswerPolar = false;
+                        AnswerComplex = true;
+                }
+            }
+        }
+        else {
+            //QuestionType 6-11
+            QuestionPolar = true;
+
+            if (QuestionType == 6 || QuestionType == 7) {
+                QuestionComplex = false;    //radius is given
+                AnswerPolar = false;
+                AnswerComplex = generateRandomBoolean();
+            }
+            else {
+                QuestionComplex = generateRandomBoolean();
+                if (QuestionType == 8 || QuestionType == 10) {
+                    TempRandom = getRandomInt(0,2); // 1/3 chance to find radius, norm, or modulus
+                    switch (TempRandom) {
+                        case 0:
+                            AnswerPolar = true;
+                            AnswerComplex = false;
+                            break;
+                        case 1:
+                            AnswerPolar = false;
+                            AnswerComplex = false;
+                            break;
+                        case 2:
+                            AnswerPolar = false;
+                            AnswerComplex = true;
+                    }
+                }
+                else {
+                    //questiontype 9, 11
+                    AnswerPolar = false;
+                    AnswerComplex = generateRandomBoolean();
+                }
+            }
+        }
+
+        XComponent = Integer.toString(generateRandomX());
+        YComponent = Integer.toString(generateRandomY());
+
+        //Ask Question
+        if (QuestionType <= 1) {
+            //given Re/x,Im/y find radius/norm/modulus or theta
+        }
+        else if (QuestionType <= 3) {
+            //given modulus/norm, Re/x find Im/y or theta
+        }
+        else if (QuestionType <= 5) {
+            //given modulus/norm, Im/y find Re/x or theta
+        }
+        else if (QuestionType <= 7) {
+            //given theta, radius (norm/modulus?) find Re/x or Im/y
+        }
+        else if (QuestionType <= 9) {
+            //given theta, Im/y find (radius/norm/modulus) or Re/x
+        }
+        else if (QuestionType <= 11) {
+            //given theta, Re/x find (radius/norm/modulus) or Im/y
+        }
     }
 
     private void generateHardQuestion() {
