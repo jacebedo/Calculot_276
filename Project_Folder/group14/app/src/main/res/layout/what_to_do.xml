@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/what_to_do_button_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="what_to_do_onClick_profile"
+        android:text="@string/profile"/>
+    
+    <Button
+        android:id="@+id/what_to_do_button_learn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="what_to_do_onClick_learn"
+        android:text="@string/learn" />
+
+    <Button
+        android:id="@+id/what_to_do_button_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="what_to_do_onClick_game"
+        android:text="@string/game" />
+</LinearLayout>
