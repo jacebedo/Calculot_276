@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -65,6 +66,13 @@ public class Profile extends MainActivity {
         ProgressBar practiceXPPB = (ProgressBar) findViewById(R.id.profile_practiceXP_progress);
         practiceXPPB.setMax(MAX_PRACTICE_XP);
         practiceXPPB.setProgress(user.getPracticeXP());
+
+        int avatarUse = user.getAvatar();
+        ImageView avatarPicture = (ImageView) findViewById(R.id.profile_userImage);
+        if (avatarUse == 1) avatarPicture.setImageResource(R.drawable.avatar_1);
+        else if (avatarUse == 2) avatarPicture.setImageResource(R.drawable.avatar_2);
+        else if (avatarUse == 3) avatarPicture.setImageResource(R.drawable.avatar_3);
+        //Else leave at default
     }
 
     public void profile_onClick_addXP(View view){

@@ -16,6 +16,11 @@ public class User {
     private int LearningXP;
     private int PracticeXP;
 
+    final int avatarLevel1 = 0; //1st avatar at level 0
+    final int avatarLevel2 = 5; //2nd avatar at level 5
+    final int avatarLevel3 = 10; //3rd avatar at level 10
+
+
     // Add int array for achievements? or topics completed?
 
     // CONSTRUCTOR METHOD
@@ -76,6 +81,13 @@ public class User {
     // GET PRACTICE XP
     public int getPracticeXP() {
         return PracticeXP;
+    }
+
+    public int getAvatar() {
+        int level = getlevel();
+        if (level >= avatarLevel3) return 3;
+        if (level >= avatarLevel2) return 2;
+        return 1;
     }
 
     // SET METHODS:
