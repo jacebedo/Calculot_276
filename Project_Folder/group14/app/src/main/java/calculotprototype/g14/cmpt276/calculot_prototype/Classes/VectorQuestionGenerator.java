@@ -99,7 +99,7 @@ public class VectorQuestionGenerator {
         return Rand.nextBoolean();
     }
 
-    private String ToComplex(String _real) {    //turns a string component into an imaginary number string if vector is complex
+    private String toComplex(String _real) {    //turns a string component into an imaginary number string if vector is complex
         String Complex = _real;
 
         if (AnswerComplex) {
@@ -496,7 +496,7 @@ public class VectorQuestionGenerator {
         }
         YComponent = String.valueOf(RandomY);
 
-        iYComponent = ToComplex(iYComponent);
+        iYComponent = toComplex(iYComponent);
 
         return RandomY;
     }
@@ -550,7 +550,7 @@ public class VectorQuestionGenerator {
             Answer = commutativeOperation(ComponentA, ComponentB, '-');
             Answer = applyPower(Answer, 1, 2, decideComplexity(EasyLevel, 3));
         }
-        else {//_type == 2 (if complex) or 3 (if not complex)
+        else {//_type == 2
             //generate answer to question asking for: y     given norm and x
             //answer form: sqrt ( N^2 - X^2 )
             ComponentA = NormComponent;
@@ -560,6 +560,9 @@ public class VectorQuestionGenerator {
             ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
             Answer = commutativeOperation(ComponentA, ComponentB, '-');
             Answer = applyPower(Answer, 1, 2, decideComplexity(EasyLevel, 3));
+
+            if (AnswerComplex)
+                Answer = toComplex(Answer);
         }
         return Answer;
     }
@@ -590,7 +593,7 @@ public class VectorQuestionGenerator {
             RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('-'));
             RandomAnswer = applyPower(RandomAnswer, 1, 2, decideComplexity(EasyLevel, 3));
         }
-        else if (_type == 2) {
+        else {//if (_type == 2)
             //implement
             ComponentA = NormComponent;
             ComponentB = XComponent;
@@ -599,6 +602,9 @@ public class VectorQuestionGenerator {
             ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
             RandomAnswer = commutativeOperation(ComponentA, ComponentB, '-');
             RandomAnswer = applyPower(RandomAnswer, 1, 2, decideComplexity(EasyLevel, 3));
+
+            if (AnswerComplex)
+                RandomAnswer = toComplex(RandomAnswer);
         }
         return RandomAnswer;
     }
@@ -627,9 +633,45 @@ public class VectorQuestionGenerator {
         String ComponentB = "";
         int RandomForm;
 
-        if (_type == 0) {
-            //implement
-
+        if (_type == 0) {   //actually an EasyQuestion
+            //given x, y    find Norm
+            Answer = generateEasyRightAnswer(0);
+        }
+        else if (_type == 2) {    //also an EasyQuestion
+            //given Norm, x    find y
+            Answer = generateEasyRightAnswer(2);
+        }
+        else if (_type == 4) {  //last EasyQuestion type
+            //given Norm, y    find x
+            Answer = generateEasyRightAnswer(1);
+        }
+        else if (_type == 1) {
+            //given x, y find theta
+        }
+        else if (_type == 3) {
+            //given Norm,x  find theta
+        }
+        else if (_type == 5) {
+            //given Norm,y  find theta
+        }
+        else if (_type == 6) {
+            //given theta,Norm  find x
+        }
+        else if (_type == 7) {
+            //given theta,Norm  find y
+        }
+        else if (_type == 8) {
+            //given theta,y find Norm
+        }
+        else if (_type == 10) {
+            //given theta,x find Norm
+        }
+        else if (_type == 9) {
+            //given theta,y find x
+        }
+        else {
+            //_type == 11
+            //given theta,x find y
         }
         return Answer;
     }
@@ -640,10 +682,46 @@ public class VectorQuestionGenerator {
         String ComponentB = "";
         int RandomForm;
 
-        if (_type == 0) {
-            //implement
+        if (_type == 0) {   //actually an EasyQuestion
+            //given x, y    find Norm
+            RandomAnswer = generateEasyWrongAnswer(0);
         }
-
+        else if (_type == 2) {    //also an EasyQuestion
+            //given Norm, x    find y
+            RandomAnswer = generateEasyWrongAnswer(2);
+        }
+        else if (_type == 4) {  //last EasyQuestion type
+            //given Norm, y    find x
+            RandomAnswer = generateEasyWrongAnswer(1);
+        }
+        else if (_type == 1) {
+            //given x, y find theta
+        }
+        else if (_type == 3) {
+            //given Norm,x  find theta
+        }
+        else if (_type == 5) {
+            //given Norm,y  find theta
+        }
+        else if (_type == 6) {
+            //given theta,Norm  find x
+        }
+        else if (_type == 7) {
+            //given theta,Norm  find y
+        }
+        else if (_type == 8) {
+            //given theta,y find Norm
+        }
+        else if (_type == 10) {
+            //given theta,x find Norm
+        }
+        else if (_type == 9) {
+            //given theta,y find x
+        }
+        else {
+            //_type == 11
+            //given theta,x find y
+        }
         return RandomAnswer;
     }
 
