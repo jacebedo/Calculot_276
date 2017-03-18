@@ -34,10 +34,6 @@ public class Profile extends MainActivity {
         TextView firstNameTV = (TextView) findViewById(R.id.profile_firstName);
         usernameTV.setText(user.getUsername());
         firstNameTV.setText(user.getFirstname());
-
-
-
-        user.setPracticeXP(23);
     }
 
     @Override
@@ -65,6 +61,7 @@ public class Profile extends MainActivity {
         //Sets level TextView to the players level
         levelTV.setText(levelSt + ": " + Integer.toString(user.getlevel()));
 
+        //Update PracticeXP Progress bar
         ProgressBar practiceXPPB = (ProgressBar) findViewById(R.id.profile_practiceXP_progress);
         practiceXPPB.setMax(MAX_PRACTICE_XP);
         practiceXPPB.setProgress(user.getPracticeXP());

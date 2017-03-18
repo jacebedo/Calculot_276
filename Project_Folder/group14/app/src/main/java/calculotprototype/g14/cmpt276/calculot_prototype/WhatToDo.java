@@ -32,4 +32,8 @@ public class WhatToDo extends MainActivity {
         Intent goToGameActivity = new Intent(WhatToDo.this, GameActivity.class);
         startActivity(goToGameActivity);
     }
+
+    public void what_to_do_onClick_logout(View view){
+        finish(); //Goes back to login
+    }
 }

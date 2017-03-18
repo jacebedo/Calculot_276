@@ -25,4 +25,11 @@
         android:layout_height="wrap_content"
         android:onClick="what_to_do_onClick_game"
         android:text="@string/game" />
+
+    <Button
+        android:id="@+id/what_to_do_button_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="what_to_do_onClick_logout"
+        android:text="@string/logout"/>
 </LinearLayout>
