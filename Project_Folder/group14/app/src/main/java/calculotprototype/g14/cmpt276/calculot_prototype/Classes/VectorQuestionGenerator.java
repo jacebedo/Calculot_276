@@ -657,9 +657,9 @@ public class VectorQuestionGenerator {
             Answer = generateEasyRightAnswer(1);
         }
         else if (_type == 1) {
-            //given x, y find theta
-            ComponentA = XComponent;
-            ComponentB = YComponent;
+            //given y,x find theta
+            ComponentA = YComponent;
+            ComponentB = XComponent;
 
             ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), false);
             ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), false);
@@ -669,45 +669,85 @@ public class VectorQuestionGenerator {
             Answer = applyPower(Answer, 1, 1, decideComplexity(MediumLevel,3), false);  //optional
         }
         else if (_type == 3) {
-            //given Norm,x  find theta
-            ComponentA = NormComponent;
-            ComponentB = XComponent;
+            //given x,Norm  find theta
+            ComponentA = XComponent;
+            ComponentB = NormComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), false);
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), false);
+            Answer = commutativeOperation(ComponentA, ComponentB, '/');
+            Answer = applyTrig(Answer, 11); //arccos
         }
         else if (_type == 5) {
-            //given Norm,y  find theta
-            ComponentA = NormComponent;
-            ComponentB = YComponent;
+            //given y,Norm  find theta
+            ComponentA = YComponent;
+            ComponentB = NormComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), false);
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), false);
+            Answer = commutativeOperation(ComponentA, ComponentB, '/');
+            Answer = applyTrig(Answer, 10); //arcsin
         }
         else if (_type == 6) {
             //given theta,Norm  find x
             ComponentA = ThetaComponent;
             ComponentB = NormComponent;
+
+            ComponentA = applyTrig(ComponentA, 1);  //cos
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), false);
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), false);
+            Answer = commutativeOperation(ComponentA, ComponentB, '*');
         }
         else if (_type == 7) {
             //given theta,Norm  find y
             ComponentA = ThetaComponent;
             ComponentB = NormComponent;
+
+            ComponentA = applyTrig(Answer, 0);  //sin
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), false);
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), false);
+            Answer = commutativeOperation(ComponentA, ComponentB, '*');
         }
         else if (_type == 8) {
-            //given theta,y find Norm
-            ComponentA = ThetaComponent;
-            ComponentB = YComponent;
+            //given y,theta find Norm
+            ComponentA = YComponent;
+            ComponentB = ThetaComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), false);
+            ComponentB = applyTrig(ComponentB, 0);  //sin
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), false);
+            Answer = commutativeOperation(ComponentA, ComponentB, '/');
         }
         else if (_type == 10) {
-            //given theta,x find Norm
-            ComponentA = ThetaComponent;
-            ComponentB = XComponent;
+            //given x,theta find Norm
+            ComponentA = XComponent;
+            ComponentB = ThetaComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), false);
+            ComponentB = applyTrig(ComponentB, 1);  //cos
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), false);
+            Answer = commutativeOperation(ComponentA, ComponentB, '/');
         }
         else if (_type == 9) {
-            //given theta,y find x
-            ComponentA = ThetaComponent;
-            ComponentB = YComponent;
+            //given y,theta find x
+            ComponentA = YComponent;
+            ComponentB = ThetaComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), false);
+            ComponentB = applyTrig(ComponentB, 2);  //tan
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), false);
+            Answer = commutativeOperation(ComponentA, ComponentB, '/');
         }
         else {
             //_type == 11
-            //given theta,x find y
-            ComponentA = ThetaComponent;
-            ComponentB = XComponent;
+            //given x,theta find y
+            ComponentA = XComponent;
+            ComponentB = ThetaComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), false);
+            ComponentB = applyTrig(ComponentB, 2);  //tan
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), false);
+            Answer = commutativeOperation(ComponentA, ComponentB, '*');
         }
         return Answer;
     }
