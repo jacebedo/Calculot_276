@@ -57,7 +57,7 @@ public class Profile extends MainActivity {
         //This is messy too
         String practiceXPoutOfSt = Integer.toString(user.getPracticeXP()) + "/" + Integer.toString(MAX_PRACTICE_XP);
         //Sets TextView so user can see int of how much XP they have
-        practiceXPTV.setText(practiceXPSt + practiceXPoutOfSt);
+        practiceXPTV.setText(practiceXPSt + " " + practiceXPoutOfSt);
         //Sets level TextView to the players level
         levelTV.setText(levelSt + ": " + Integer.toString(user.getlevel()));
 
