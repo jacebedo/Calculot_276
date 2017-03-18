@@ -145,7 +145,7 @@ public class VectorQuestionGenerator {
         return "("+_scalar+")( "+_string+" )";
     }
 
-    private String applyPower(String _string, int _powernumerator, int _powerdenominator, boolean _reform) {
+    private String applyPower(String _string, int _powernumerator, int _powerdenominator, boolean _reform, boolean _iswrong) {  //implement iswrong boolean to change power (use !decideComplexity on functioncall) use applyscalar to vary powers
         int FractionNumerator = _powernumerator;
         int FractionDenominator = _powerdenominator;
         int RandomScalar = 1;
@@ -159,6 +159,8 @@ public class VectorQuestionGenerator {
             FractionDenominator *= RandomScalar;
         }
 
+        if (FractionNumerator == 1 && FractionDenominator == 1 && _reform == false) //if we do not reform ^1 simply return the string in its original state
+            return _string;
         if (FractionDenominator == 1 && !_reform)   //if reform is true we may have x^(y/1) to vary the answers a bit more -> also allow decimal exponents
             return "( "+_string+" )^("+FractionNumerator+") ";
         else if (FractionNumerator == 1 && FractionDenominator == 2 && !_reform)
@@ -217,10 +219,10 @@ public class VectorQuestionGenerator {
                     Result = "(1/("+_stringb+")) * "+_stringa;
                     break;
                 case 2:
-                    Result = "(1/("+_stringb+"))("+_stringa+")";
+                    Result = "(1/("+_stringb+"))("+_stringa+")";    //too many brackets? :P
                     break;
                 case 3:
-                    Result = applyPower(_stringb, -1, 1, true); //use decideComplexity?
+                    Result = applyPower(_stringb, -1, 1, true, false); //use decideComplexity?
                     Result = commutativeOperation(_stringa, _stringb, '*'); //recursive call to the '*' case
                     break;
             }
@@ -241,6 +243,18 @@ public class VectorQuestionGenerator {
             else if (Random == 2)
                 Operation = '*';
             else Operation = '/';   //Random == 3
+        }
+        return Operation;
+    }
+
+    private int randomTrigOperation(int _nottrig) {
+        int Random;
+        int Operation = _nottrig;
+
+        while (Operation == _nottrig) {
+            Operation = getRandomInt(0,2);
+            if (generateRandomBoolean())
+                Operation += 10;
         }
         return Operation;
     }
@@ -332,8 +346,6 @@ public class VectorQuestionGenerator {
                 Question = "Find the norm of the vector v = (x,y)";     //currently hardcoded -> we may use strings.xml or database instead
                 QuestionInfo = "given x = "+XComponent+", y = "+YComponent;
             }
-            //implement random answer generator
-            generateEasyAnswerArray(0);
         }
         else if (RandomChoice == 1) {
             //find x    given norm and y
@@ -345,8 +357,6 @@ public class VectorQuestionGenerator {
                 Question = "Find the x component of the vector v = (x,y)";
                 QuestionInfo = "given ||v|| = "+NormComponent+", y = "+YComponent;
             }
-
-            generateEasyAnswerArray(1);
         }
         else {
             //find y    given norm and x
@@ -358,15 +368,14 @@ public class VectorQuestionGenerator {
                 Question = "Find the y component of the vector v = (x,y)";
                 QuestionInfo = "given ||v|| = "+NormComponent+", x = "+XComponent;
             }
-
-            generateEasyAnswerArray(2);
         }
 
+        generateEasyAnswerArray(RandomChoice);
         questionVector = new QuestionVector( Integer.parseInt(XComponent), Integer.parseInt(YComponent));
     }
 
     private void generateMediumQuestion() {
-        //implement
+        //method is long -> refactor?
         int QuestionType = getRandomInt(0,11); //range from 0-11
         int TempRandom;
 
@@ -472,6 +481,8 @@ public class VectorQuestionGenerator {
                 QuestionInfo = "given Theta = "+ThetaComponent+", Re = "+XComponent;
             else QuestionInfo = "given Theta = "+ThetaComponent+", X = "+XComponent;
         }
+
+        generateMediumAnswerArray(QuestionType);
     }
 
     private void generateHardQuestion() {
@@ -533,10 +544,10 @@ public class VectorQuestionGenerator {
             ComponentA = XComponent;
             ComponentB = YComponent;
 
-            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1));
-            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
+            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1), false);
+            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2), false);
             Answer = commutativeOperation(ComponentA, ComponentB, '+');
-            Answer = applyPower(Answer, 1, 2, decideComplexity(EasyLevel, 3));
+            Answer = applyPower(Answer, 1, 2, decideComplexity(EasyLevel, 3), false);
 
         }
         else if (_type == 1) {
@@ -545,10 +556,10 @@ public class VectorQuestionGenerator {
             ComponentA = NormComponent;
             ComponentB = YComponent;
 
-            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1));
-            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
+            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1), false);
+            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2), false);
             Answer = commutativeOperation(ComponentA, ComponentB, '-');
-            Answer = applyPower(Answer, 1, 2, decideComplexity(EasyLevel, 3));
+            Answer = applyPower(Answer, 1, 2, decideComplexity(EasyLevel, 3), false);
         }
         else {//_type == 2
             //generate answer to question asking for: y     given norm and x
@@ -556,10 +567,10 @@ public class VectorQuestionGenerator {
             ComponentA = NormComponent;
             ComponentB = XComponent;
 
-            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1));
-            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
+            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1), false);
+            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2), false);
             Answer = commutativeOperation(ComponentA, ComponentB, '-');
-            Answer = applyPower(Answer, 1, 2, decideComplexity(EasyLevel, 3));
+            Answer = applyPower(Answer, 1, 2, decideComplexity(EasyLevel, 3), false);
 
             if (AnswerComplex)
                 Answer = toComplex(Answer);
@@ -578,30 +589,30 @@ public class VectorQuestionGenerator {
             ComponentA = XComponent;
             ComponentB = YComponent;
 
-            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1));
-            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
+            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1), true);
+            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2), true);
             RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('+'));
-            RandomAnswer = applyPower(RandomAnswer, 1, 2, decideComplexity(EasyLevel, 3));
+            RandomAnswer = applyPower(RandomAnswer, 1, 2, decideComplexity(EasyLevel, 3), true);
         }
         else if (_type == 1) {
             //implement
             ComponentA = NormComponent;
             ComponentB = YComponent;
 
-            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1));
-            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
+            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1), true);
+            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2), true);
             RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('-'));
-            RandomAnswer = applyPower(RandomAnswer, 1, 2, decideComplexity(EasyLevel, 3));
+            RandomAnswer = applyPower(RandomAnswer, 1, 2, decideComplexity(EasyLevel, 3), true);
         }
         else {//if (_type == 2)
             //implement
             ComponentA = NormComponent;
             ComponentB = XComponent;
 
-            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1));
-            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2));
+            ComponentA = applyPower(ComponentA, 2, 1, decideComplexity(EasyLevel, 1), true);
+            ComponentB = applyPower(ComponentB, 2, 1, decideComplexity(EasyLevel, 2), true);
             RandomAnswer = commutativeOperation(ComponentA, ComponentB, '-');
-            RandomAnswer = applyPower(RandomAnswer, 1, 2, decideComplexity(EasyLevel, 3));
+            RandomAnswer = applyPower(RandomAnswer, 1, 2, decideComplexity(EasyLevel, 3), true);
 
             if (AnswerComplex)
                 RandomAnswer = toComplex(RandomAnswer);
@@ -647,31 +658,56 @@ public class VectorQuestionGenerator {
         }
         else if (_type == 1) {
             //given x, y find theta
+            ComponentA = XComponent;
+            ComponentB = YComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), false);
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), false);
+            Answer = commutativeOperation(ComponentA, ComponentB, '/');
+            Answer = applyTrig(Answer, 12); //arctan
+
+            Answer = applyPower(Answer, 1, 1, decideComplexity(MediumLevel,3), false);  //optional
         }
         else if (_type == 3) {
             //given Norm,x  find theta
+            ComponentA = NormComponent;
+            ComponentB = XComponent;
         }
         else if (_type == 5) {
             //given Norm,y  find theta
+            ComponentA = NormComponent;
+            ComponentB = YComponent;
         }
         else if (_type == 6) {
             //given theta,Norm  find x
+            ComponentA = ThetaComponent;
+            ComponentB = NormComponent;
         }
         else if (_type == 7) {
             //given theta,Norm  find y
+            ComponentA = ThetaComponent;
+            ComponentB = NormComponent;
         }
         else if (_type == 8) {
             //given theta,y find Norm
+            ComponentA = ThetaComponent;
+            ComponentB = YComponent;
         }
         else if (_type == 10) {
             //given theta,x find Norm
+            ComponentA = ThetaComponent;
+            ComponentB = XComponent;
         }
         else if (_type == 9) {
             //given theta,y find x
+            ComponentA = ThetaComponent;
+            ComponentB = YComponent;
         }
         else {
             //_type == 11
             //given theta,x find y
+            ComponentA = ThetaComponent;
+            ComponentB = XComponent;
         }
         return Answer;
     }
