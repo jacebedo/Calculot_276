@@ -35,27 +35,35 @@ public class Profile extends MainActivity {
         usernameTV.setText(user.getUsername());
         firstNameTV.setText(user.getFirstname());
 
+
+
         user.setPracticeXP(23);
     }
 
     @Override
     protected void onResume(){
         super.onResume(); //Keep this here!
-        updateProgress();
+        updateUI();
     }
 
-    public void updateProgress(){
+    public void updateUI(){
         //Get reference to textviews
         TextView learningXPTV = (TextView) findViewById(R.id.profile_learningXP_text);
         TextView practiceXPTV = (TextView) findViewById(R.id.profile_practiceXP_text);
+        TextView levelTV = (TextView) findViewById(R.id.profile_level);
         //Get strings for textview and cast as string (because it's messy)
         String learningXPSt = getApplicationContext().getString(R.string.learning_xp);
         String practiceXPSt = getApplicationContext().getString(R.string.practice_xp);
+        String levelSt = getApplicationContext().getString(R.string.level);
 
         learningXPTV.setText(learningXPSt); //TODO: make learningXP track number of modules finished instead. Each module adds y XP to total
 
-        String practiceXPoutOfSt = Integer.toString(user.getPracticeXP()) + "/" + Integer.toString(MAX_PRACTICE_XP); //This is messy too
-        practiceXPTV.setText(practiceXPSt + practiceXPoutOfSt); //Sets TextView so user can see int of how much XP they have
+        //This is messy too
+        String practiceXPoutOfSt = Integer.toString(user.getPracticeXP()) + "/" + Integer.toString(MAX_PRACTICE_XP);
+        //Sets TextView so user can see int of how much XP they have
+        practiceXPTV.setText(practiceXPSt + practiceXPoutOfSt);
+        //Sets level TextView to the players level
+        levelTV.setText(levelSt + ": " + Integer.toString(user.getlevel()));
 
         ProgressBar practiceXPPB = (ProgressBar) findViewById(R.id.profile_practiceXP_progress);
         practiceXPPB.setMax(MAX_PRACTICE_XP);
@@ -65,6 +73,6 @@ public class Profile extends MainActivity {
     public void profile_onClick_addXP(View view){
         user.setPracticeXP(user.getPracticeXP()+5);
         Log.i("Profile","Button pressed");
-        updateProgress();
+        updateUI();
     }
 }
