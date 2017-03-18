@@ -42,12 +42,12 @@ public class ConfirmPassword extends MainActivity {
         }
         else {
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
-            logUserIn(username);
+            logUserInPasswordCorrect(username);
             continueApp();
         }
     }
 
-    public void logUserIn(String username){
+    public void logUserInPasswordCorrect(String username){
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",0);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("username",username);
@@ -58,5 +58,9 @@ public class ConfirmPassword extends MainActivity {
     public void continueApp(){
         Intent goToWhatToDo = new Intent(ConfirmPassword.this, WhatToDo.class);
         startActivity(goToWhatToDo);
+
+        MainMenu.getInstance().finish(); //Closes MainMenu activity
+        Login.getInstance().finish(); //Closes Login activity
+        finish(); //Closes ConfirmPassword Activity
     }
 }

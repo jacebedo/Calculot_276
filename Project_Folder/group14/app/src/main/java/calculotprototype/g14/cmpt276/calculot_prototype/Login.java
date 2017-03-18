@@ -1,7 +1,10 @@
 package calculotprototype.g14.cmpt276.calculot_prototype;
 
 import android.app.ActionBar;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,13 +20,14 @@ import calculotprototype.g14.cmpt276.calculot_prototype.Databases.UserDatabaseHe
  * Created by Ryan on 3/12/2017.
  */
 public class Login extends MainActivity {
+    static Login toFinish; //For closing Login Activity
     Button newUserButtonGlob; //So we can delete it
     Button userButtons[]; //So we can delete them
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("Login","onCreate started");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        toFinish = this;
     }
 
     @Override
@@ -90,5 +94,10 @@ public class Login extends MainActivity {
     public int numUsers(){
         UserDatabaseHelper DB = new UserDatabaseHelper(this);
         return DB.numUsers();
+    }
+
+    //Finishes this activity when called
+    public static Login getInstance(){
+        return toFinish;
     }
 }
