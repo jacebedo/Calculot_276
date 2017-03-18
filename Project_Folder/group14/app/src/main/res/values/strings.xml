@@ -14,4 +14,7 @@
     <string name="title_activity_game_win">GameWinActivity</string>
     <string name="Congratulations">Congratulations!</string>
     <string name="WinMessage">You have successfully defended against the forces of evil and have earned:</string>
+    <string name="learn">Learn</string>
+    <string name="game">Game</string>
+    <string name="profile">Profile</string>
 </resources>
