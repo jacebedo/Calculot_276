@@ -19,8 +19,8 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         // Health, XPGained, Level, Completed
-        final int[] info = {5,0,1,0};
-        int topic = 0;
+        final int[] info = {7,0,1,0};
+        final int topic = getIntent().getIntExtra("game_topic",0);
         final CalcQuestion calc = new CalcQuestion(topic,1);
 
 
@@ -43,16 +43,15 @@ public class GameActivity extends AppCompatActivity {
         // set toast for taking damage
         final Toast damageTaken = Toast.makeText(getApplicationContext(),"You have lost a life!", Toast.LENGTH_SHORT);
         // Set up countdown timer ( 7 seconds currently - 1s = 1000ms)
-        final CountDownTimer timer = new CountDownTimer(7000,1000) {
+        final CountDownTimer timer = new CountDownTimer(8000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-
             }
             @Override
             public void onFinish() {
                 info[0]--;
                 damageTaken.show();
-                calc.getNewQuestion(0, info[2]);
+                calc.getNewQuestion(topic, info[2]);
                 setQuestion(question, answer1, answer2, answer3, answer4, calc, this);
                 healthfield.setText("Health: " + Integer.toString(info[0]));
                 if (info[0] <= 0) {
@@ -74,13 +73,13 @@ public class GameActivity extends AppCompatActivity {
                     info[3]++;
                     checkLevel(info);
 
-                    calc.getNewQuestion(0, info[2]);
+                    calc.getNewQuestion(topic, info[2]);
                     setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
                 } else {
                     // Do something else if incorrect
                     info[0]--;
                     damageTaken.show();
-                    calc.getNewQuestion(0, info[2]);
+                    calc.getNewQuestion(topic, info[2]);
                     setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
@@ -102,13 +101,13 @@ public class GameActivity extends AppCompatActivity {
                     info[3]++;
                     checkLevel(info);
 
-                    calc.getNewQuestion(0, info[2]);
+                    calc.getNewQuestion(topic, info[2]);
                     setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
                 } else {
                     // Do something else if wrong
                     info[0]--;
                     damageTaken.show();
-                    calc.getNewQuestion(0, info[2]);
+                    calc.getNewQuestion(topic, info[2]);
                     setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
@@ -130,13 +129,13 @@ public class GameActivity extends AppCompatActivity {
                     info[3]++;
                     checkLevel(info);
 
-                    calc.getNewQuestion(0, info[2]);
+                    calc.getNewQuestion(topic, info[2]);
                     setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
                 } else {
                     // Do something else if wrong
                     info[0]--;
                     damageTaken.show();
-                    calc.getNewQuestion(0, info[2]);
+                    calc.getNewQuestion(topic, info[2]);
                     setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
@@ -158,13 +157,13 @@ public class GameActivity extends AppCompatActivity {
                     info[3]++;
                     checkLevel(info);
 
-                    calc.getNewQuestion(0, info[2]);
+                    calc.getNewQuestion(topic, info[2]);
                     setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
                 } else {
                     // Do something else if wrong
                     info[0]--;
                     damageTaken.show();
-                    calc.getNewQuestion(0, info[2]);
+                    calc.getNewQuestion(topic, info[2]);
                     setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
                 }
                 xpfield.setText("XP Gained: " + Integer.toString(info[1]));
@@ -197,10 +196,12 @@ public class GameActivity extends AppCompatActivity {
             info[2]++;
             if (info[2] == 2) {
                 info[1] += 50;
+                info[0]++;
             Toast.makeText(getApplicationContext(),"LEVEL: 2",Toast.LENGTH_SHORT).show();
             }
             if (info[2] == 3) {
                 info[1] += 100;
+                info[0]++;
                 Toast.makeText(getApplicationContext(),"LEVEL: 3",Toast.LENGTH_SHORT).show();
                 ;}
 
@@ -215,6 +216,7 @@ public class GameActivity extends AppCompatActivity {
     public void setQuestion(TextView question, TextView answer1, TextView answer2,
                             TextView answer3, TextView answer4, CalcQuestion c, CountDownTimer timer) {
 
+        timer.cancel();
         question.setText(c.getQuestion());
         answer1.setText(c.getAnswer_1());
         answer2.setText(c.getAnswer_2());

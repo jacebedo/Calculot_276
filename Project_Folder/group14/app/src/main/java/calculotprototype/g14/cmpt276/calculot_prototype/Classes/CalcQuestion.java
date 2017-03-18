@@ -270,44 +270,159 @@ public class CalcQuestion {
     private void getIntQuestion(int difficulty) {
         int constant;
         int exponent;
-
+        int randomCorrect;
+        randomCorrect = getRandomInt(1,4);
         if (difficulty == 1) {
-            exponent = getRandomInt(1, 5);
+            if (randomCorrect == 1) {
+                exponent = getRandomInt(1, 5);
 
-            question = "Integrate: \n" + "x^" + Integer.toString(exponent);
-            correct = "(1/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+                question = "Integrate: \n" + "x^" + Integer.toString(exponent);
+                correct = "(1/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
 
-            answer_1 = correct;
-            answer_2 = Integer.toString(exponent) + "x^" + Integer.toString(exponent - 1);
-            answer_3 = "x^" + Integer.toString(exponent + 1);
-            answer_4 = "(1/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent + 1);
+                answer_1 = correct;
+                answer_2 = Integer.toString(exponent) + "x^" + Integer.toString(exponent - 1);
+                answer_3 = "x^" + Integer.toString(exponent + 1);
+                answer_4 = "(1/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent + 1);
+            }
+            if (randomCorrect == 2) {
+                exponent = getRandomInt(1, 5);
+
+                question = "Integrate: \n" + "x^" + Integer.toString(exponent);
+                correct = "(1/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+
+                answer_2 = correct;
+                answer_3 = Integer.toString(exponent) + "x^" + Integer.toString(exponent - 1);
+                answer_4 = "x^" + Integer.toString(exponent + 1);
+                answer_1 = "(1/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent + 1);
+            }
+            if (randomCorrect == 3) {
+                exponent = getRandomInt(1, 5);
+
+                question = "Integrate: \n" + "x^" + Integer.toString(exponent);
+                correct = "(1/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+
+                answer_3 = correct;
+                answer_4 = Integer.toString(exponent) + "x^" + Integer.toString(exponent - 1);
+                answer_1 = "x^" + Integer.toString(exponent + 1);
+                answer_2 = "(1/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent + 1);
+            }
+            if (randomCorrect == 4) {
+                exponent = getRandomInt(1, 5);
+
+                question = "Integrate: \n" + "x^" + Integer.toString(exponent);
+                correct = "(1/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+
+                answer_4 = correct;
+                answer_1 = Integer.toString(exponent) + "x^" + Integer.toString(exponent - 1);
+                answer_2 = "x^" + Integer.toString(exponent + 1);
+                answer_3 = "(1/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent + 1);
+            }
         }
 
         else if (difficulty == 2) {
-            constant = getRandomInt(1, 3);
-            exponent = getRandomInt(1, 5);
-            question = "Integrate: \n" + Integer.toString(constant) + "x^" + Integer.toString(exponent);
-            correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+            if (randomCorrect == 1) {
+                constant = getRandomInt(1, 3);
+                exponent = getRandomInt(1, 5);
+                question = "Integrate: \n" + Integer.toString(constant) + "x^" + Integer.toString(exponent);
+                correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
 
-            answer_1 = correct;
-            answer_2 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent + 1);
-            answer_3 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent - 1);
-            answer_4 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
+                answer_1 = correct;
+                answer_2 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent + 1);
+                answer_3 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent - 1);
+                answer_4 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
 
+            }
+            if (randomCorrect == 2) {
+                constant = getRandomInt(1, 3);
+                exponent = getRandomInt(1, 5);
+                question = "Integrate: \n" + Integer.toString(constant) + "x^" + Integer.toString(exponent);
+                correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+
+                answer_2 = correct;
+                answer_3 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent + 1);
+                answer_4 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent - 1);
+                answer_1 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
+
+            }
+            if (randomCorrect == 3) {
+                constant = getRandomInt(1, 3);
+                exponent = getRandomInt(1, 5);
+                question = "Integrate: \n" + Integer.toString(constant) + "x^" + Integer.toString(exponent);
+                correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+
+                answer_3 = correct;
+                answer_4 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent + 1);
+                answer_1 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent - 1);
+                answer_2 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
+
+            }
+            if (randomCorrect == 4) {
+                constant = getRandomInt(1, 3);
+                exponent = getRandomInt(1, 5);
+                question = "Integrate: \n" + Integer.toString(constant) + "x^" + Integer.toString(exponent);
+                correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+
+                answer_4 = correct;
+                answer_1 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent + 1);
+                answer_2 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent - 1);
+                answer_3 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
+
+            }
         }
 
         else if (difficulty == 3) {
-            constant = getRandomInt(1, 13);
-            exponent = getRandomInt(-6, -3);
+            if (randomCorrect == 1) {
+                constant = getRandomInt(1, 13);
+                exponent = getRandomInt(-6, -3);
 
-            question = "Integrate: \n" + Integer.toString(constant) + "/x^" + Integer.toString(-1 * exponent);
-            correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+                question = "Integrate: \n" + Integer.toString(constant) + "/x^" + Integer.toString(-1 * exponent);
+                correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
 
-            answer_1 = correct;
-            answer_2 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent + 1);
-            answer_3 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent - 1);
-            answer_4 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
+                answer_1 = correct;
+                answer_2 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent + 1);
+                answer_3 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent - 1);
+                answer_4 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
 
+            }
+            if (randomCorrect == 2) {
+                constant = getRandomInt(1, 13);
+                exponent = getRandomInt(-6, -3);
+
+                question = "Integrate: \n" + Integer.toString(constant) + "/x^" + Integer.toString(-1 * exponent);
+                correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+
+                answer_2 = correct;
+                answer_3 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent + 1);
+                answer_4 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent - 1);
+                answer_1 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
+
+            }
+            if (randomCorrect == 3) {
+                constant = getRandomInt(1, 13);
+                exponent = getRandomInt(-6, -3);
+
+                question = "Integrate: \n" + Integer.toString(constant) + "/x^" + Integer.toString(-1 * exponent);
+                correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+
+                answer_3 = correct;
+                answer_4 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent + 1);
+                answer_1 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent - 1);
+                answer_2 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
+
+            }
+            if (randomCorrect == 4) {
+                constant = getRandomInt(1, 13);
+                exponent = getRandomInt(-6, -3);
+
+                question = "Integrate: \n" + Integer.toString(constant) + "/x^" + Integer.toString(-1 * exponent);
+                correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
+
+                answer_4 = correct;
+                answer_1 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent + 1);
+                answer_2 = Integer.toString(constant * exponent) + "x^" + Integer.toString(exponent - 1);
+                answer_3 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
+
+            }
         }
     }
 

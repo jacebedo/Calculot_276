@@ -29,8 +29,9 @@
         <activity android:name=".LearnActivity" />
         <activity android:name=".WhatToDo" />
         <activity android:name=".calcGame.GameOverActivity" />
-        <activity
-            android:name=".calcGame.GameWinActivity" />
+        <activity android:name=".calcGame.GameWinActivity" />
+        <activity android:name=".calcGame.GameMenu" />
+        <activity android:name=".calcGame.GameDiff"></activity>
     </application>
 
 </manifest>
