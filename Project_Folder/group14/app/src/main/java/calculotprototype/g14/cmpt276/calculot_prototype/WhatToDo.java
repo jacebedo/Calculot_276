@@ -10,6 +10,7 @@ import android.widget.TextView;
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.User;
 import calculotprototype.g14.cmpt276.calculot_prototype.Databases.UserDatabaseHelper;
 import calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameActivity;
+import calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameMenu;
 
 /**
  * Created by Ryan on 3/17/2017.
@@ -45,7 +46,7 @@ public class WhatToDo extends MainActivity {
     }
 
     public void what_to_do_onClick_game(View view){
-        Intent goToGameActivity = new Intent(WhatToDo.this, GameActivity.class);
+        Intent goToGameActivity = new Intent(WhatToDo.this, GameMenu.class);
         startActivity(goToGameActivity);
     }
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameDiff">
+
+    <Button
+        android:id="@+id/gameDiff_Diff"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:text="@string/gameDiff_Diff"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="93dp"
+        android:layout_above="@+id/gameDiff_Int"
+        android:layout_alignStart="@+id/gameDiff_Int"
+        android:layout_marginBottom="88dp" />
+
+    <Button
+        android:id="@+id/gameDiff_Int"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:text="@string/gameDiff_Int"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="189dp"
+        android:layout_marginBottom="140dp"
+        android:layout_alignBottom="@+id/gameDiff_Comb"
+        android:layout_alignStart="@+id/gameDiff_Comb" />
+
+    <Button
+        android:id="@+id/gameDiff_Comb"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:text="@string/gameDiff_Comb"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="289dp"
+        android:layout_marginBottom="134dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

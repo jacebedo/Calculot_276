@@ -20,4 +20,11 @@
     <string name="level">Level</string>
     <string name="logout">Logout</string>
     <string name="welcome">Welcome</string>
+    <string name="game_wizardgame">Defense of Calculot: Defend against the forces of calculot by solving derivatives and/or integrals!</string>
+    <string name="game_WizardBall">Wizard\'s Crystal Ball: Solve questions about vectors, trigonometry and complex numbers to power up the wizard\'s crystal ball!</string>
+    <string name="gameDiff_Diff">Differentiation</string>
+    <string name="gameDiff_Int">Integration</string>
+    <string name="gameDiff_Comb">Combined</string>
+    <string name="TryAgain">Try Again</string>
+    <string name="game_goToMainMenu">Go Back to Main Menu</string>
 </resources>
