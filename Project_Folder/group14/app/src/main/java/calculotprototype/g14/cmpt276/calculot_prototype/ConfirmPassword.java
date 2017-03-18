@@ -56,7 +56,7 @@ public class ConfirmPassword extends MainActivity {
     }
 
     public void continueApp(){
-        Intent goToProfile = new Intent(ConfirmPassword.this, Profile.class);
-        startActivity(goToProfile);
+        Intent goToWhatToDo = new Intent(ConfirmPassword.this, WhatToDo.class);
+        startActivity(goToWhatToDo);
     }
 }
