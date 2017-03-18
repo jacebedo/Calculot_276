@@ -30,6 +30,7 @@ public class AddUser extends MainActivity {
         boolean wrong = false;
         if (firstNameET.getText().toString().trim().equals("")) { firstNameET.setError("This field cannot be left blank."); wrong = true; }
         if (usernameET.getText().toString().trim().equals("")) { usernameET.setError("This field cannot be left blank."); wrong = true; }
+        if (usernameET.getText().toString().trim().equals("null")) { usernameET.setError("Please select a different username."); wrong = true; }
         if (passwordET.getText().toString().equals("")) { passwordET.setError("This field cannot be left blank."); wrong = true; }
         if (!password2ET.getText().toString().equals(passwordET.getText().toString())) { password2ET.setError("Passwords do not match."); wrong = true; }
         if (wrong) return; //Obviously don't continue if fields aren't correct
@@ -50,6 +51,6 @@ public class AddUser extends MainActivity {
             finish();
             //TODO: Set shared preferences so user is logged in
         }
-        else Toast.makeText(this, "Username already taken.", Toast.LENGTH_SHORT).show();
+        else usernameET.setError("Username already taken.");
     }
 }

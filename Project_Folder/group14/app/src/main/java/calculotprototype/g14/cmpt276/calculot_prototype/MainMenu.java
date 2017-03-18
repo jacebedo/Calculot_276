@@ -23,10 +23,6 @@ public class MainMenu extends MainActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toFinish = this;
-
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",0);
-        String username = pref.getString("username",null);
-        Toast.makeText(this, username + " is already logged in!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

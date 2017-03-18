@@ -1,6 +1,7 @@
 package calculotprototype.g14.cmpt276.calculot_prototype;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,8 +32,17 @@ public class MainActivity extends AppCompatActivity {
         fadein.setAnimationListener(new Animation.AnimationListener() {
             public void onAnimationStart(Animation animation) {} //Don't delete, auto-generated
             public void onAnimationEnd(Animation animation) {
-                Intent goToMainMenu = new Intent(MainActivity.this, MainMenu.class);
-                startActivity(goToMainMenu);
+                //Check if user is already logged in
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",0);
+                String username = pref.getString("username",null); //Gets current logged in username from SharedPreferences
+
+                Intent afterSplashscreen;
+                if (username != null){ //If user logged in, bypass main menu
+                    afterSplashscreen = new Intent(MainActivity.this, WhatToDo.class);
+                }
+                else afterSplashscreen = new Intent(MainActivity.this, MainMenu.class);
+
+                startActivity(afterSplashscreen);
                 finish(); //Ends splash screen, so you can't go back to it
                 Log.i("splashy","Fade in finished");
             }
