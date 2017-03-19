@@ -5,6 +5,7 @@ import java.util.Random;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static java.lang.Math.round;
 
 //kza21
 public class VectorQuestionGenerator {
@@ -72,6 +73,7 @@ public class VectorQuestionGenerator {
     String[] AnswerArray;
     int AnswerArrayIndex;   //Which one is the right answer?
     int AnswerArraySize;    //# of choices changes depending on difficulty?
+    int QuestionTime;   //in seconds
 
     //Question/Answer Form
     boolean QuestionComplex;
@@ -357,6 +359,7 @@ public class VectorQuestionGenerator {
 
             AnswerArraySize = min(getRandomInt(2, max(EasyLevel,2)),6);
             AnswerArray = new String[AnswerArraySize];
+            QuestionTime = 10; //+ Math.round( 5 / Math.max( EasyLevel , 1));
             generateEasyQuestion();
         }
         else if (Topic == 1) {
@@ -364,6 +367,7 @@ public class VectorQuestionGenerator {
 
             AnswerArraySize = 6;//min(getRandomInt(2, max(MediumLevel,2)),6);
             AnswerArray = new String[AnswerArraySize];
+            QuestionTime = 15;
             generateMediumQuestion();
         }
         else {  //Topic == 2
@@ -371,6 +375,7 @@ public class VectorQuestionGenerator {
 
             AnswerArraySize = min(getRandomInt(2, max(HardLevel,2)),6);
             AnswerArray = new String[AnswerArraySize];
+            QuestionTime = 20;
             //generateHardQuestion();
         }
     }
@@ -713,6 +718,7 @@ public class VectorQuestionGenerator {
 
         if (_type == 0) {   //actually an EasyQuestion
             //given x, y    find Norm
+            //QuestionTime = 10; the time for EasyQuestion
             Answer = generateEasyRightAnswer(0);
         }
         else if (_type == 2) {    //also an EasyQuestion
@@ -966,5 +972,9 @@ public class VectorQuestionGenerator {
 
     public int getAnswerArraySize() {
         return AnswerArraySize;
+    }
+
+    public int getQuestionTime() {
+        return QuestionTime;
     }
 }
