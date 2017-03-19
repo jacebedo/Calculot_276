@@ -943,4 +943,8 @@ public class VectorQuestionGenerator {
     public int getAnswerArrayIndex() {  //for deciding which answer is correct
         return AnswerArrayIndex;
     }
+
+    public int getAnswerArraySize() {
+        return AnswerArraySize;
+    }
 }
