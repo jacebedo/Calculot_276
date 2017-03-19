@@ -13,11 +13,19 @@ public class StudyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study);
         TextView btn = (TextView) findViewById(R.id.toDiff);
+        TextView btn1 = (TextView) findViewById(R.id.toInt);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent diff = new Intent(StudyActivity.this, LearnActivity.class);
                 startActivity(diff);
+            }
+        });
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent integral = new Intent(StudyActivity.this, IntegrationActivity.class);
+                startActivity(integral);
             }
         });
     }
