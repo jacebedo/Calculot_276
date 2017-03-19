@@ -3,6 +3,7 @@ package calculotprototype.g14.cmpt276.calculot_prototype.Classes;
 import java.util.Arrays;
 import java.util.Random;
 
+//kza21
 public class VectorQuestionGenerator {
     //random question generator for the Crystal Ball Game
     /* responsible for receiving the difficulty (Acts as the Topic): Easy, Medium, Hard upon game start (decided on previous activity)
@@ -149,7 +150,7 @@ public class VectorQuestionGenerator {
         return Result;
     }
 
-    private String applyScalar(String _string, int _scalar) {
+    private String applyScalar(String _string, int _scalar) {   //introduce negatives where an even number of negative components multiplied or divided will still be correct?
         if (_scalar == 1)   //enclose in brackets
             return "("+_string+")";
         if (_scalar == -1)  //random sign -> pull number if not a composition and multiply by -1 turning int back to string
@@ -158,10 +159,45 @@ public class VectorQuestionGenerator {
         return "("+_scalar+")( "+_string+" )";
     }
 
-    private String applyPower(String _string, int _powernumerator, int _powerdenominator, boolean _reform, boolean _iswrong) {  //implement iswrong boolean to change power (use !decideComplexity on functioncall) use applyscalar to vary powers
+    private String applyPower(String _string, int _powernumerator, int _powerdenominator, boolean _reform, boolean _iswrong) {
+        //implement iswrong boolean to change power (use !decideComplexity on functioncall) use applyscalar to vary powers
         int FractionNumerator = _powernumerator;
         int FractionDenominator = _powerdenominator;
         int RandomScalar = 1;
+
+        if (_iswrong) {
+            //change the value of the fraction
+            int TempRandom = getRandomInt(0,3);
+            int TempStore;
+
+            if (TempRandom == 0) {
+                //25% chance to scale the fraction by 2 or 10
+                if (generateRandomBoolean())
+                    FractionNumerator *= 2;
+                else FractionNumerator *= 10;
+            }
+            else if (TempRandom == 1) {
+                //25% chance to scale the fraction by 1/2 or 1/10
+                if (generateRandomBoolean())
+                    FractionDenominator *= 2 ;
+                else FractionDenominator *= 10;
+            }
+
+            TempRandom = getRandomInt(0,2); //temprandom = 2 means we take the negative reciprocal of the fraction
+            if (TempRandom == 0 || TempRandom == 2) {
+                //take the negative of the function
+                if (generateRandomBoolean())
+                    FractionNumerator *= -1;
+                else FractionDenominator *= -1;
+            }
+            //not else so temprandom = 2 may pass both statements
+            if (TempRandom == 1 || TempRandom == 2) {
+                //take the reciprocal
+                TempStore = FractionNumerator;
+                FractionNumerator = FractionDenominator;
+                FractionDenominator = TempStore;
+            }
+        }
 
         if (_reform) {  //reform complexity level?
             if (generateRandomBoolean())
@@ -186,7 +222,7 @@ public class VectorQuestionGenerator {
 
     private String complexComposition(String _number, int _complexity) {
         int Number = Integer.parseInt(_number);
-        //implement
+        //implement -> mainly for HardLevel
 
         return Integer.toString(Number);
     }
@@ -718,6 +754,9 @@ public class VectorQuestionGenerator {
             ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), false);
             ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), false);
             Answer = commutativeOperation(ComponentA, ComponentB, '*');
+
+            if (AnswerComplex)
+                Answer = toComplex(Answer);
         }
         else if (_type == 8) {
             //given y,theta find Norm
@@ -759,6 +798,9 @@ public class VectorQuestionGenerator {
             ComponentB = applyTrig(ComponentB, 2);  //tan
             ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), false);
             Answer = commutativeOperation(ComponentA, ComponentB, '*');
+
+            if (AnswerComplex)
+                Answer = toComplex(Answer);
         }
         return Answer;
     }
@@ -834,6 +876,9 @@ public class VectorQuestionGenerator {
             ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), true);
             ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), true);
             RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('*'));
+
+            if (AnswerComplex)
+                RandomAnswer = toComplex(RandomAnswer);
         }
         else if (_type == 8) {
             //given y,theta find Norm
@@ -875,6 +920,9 @@ public class VectorQuestionGenerator {
             ComponentB = applyTrig(ComponentB, randomTrigOperation(2));  //tan
             ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), true);
             RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('*'));
+
+            if (AnswerComplex)
+                RandomAnswer = toComplex(RandomAnswer);
         }
         return RandomAnswer;
     }
