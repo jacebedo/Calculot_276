@@ -1,6 +1,7 @@
 package calculotprototype.g14.cmpt276.calculot_prototype;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -29,10 +30,15 @@ public class AddUser extends MainActivity {
 
         boolean wrong = false;
         if (firstNameET.getText().toString().trim().equals("")) { firstNameET.setError("This field cannot be left blank."); wrong = true; }
+        if (firstNameET.getText().toString().trim().length() == 1) { firstNameET.setError("Name must be more than one character."); wrong = true; }
         if (usernameET.getText().toString().trim().equals("")) { usernameET.setError("This field cannot be left blank."); wrong = true; }
         if (usernameET.getText().toString().trim().equals("null")) { usernameET.setError("Please select a different username."); wrong = true; }
+        if (usernameET.getText().toString().trim().length() == 1) { usernameET.setError("Username must be more than one character."); wrong = true; }
+        if (checkPassword(passwordET.getText().toString()) == false) { passwordET.setError("Password must contain at least one number and one uppercase"); wrong = true; }
         if (passwordET.getText().toString().equals("")) { passwordET.setError("This field cannot be left blank."); wrong = true; }
         if (!password2ET.getText().toString().equals(passwordET.getText().toString())) { password2ET.setError("Passwords do not match."); wrong = true; }
+
+
         if (wrong) return; //Obviously don't continue if fields aren't correct
 
         String firstNameSt = firstNameET.getText().toString().trim(); //trim removes trailing spaces
@@ -52,5 +58,14 @@ public class AddUser extends MainActivity {
             //TODO: Set shared preferences so user is logged in
         }
         else usernameET.setError("Username already taken.");
+    }
+
+    private boolean checkPassword(String password) {
+        // TO IMPLEMENT
+        //import needed
+        if (    TextUtils.isEmpty(password)
+                ||  !(password.matches(".*[0-9].*"))
+                || !(password.matches(".*[A-Z].*")))return false;
+        return true;
     }
 }
