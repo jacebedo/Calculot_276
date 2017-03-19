@@ -36,7 +36,7 @@ public class VectorGameActivity extends AppCompatActivity {
     //Game Activity Data: Difficulty, Level, Shells, Points in Shell, Potential gain/loss, change in XP, timer
 
     //Multiple Choice: Question, QuestionInfo, (2-5) Answer choices
-    LinearLayout MultipleChoice = (LinearLayout) findViewById(R.id.vectorMultipleChoiceLayout);
+    LinearLayout MultipleChoice;
     String[] AnswerArray;
     int AnswerArraySize;
     int AnswerArrayIndex;
@@ -47,8 +47,8 @@ public class VectorGameActivity extends AppCompatActivity {
     TextView addQuestionInfo;
 
     // set toast for right/wrong answer
-    final Toast wrongAnswer = Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT);
-    final Toast rightAnswer = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
+    Toast wrongAnswer;
+    Toast rightAnswer;
 
 
     @Override
@@ -59,8 +59,13 @@ public class VectorGameActivity extends AppCompatActivity {
         gameOver = new Intent(VectorGameActivity.this, GameOverActivity.class);
         MediumLevel = getIntent().getIntExtra("MediumLevel", 1);
 
+        MultipleChoice = (LinearLayout) findViewById(R.id.vectorMultipleChoiceLayout);
+        wrongAnswer = Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT);
+        rightAnswer = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
+
         TheGenerator = new VectorQuestionGenerator(1, 1, MediumLevel, 1);
         TheGenerator.generateQuestion();
+        startQuestion();
     }
 
     private void startTimer() {
@@ -84,7 +89,7 @@ public class VectorGameActivity extends AppCompatActivity {
         };
     }
 
-    private void generateQuestion() {
+    private void startQuestion() {
         //Multiple Choice: Question, QuestionInfo, (2-5) Answer choices
         //turn into method
         AnswerArray = TheGenerator.getAnswerArray();
