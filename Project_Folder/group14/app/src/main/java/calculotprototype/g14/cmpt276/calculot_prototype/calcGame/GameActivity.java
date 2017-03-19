@@ -226,4 +226,10 @@ public class GameActivity extends AppCompatActivity {
         timer.start();
 
     }
+
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
