@@ -753,7 +753,7 @@ public class CalcQuestion {
             }
         } else if (IntClass == 1) {
             if (difficulty == 1) {
-                question = "Differentiate: \n e^x";
+                question = "Integrate: \n e^x";
                 correct = "e^x";
 
                 if (randomCorrect == 1) {
@@ -791,7 +791,7 @@ public class CalcQuestion {
             } else if (difficulty == 2) {
                 constant = getRandomInt(2, 5);
                 String s_constant = Integer.toString(constant);
-                question = "Differentiate: \n" + s_constant + "e^x";
+                question = "Integrate: \n" + s_constant + "e^x";
                 correct = s_constant + "e^x";
 
                 if (randomCorrect == 1) {
@@ -820,8 +820,38 @@ public class CalcQuestion {
                     return;
                 }
             } else {
-                question = "";
+                int constant_1 = getRandomInt(2,5);
+                int constant_2 = getRandomInt(3,6);
+
+                question = "Integrate: \n" + Integer.toString(constant_1) + "e^" + Integer.toString(constant_2) + "x";
+                correct  = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")e^" + Integer.toString(constant_2) + "x";
+
+                if (randomCorrect == 1) {
+                    answer_1 = correct;
+                    answer_2 = Integer.toString(constant_1 * constant_2) + "e^" + Integer.toString(constant_2) + "x";
+                    answer_3 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")e^x";
+                    answer_4 = Integer.toString(constant_1 * constant_2) + "e^x";
+                    return;
+                } else if (randomCorrect == 2) {
+                    answer_2 = correct;
+                    answer_3 = Integer.toString(constant_1 * constant_2) + "e^" + Integer.toString(constant_2) + "x";
+                    answer_1 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")e^x";
+                    answer_4 = Integer.toString(constant_1 * constant_2) + "e^x";
+                    return;
+                } else if (randomCorrect == 3) {
+                    answer_3 = correct;
+                    answer_2 = Integer.toString(constant_1 * constant_2) + "e^" + Integer.toString(constant_2) + "x";
+                    answer_4 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")e^x";
+                    answer_1 = Integer.toString(constant_1 * constant_2) + "e^x";
+                } else {
+                    answer_4 = correct;
+                    answer_3 = Integer.toString(constant_1 * constant_2) + "e^" + Integer.toString(constant_2) + "x";
+                    answer_2 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")e^x";
+                    answer_1 = Integer.toString(constant_1 * constant_2) + "e^x";
+                }
             }
+        } else {
+            // Trigonometry
         }
     }
 
