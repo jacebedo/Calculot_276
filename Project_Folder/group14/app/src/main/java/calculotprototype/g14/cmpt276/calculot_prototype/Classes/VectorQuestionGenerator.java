@@ -666,7 +666,7 @@ public class VectorQuestionGenerator {
             Answer = commutativeOperation(ComponentA, ComponentB, '/');
             Answer = applyTrig(Answer, 12); //arctan
 
-            Answer = applyPower(Answer, 1, 1, decideComplexity(MediumLevel,3), false);  //optional
+            //Answer = applyPower(Answer, 1, 1, decideComplexity(MediumLevel,3), false);  //optional
         }
         else if (_type == 3) {
             //given x,Norm  find theta
@@ -703,7 +703,7 @@ public class VectorQuestionGenerator {
             ComponentA = ThetaComponent;
             ComponentB = NormComponent;
 
-            ComponentA = applyTrig(Answer, 0);  //sin
+            ComponentA = applyTrig(ComponentA, 0);  //sin
             ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), false);
             ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), false);
             Answer = commutativeOperation(ComponentA, ComponentB, '*');
@@ -753,6 +753,7 @@ public class VectorQuestionGenerator {
     }
 
     private String generateMediumWrongAnswer(int _type) { //generate a random wrong answer with a similar form of a correct answer
+        //counter for # wrong components? check that it is at least 1
         String RandomAnswer = "";
         String ComponentA = "";
         String ComponentB = "";
@@ -771,32 +772,97 @@ public class VectorQuestionGenerator {
             RandomAnswer = generateEasyWrongAnswer(1);
         }
         else if (_type == 1) {
-            //given x, y find theta
+            //given y,x find theta
+            ComponentA = YComponent;
+            ComponentB = XComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), true);
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), true);
+            RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('/'));
+            RandomAnswer = applyTrig(RandomAnswer, randomTrigOperation(12)); //arctan
+
+            //Answer = applyPower(Answer, 1, 1, decideComplexity(MediumLevel,3), false);  //optional
         }
         else if (_type == 3) {
-            //given Norm,x  find theta
+            //given x,Norm  find theta
+            ComponentA = XComponent;
+            ComponentB = NormComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), true);
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), true);
+            RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('/'));
+            RandomAnswer = applyTrig(RandomAnswer, randomTrigOperation(11)); //arccos
         }
         else if (_type == 5) {
-            //given Norm,y  find theta
+            //given y,Norm  find theta
+            ComponentA = YComponent;
+            ComponentB = NormComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), true);
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), true);
+            RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('/'));
+            RandomAnswer = applyTrig(RandomAnswer, randomTrigOperation(10)); //arcsin
         }
         else if (_type == 6) {
             //given theta,Norm  find x
+            ComponentA = ThetaComponent;
+            ComponentB = NormComponent;
+
+            ComponentA = applyTrig(ComponentA, randomTrigOperation(1));  //cos
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), true);
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), true);
+            RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('*'));
         }
         else if (_type == 7) {
             //given theta,Norm  find y
+            ComponentA = ThetaComponent;
+            ComponentB = NormComponent;
+
+            ComponentA = applyTrig(ComponentA, randomTrigOperation(0));  //sin
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), true);
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), true);
+            RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('*'));
         }
         else if (_type == 8) {
-            //given theta,y find Norm
+            //given y,theta find Norm
+            ComponentA = YComponent;
+            ComponentB = ThetaComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), true);
+            ComponentB = applyTrig(ComponentB, randomTrigOperation(0));  //sin
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), true);
+            RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('/'));
         }
         else if (_type == 10) {
-            //given theta,x find Norm
+            //given x,theta find Norm
+            ComponentA = XComponent;
+            ComponentB = ThetaComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), true);
+            ComponentB = applyTrig(ComponentB, randomTrigOperation(1));  //cos
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), true);
+            RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('/'));
         }
         else if (_type == 9) {
-            //given theta,y find x
+            //given y,theta find x
+            ComponentA = YComponent;
+            ComponentB = ThetaComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), true);
+            ComponentB = applyTrig(ComponentB, randomTrigOperation(2));  //tan
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), true);
+            RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('/'));
         }
         else {
             //_type == 11
-            //given theta,x find y
+            //given x,theta find y
+            ComponentA = XComponent;
+            ComponentB = ThetaComponent;
+
+            ComponentA = applyPower(ComponentA, 1, 1, decideComplexity(MediumLevel,1), true);
+            ComponentB = applyTrig(ComponentB, randomTrigOperation(2));  //tan
+            ComponentB = applyPower(ComponentB, 1, 1, decideComplexity(MediumLevel,2), true);
+            RandomAnswer = commutativeOperation(ComponentA, ComponentB, randomCharOperation('*'));
         }
         return RandomAnswer;
     }
