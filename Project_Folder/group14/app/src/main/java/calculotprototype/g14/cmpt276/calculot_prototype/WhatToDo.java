@@ -41,7 +41,7 @@ public class WhatToDo extends MainActivity {
     }
 
     public void what_to_do_onClick_learn(View view){
-        Intent goToLearn = new Intent(WhatToDo.this, LearnActivity.class);
+        Intent goToLearn = new Intent(WhatToDo.this, StudyActivity.class);
         startActivity(goToLearn);
     }
 

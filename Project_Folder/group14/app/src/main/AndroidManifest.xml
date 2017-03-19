@@ -31,7 +31,8 @@
         <activity android:name=".calcGame.GameOverActivity" />
         <activity android:name=".calcGame.GameWinActivity" />
         <activity android:name=".calcGame.GameMenu" />
-        <activity android:name=".calcGame.GameDiff"></activity>
+        <activity android:name=".calcGame.GameDiff" />
+        <activity android:name=".StudyActivity"></activity>
     </application>
 
 </manifest>
