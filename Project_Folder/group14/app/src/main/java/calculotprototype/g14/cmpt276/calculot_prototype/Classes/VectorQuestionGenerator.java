@@ -42,41 +42,47 @@ public class VectorQuestionGenerator {
         As hardlevel increases -> user progresses through Phases from A to D
     */
     //Fields
+
+    //Previous Activity Selected Fields
     int Topic;
     double ScoreMultiplier = 1;    //multiplier bonus for increasing level difficulty/difficulty setting+phase
     int EasyLevel;
     int MediumLevel;
     int HardLevel;
 
+    //Drawing Coordinates
     int HalfWidth = 250;    //set as the x origin of the grid
     int HalfHeight = 250;   //set as the y origin of the grid
     int MinimumAbsX = 50;   //minimum absolute x value of the vector
     int MinimumAbsY = 50;   //minimum absolute y value of the vector
 
+    //HardLevel Phases
     final int PhaseALastLevel = 5;
     final int PhaseBLastLevel = 10;
     final int PhaseCLastLevel = 20;
     //PhaseD has no last level
 
-    //View - Question, info and answers
+    //View - Question, info, and answers strings
     String Question;
     String QuestionInfo;
     String[] AnswerArray;
     int AnswerArrayIndex;   //Which one is the right answer?
+    int AnswerArraySize;    //# of choices changes depending on difficulty?
+
+    //Question/Answer Form
     boolean QuestionComplex;
     boolean AnswerComplex;
     boolean QuestionPolar;
     boolean AnswerPolar;
-    int AnswerArraySize;    //# of choices changes depending on difficulty?
 
-    //Vector components
+    //Vector Components
     String XComponent;
     String YComponent;  //y component without "i" regardless if imaginary
     String iYComponent; //if "i" is included then Y is imaginary
     String ThetaComponent;
     String NormComponent;
 
-    //my children
+    //My Children
     CrystalBall crystalBall = new CrystalBall(4);   //max shell level currently 4
     QuestionVector questionVector;
     ClockVector clockVector;
@@ -92,13 +98,20 @@ public class VectorQuestionGenerator {
     }
 
     //Private Methods
-    //Utility Methods
+
+    //Utility:  Number Generator Methods
     private boolean generateRandomBoolean() {
         //create random boolean static class?
         Random Rand = new Random();
         return Rand.nextBoolean();
     }
 
+    private int getRandomInt(int min,int max) {//from calcquestion -> static class with random public methods?
+        Random RandomInteger = new Random();
+        return RandomInteger.nextInt((max - min) + 1) + min;
+    }
+
+    //Utility:  String Manipulation Methods
     private String toComplex(String _real) {    //turns a string component into an imaginary number string if vector is complex
         String Complex = _real;
 
@@ -230,6 +243,7 @@ public class VectorQuestionGenerator {
         return Result;
     }
 
+    //Utility^2:    Generate Inputs for the String Manipulation Methods
     private char randomCharOperation(char _notchar) {
         int Random;
         char Operation = _notchar;
@@ -265,6 +279,7 @@ public class VectorQuestionGenerator {
         return getRandomInt( (int)(_level*0.5) , _level+10)>(_componentnumber*2);
     }
 
+    //Question Strings
     private String findAnswer(int _type) {
         String FindAnswer = "";
 
@@ -293,12 +308,6 @@ public class VectorQuestionGenerator {
             FindAnswer = "Find the angle Theta of the vector in polar form (r, theta)";
         }
         return FindAnswer;
-    }
-
-    //Borrowed from CalcQuestion - create static class with public random methods?
-    private int getRandomInt(int min,int max) {
-        Random RandomInteger = new Random();
-        return RandomInteger.nextInt((max - min) + 1) + min;
     }
 
     //Generate Questions
@@ -512,7 +521,9 @@ public class VectorQuestionGenerator {
         return RandomY;
     }
 
-    //Generate correct answers and random answers
+    //Generate Correct and Incorrect Random Answer Strings
+
+    //Generating Easy Questions/Answers
     private void generateEasyAnswerArray(int _type) {
         String TempAnswer = "";
         AnswerArrayIndex = getRandomInt(0, AnswerArraySize - 1);
@@ -620,7 +631,7 @@ public class VectorQuestionGenerator {
         return RandomAnswer;
     }
 
-    //generating medium questions
+    //Generating Medium Questions/Answers
     private void generateMediumAnswerArray(int _type) {
         String TempAnswer = "";
         AnswerArrayIndex = getRandomInt(0, AnswerArraySize - 1);
@@ -752,7 +763,8 @@ public class VectorQuestionGenerator {
         return Answer;
     }
 
-    private String generateMediumWrongAnswer(int _type) { //generate a random wrong answer with a similar form of a correct answer
+    private String generateMediumWrongAnswer(int _type) {
+        //generate a random wrong answer with a similar form of a correct answer
         //counter for # wrong components? check that it is at least 1
         String RandomAnswer = "";
         String ComponentA = "";
