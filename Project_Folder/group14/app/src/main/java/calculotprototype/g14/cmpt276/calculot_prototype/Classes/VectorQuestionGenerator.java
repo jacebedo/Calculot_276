@@ -300,7 +300,7 @@ public class VectorQuestionGenerator {
         return Operation;
     }
 
-    private int randomTrigOperation(int _nottrig) {
+    private int randomTrigOperation(int _nottrig) { //need to allow "correct" trig functions for random wrong answers
         int Random;
         int Operation = _nottrig;
 
@@ -562,7 +562,7 @@ public class VectorQuestionGenerator {
         }
         YComponent = String.valueOf(RandomY);
 
-        iYComponent = toComplex(iYComponent);
+        iYComponent = toComplex(YComponent);
 
         return RandomY;
     }
