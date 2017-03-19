@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import calculotprototype.g14.cmpt276.calculot_prototype.R;
+import calculotprototype.g14.cmpt276.calculot_prototype.VectorGame.VectorGameActivity;
 
 public class GameMenu extends AppCompatActivity {
 
@@ -30,8 +31,9 @@ public class GameMenu extends AppCompatActivity {
         goToTrigGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent initCalcGame = new Intent(GameMenu.this,GameDiff.class);
-                startActivity(initCalcGame);
+                Intent initVectorGame = new Intent(GameMenu.this,VectorGameActivity.class);
+                initVectorGame.putExtra("MediumLevel",1);
+                startActivity(initVectorGame);
             }
         });
     }

@@ -160,7 +160,7 @@ public class VectorQuestionGenerator {
     }
 
     private String applyPower(String _string, int _powernumerator, int _powerdenominator, boolean _reform, boolean _iswrong) {
-        //implement iswrong boolean to change power (use !decideComplexity on functioncall) use applyscalar to vary powers
+        //implement iswrong boolean to change power (use !decideComplexity on functioncall)
         int FractionNumerator = _powernumerator;
         int FractionDenominator = _powerdenominator;
         int RandomScalar = 1;
