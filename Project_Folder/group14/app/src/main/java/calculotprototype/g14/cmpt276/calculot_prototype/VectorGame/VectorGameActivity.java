@@ -1,5 +1,6 @@
 package calculotprototype.g14.cmpt276.calculot_prototype.VectorGame;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -10,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Vector;
+
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.CalcQuestion;
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.VectorQuestionGenerator;
 import calculotprototype.g14.cmpt276.calculot_prototype.R;
@@ -18,33 +21,82 @@ import calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameWinActivity
 
 public class VectorGameActivity extends AppCompatActivity {
 
+    Intent gameOver;
+
+    //Game Activity Data: Difficulty, Level, Shells, Points in Shell, Potential gain/loss, change in XP, timer
+    int Difficulty; //Choose Easy, Medium, or Hard
+    int EasyLevel;
+    int MediumLevel;
+    int HardLevel;
+
+    int GainedXP = 0;
+
+    VectorQuestionGenerator TheGenerator;
+
+    //Game Activity Data: Difficulty, Level, Shells, Points in Shell, Potential gain/loss, change in XP, timer
+
+    //Multiple Choice: Question, QuestionInfo, (2-5) Answer choices
+    LinearLayout MultipleChoice;
+    String[] AnswerArray;
+    int AnswerArraySize;
+    int AnswerArrayIndex;
+    String Question;
+    String QuestionInfo;
+
+    TextView addQuestion;
+    TextView addQuestionInfo;
+
+    // set toast for right/wrong answer
+    Toast wrongAnswer;
+    Toast rightAnswer;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vectorgame);
 
-        final Intent gameOver = new Intent(VectorGameActivity.this, GameOverActivity.class);
-        int MediumLevel = getIntent().getIntExtra("MediumLevel", 1);
+        gameOver = new Intent(VectorGameActivity.this, GameOverActivity.class);
+        MediumLevel = getIntent().getIntExtra("MediumLevel", 1);
 
-        final int GainedXP = 0; //-> non final
+        MultipleChoice = (LinearLayout) findViewById(R.id.vectorMultipleChoiceLayout);
+        wrongAnswer = Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT);
+        rightAnswer = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
 
-        // set toast for right/wrong answer
-        final Toast wrongAnswer = Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT);
-        final Toast rightAnswer = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
-
-        VectorQuestionGenerator TheGenerator = new VectorQuestionGenerator(1, 1, MediumLevel, 1);
+        TheGenerator = new VectorQuestionGenerator(1, 1, MediumLevel, 1);
         TheGenerator.generateQuestion();
+        startQuestion();
+    }
 
-        //Game Activity Data: Difficulty, Level, Shells, Points in Shell, Potential gain/loss, change in XP, timer
+    private void startTimer() {
+        // Set up countdown timer depending on difficulty
+        final CountDownTimer timer = new CountDownTimer(TheGenerator.getQuestionTime() * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
 
+            @Override
+            public void onFinish() {
+
+                //game over scenario
+                if (true)   //placeholder
+                {
+                    gameOver.putExtra("xp", GainedXP);
+                    this.cancel();
+                    startActivity(gameOver);
+                }
+            }
+        };
+    }
+
+    private void startQuestion() {
         //Multiple Choice: Question, QuestionInfo, (2-5) Answer choices
-            //turn into method
-        LinearLayout MultipleChoice = (LinearLayout) findViewById(R.id.vectorMultipleChoiceLayout);
-        String[] AnswerArray = TheGenerator.getAnswerArray();
-        int AnswerArraySize = TheGenerator.getAnswerArraySize();
-        int AnswerArrayIndex = TheGenerator.getAnswerArrayIndex();
-        String Question = TheGenerator.getQuestion();
-        String QuestionInfo = TheGenerator.getQuestionInfo();
+        //turn into method
+        AnswerArray = TheGenerator.getAnswerArray();
+        AnswerArraySize = TheGenerator.getAnswerArraySize();
+        AnswerArrayIndex = TheGenerator.getAnswerArrayIndex();
+        Question = TheGenerator.getQuestion();
+        QuestionInfo = TheGenerator.getQuestionInfo();
 
         TextView addQuestion = new TextView(this);
         TextView addQuestionInfo = new TextView(this);
@@ -87,24 +139,5 @@ public class VectorGameActivity extends AppCompatActivity {
 
             MultipleChoice.addView(addText);
         }
-
-        // Set up countdown timer depending on difficulty
-        final CountDownTimer timer = new CountDownTimer(15 * 1000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
-            @Override
-            public void onFinish() {
-
-                //game over scenario
-                if (true)   //placeholder
-                {
-                    gameOver.putExtra("xp", GainedXP);
-                    this.cancel();
-                    startActivity(gameOver);
-                }
-            }
-        };
     }
 }

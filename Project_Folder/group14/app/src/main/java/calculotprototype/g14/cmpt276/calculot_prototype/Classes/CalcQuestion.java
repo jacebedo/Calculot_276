@@ -99,10 +99,10 @@ public class CalcQuestion {
         int DiffClass;
         //Randomly choose position of correct answer
         randomCorrect = getRandomInt(1, 4);
-        DiffClass = getRandomInt(0, 3);
+        DiffClass = getRandomInt(0,2);
 
         // If the type of question is 0, make a polynomial type question
-        if (DiffClass == 0 || DiffClass == 3) {
+        if (DiffClass == 0) {
 
             if (difficulty == 1) {
                 // Difficulty = 1 ; 1 Term Question
@@ -600,9 +600,9 @@ public class CalcQuestion {
         int randomCorrect;
         int IntClass;
         randomCorrect = getRandomInt(1,4);
-        IntClass = getRandomInt(0,3);
+        IntClass = getRandomInt(0,2);
 
-        if (IntClass == 0 || IntClass == 3) {
+        if (IntClass == 0) {
             if (difficulty == 1) {
                 if (randomCorrect == 1) {
                     exponent = getRandomInt(1, 5);
@@ -1016,9 +1016,9 @@ public class CalcQuestion {
 
                     if (randomCorrect == 1) {
                         answer_1 = correct;
-                        answer_3 ="(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
+                        answer_4 ="(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
                         answer_2 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")sin(x)";
-                        answer_4 = Integer.toString(constant_1 * constant_2) + "sin(" + Integer.toString(constant_2)+ "x)";
+                        answer_3 = Integer.toString(constant_1 * constant_2) + "sin(" + Integer.toString(constant_2)+ "x)";
                         return;
                     } else if (randomCorrect == 2) {
                         answer_2 = correct;
