@@ -386,6 +386,8 @@ public class VectorQuestionGenerator {
 
         XComponent = Integer.toString(generateRandomX());
         YComponent = Integer.toString(generateRandomY());
+        setNormFromXY();
+        setThetaFromXY();
 
         if (RandomChoice == 0) {
             //find norm     given x and y
@@ -492,6 +494,8 @@ public class VectorQuestionGenerator {
 
         XComponent = Integer.toString(generateRandomX());
         YComponent = Integer.toString(generateRandomY());
+        setNormFromXY();
+        setThetaFromXY();
 
         //Ask Question
         Question = findAnswer(QuestionType);
@@ -561,6 +565,16 @@ public class VectorQuestionGenerator {
         iYComponent = toComplex(iYComponent);
 
         return RandomY;
+    }
+
+    private void setThetaFromXY() {
+        double Ratio = (double) Integer.parseInt(YComponent) / (double) Integer.parseInt(XComponent);
+        ThetaComponent = Integer.toString ( (int) Math.round( Math.toDegrees( Math.atan(Ratio) ) ) );
+    }
+
+    private void setNormFromXY() {
+        double NormSquared = Math.pow((double) Integer.parseInt(XComponent), 2) + Math.pow((double) Integer.parseInt(YComponent), 2);
+        NormComponent = Integer.toString ( (int) Math.round( Math.sqrt(NormSquared) ) );
     }
 
     //Generate Correct and Incorrect Random Answer Strings
