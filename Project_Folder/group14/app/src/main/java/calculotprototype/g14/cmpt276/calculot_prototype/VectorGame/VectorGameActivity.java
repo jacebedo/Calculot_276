@@ -28,19 +28,40 @@ public class VectorGameActivity extends AppCompatActivity {
 
         final int GainedXP = 0; //-> non final
 
+        // set toast for right/wrong answer
+        final Toast wrongAnswer = Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT);
+        final Toast rightAnswer = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
+
         VectorQuestionGenerator TheGenerator = new VectorQuestionGenerator(1, 1, MediumLevel, 1);
+        TheGenerator.generateQuestion();
 
         //Game Activity Data: Difficulty, Level, Shells, Points in Shell, Potential gain/loss, change in XP, timer
 
         //Multiple Choice: Question, QuestionInfo, (2-5) Answer choices
+            //turn into method
         LinearLayout MultipleChoice = (LinearLayout) findViewById(R.id.vectorMultipleChoiceLayout);
         String[] AnswerArray = TheGenerator.getAnswerArray();
         int AnswerArraySize = TheGenerator.getAnswerArraySize();
         int AnswerArrayIndex = TheGenerator.getAnswerArrayIndex();
+        String Question = TheGenerator.getQuestion();
+        String QuestionInfo = TheGenerator.getQuestionInfo();
+
+        TextView addQuestion = new TextView(this);
+        TextView addQuestionInfo = new TextView(this);
+
+        addQuestion.setText(Question);
+        addQuestionInfo.setText(QuestionInfo);
+
+        addQuestion.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        addQuestionInfo.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        MultipleChoice.addView(addQuestion);
+        MultipleChoice.addView(addQuestionInfo);
 
         for (int i = 0; i < AnswerArraySize; i++) {
             //need to set onclick listeners for correct/incorrect answers
             TextView addText = new TextView(this);  //scope of addText is within this for loop
+            addText.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             addText.setText(AnswerArray[i]);
 
             if (i == AnswerArrayIndex) {
@@ -49,6 +70,7 @@ public class VectorGameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //implement
+                        rightAnswer.show();
                     }
                 });
             }
@@ -58,6 +80,7 @@ public class VectorGameActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //implement
+                        wrongAnswer.show();
                     }
                 });
             }
@@ -65,8 +88,6 @@ public class VectorGameActivity extends AppCompatActivity {
             MultipleChoice.addView(addText);
         }
 
-        // set toast for taking damage
-        final Toast wrongAnswer = Toast.makeText(getApplicationContext(), "Incorrect!", Toast.LENGTH_SHORT);
         // Set up countdown timer depending on difficulty
         final CountDownTimer timer = new CountDownTimer(15 * 1000, 1000) {
             @Override
@@ -85,6 +106,5 @@ public class VectorGameActivity extends AppCompatActivity {
                 }
             }
         };
-
     }
 }

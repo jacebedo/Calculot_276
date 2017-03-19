@@ -3,6 +3,9 @@ package calculotprototype.g14.cmpt276.calculot_prototype.Classes;
 import java.util.Arrays;
 import java.util.Random;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 //kza21
 public class VectorQuestionGenerator {
     //random question generator for the Crystal Ball Game
@@ -95,7 +98,7 @@ public class VectorQuestionGenerator {
         MediumLevel = _mediumlevel;
         HardLevel = _hardlevel;
 
-        generateQuestion(); //generate the first question
+        //generateQuestion(); //generate the first question automatically?
     }
 
     //Private Methods
@@ -347,25 +350,28 @@ public class VectorQuestionGenerator {
     }
 
     //Generate Questions
-    private void generateQuestion() {
+    public void generateQuestion() {
 
         if (Topic == 0) {
             ScoreMultiplier = 1 + (EasyLevel)/20;
 
-            AnswerArraySize = Math.max(getRandomInt(2, EasyLevel),5);
+            AnswerArraySize = min(getRandomInt(2, max(EasyLevel,2)),6);
+            AnswerArray = new String[AnswerArraySize];
             generateEasyQuestion();
         }
         else if (Topic == 1) {
             ScoreMultiplier = 1.5 + (MediumLevel)/10;
 
-            AnswerArraySize = Math.max(getRandomInt(2, MediumLevel),5);
+            AnswerArraySize = 6;//min(getRandomInt(2, max(MediumLevel,2)),6);
+            AnswerArray = new String[AnswerArraySize];
             generateMediumQuestion();
         }
         else {  //Topic == 2
             ScoreMultiplier = 2 + (HardLevel)/5;
 
-            AnswerArraySize = Math.max(getRandomInt(2, HardLevel),5);
-            generateHardQuestion();
+            AnswerArraySize = min(getRandomInt(2, max(HardLevel,2)),6);
+            AnswerArray = new String[AnswerArraySize];
+            //generateHardQuestion();
         }
     }
 
