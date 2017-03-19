@@ -56,7 +56,7 @@ public class LearnActivity extends YouTubeBaseActivity {
                             if (q31.getText().toString().equals("A"))
                                 if (q41.getText().toString().equals("f(x)+g(x)"))
                                     if (q51.getText().toString().equals("lna"))
-                                        if(q61.getText().toString().equals("e^x")){
+                                        if(q61.getText().toString().equals("e")){
                                             dif.setTextColor(Color.GREEN);
                                             btn.setText("Back to profile");
                                         }
