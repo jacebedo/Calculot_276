@@ -852,6 +852,195 @@ public class CalcQuestion {
             }
         } else {
             // Trigonometry
+            int TrigBase = getRandomInt(0,1);
+            if (TrigBase == 0) {
+                if (difficulty == 1) {
+                    question = "Integrate: \n" + "sin(x)";
+                    correct = "-cos(x)";
+
+                    if (randomCorrect == 1) {
+                        answer_1 = correct;
+                        answer_2 = "cos(x)";
+                        answer_3 = "-sin(x)";
+                        answer_4 = "sin(x)";
+                        return;
+                    } else if (randomCorrect == 2) {
+                        answer_2 = correct;
+                        answer_3 = "cos(x)";
+                        answer_1 = "-sin(x)";
+                        answer_4 = "sin(x)";
+                        return;
+                    } else if (randomCorrect == 3) {
+                        answer_3 = correct;
+                        answer_4 = "cos(x)";
+                        answer_1 = "-sin(x)";
+                        answer_2 = "sin(x)";
+                        return;
+                    } else {
+                        answer_4 = correct;
+                        answer_2 = "cos(x)";
+                        answer_1 = "-sin(x)";
+                        answer_3 = "sin(x)";
+                        return;
+                    }
+                } else if (difficulty == 2) {
+                    String s_constant = Integer.toString(getRandomInt(2,5));
+                    question = "Integrate: \n" + s_constant + "sin(x)";
+                    correct = "-" + s_constant + "cos(x)";
+
+                    if (randomCorrect == 1) {
+                        answer_1 = correct;
+                        answer_3 = s_constant + "cos(x)";
+                        answer_4 = "-" + s_constant + "sin(x)";
+                        answer_2 = s_constant + "sin(x)";
+                        return;
+                    } else if (randomCorrect == 2) {
+                        answer_2 = correct;
+                        answer_3 = s_constant + "cos(x)";
+                        answer_1 = "-" + s_constant + "sin(x)";
+                        answer_4 = s_constant + "sin(x)";
+                        return;
+                    } else if (randomCorrect == 3) {
+                        answer_3 = correct;
+                        answer_4 = s_constant + "cos(x)";
+                        answer_2 = "-" + s_constant + "sin(x)";
+                        answer_1 = s_constant + "sin(x)";
+                        return;
+                    } else {
+                        answer_4 = correct;
+                        answer_3 = s_constant + "cos(x)";
+                        answer_1 = "-" + s_constant + "sin(x)";
+                        answer_2 = s_constant + "sin(x)";
+                        return;
+                    }
+                } else {
+                    int constant_1 = getRandomInt(2,5);
+                    int constant_2 = getRandomInt(2,6);
+
+                    question = "Integrate: \n" + Integer.toString(constant_1) + "sin(" + Integer.toString(constant_2) + "x)";
+                    correct = "(-" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
+
+                    if (randomCorrect == 1) {
+                        answer_1 = correct;
+                        answer_3 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
+                        answer_2 = "(-" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(x)";
+                        answer_4 = "-" + Integer.toString(constant_1 * constant_2) + "cos(" + Integer.toString(constant_2)+ "x)";
+                        return;
+                    } else if (randomCorrect == 2) {
+                        answer_2 = correct;
+                        answer_4 = Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
+                        answer_1 = "(-" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(x)";
+                        answer_3 = "-" + Integer.toString(constant_1 * constant_2) + "cos(" + Integer.toString(constant_2)+ "x)";
+                        return;
+                    } else if (randomCorrect == 3) {
+                        answer_3 = correct;
+                        answer_1 = Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
+                        answer_2 = "(-" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(x)";
+                        answer_4 = "-" + Integer.toString(constant_1 * constant_2) + "cos(" + Integer.toString(constant_2)+ "x)";
+                        return;
+                    } else {
+                        answer_4 = correct;
+                        answer_3 = Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
+                        answer_1 = "(-" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(x)";
+                        answer_2 = "-" + Integer.toString(constant_1 * constant_2) + "cos(" + Integer.toString(constant_2)+ "x)";
+                        return;
+                    }
+                }
+            } else {
+                // Cosine base
+                if (difficulty == 1) {
+                    question = "Integrate: \n" + "cos(x)";
+                    correct = "sin(x)";
+
+                    if (randomCorrect == 1) {
+                        answer_1 = correct;
+                        answer_2 = "-cos(x)";
+                        answer_3 = "-sin(x)";
+                        answer_4 = "cos(x)";
+                        return;
+                    } else if (randomCorrect == 2) {
+                        answer_2 = correct;
+                        answer_3 = "-cos(x)";
+                        answer_1 = "-sin(x)";
+                        answer_4 = "cos(x)";
+                        return;
+                    } else if (randomCorrect == 3) {
+                        answer_3 = correct;
+                        answer_1 = "-cos(x)";
+                        answer_4 = "-sin(x)";
+                        answer_2 = "cos(x)";
+                        return;
+                    } else {
+                        answer_4 = correct;
+                        answer_1 = "-cos(x)";
+                        answer_2 = "-sin(x)";
+                        answer_3 = "cos(x)";
+                        return;
+                    }
+                } else if (difficulty == 2) {
+                    String s_constant = Integer.toString(getRandomInt(2,5));
+                    question = "Integrate: \n" + s_constant + "cos(x)";
+                    correct = s_constant + "sin(x)";
+
+                    if (randomCorrect == 1) {
+                        answer_1 = correct;
+                        answer_4 = "-" + s_constant + "cos(x)";
+                        answer_2 = "-" + s_constant + "sin(x)";
+                        answer_3 = s_constant + "cos(x)";
+                        return;
+                    } else if (randomCorrect == 2) {
+                        answer_2 = correct;
+                        answer_1 = "-" + s_constant + "cos(x)";
+                        answer_4 = "-" + s_constant + "sin(x)";
+                        answer_3 = s_constant + "cos(x)";
+                        return;
+                    } else if (randomCorrect == 3) {
+                        answer_3 = correct;
+                        answer_4 = "-" + s_constant + "cos(x)";
+                        answer_1 = "-" + s_constant + "sin(x)";
+                        answer_2 = s_constant + "cos(x)";
+                        return;
+                    } else {
+                        answer_4 = correct;
+                        answer_1 = "-" + s_constant + "cos(x)";
+                        answer_3 = "-" + s_constant + "sin(x)";
+                        answer_2 = s_constant + "cos(x)";
+                        return;
+                    }
+                } else {
+                    int constant_1 = getRandomInt(2,5);
+                    int constant_2 = getRandomInt(2,6);
+
+                    question = "Integrate: \n" + Integer.toString(constant_1) + "cos(" + Integer.toString(constant_2) + "x)";
+                    correct = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")sin(" + Integer.toString(constant_2) + "x)";
+
+                    if (randomCorrect == 1) {
+                        answer_1 = correct;
+                        answer_3 ="(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
+                        answer_2 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")sin(x)";
+                        answer_4 = Integer.toString(constant_1 * constant_2) + "sin(" + Integer.toString(constant_2)+ "x)";
+                        return;
+                    } else if (randomCorrect == 2) {
+                        answer_2 = correct;
+                        answer_4 = Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
+                        answer_1 = "(-" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(x)";
+                        answer_3 = "-" + Integer.toString(constant_1 * constant_2) + "cos(" + Integer.toString(constant_2)+ "x)";
+                        return;
+                    } else if (randomCorrect == 3) {
+                        answer_3 = correct;
+                        answer_1 = Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
+                        answer_2 = "(-" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(x)";
+                        answer_4 = "-" + Integer.toString(constant_1 * constant_2) + "cos(" + Integer.toString(constant_2)+ "x)";
+                        return;
+                    } else {
+                        answer_4 = correct;
+                        answer_3 = Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
+                        answer_1 = "(-" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(x)";
+                        answer_2 = "-" + Integer.toString(constant_1 * constant_2) + "cos(" + Integer.toString(constant_2)+ "x)";
+                        return;
+                    }
+                }
+            }
         }
     }
 
