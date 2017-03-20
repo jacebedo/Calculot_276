@@ -42,3 +42,16 @@ Work completed:
     - Implemented Learn Activities for 2 topics
     - Implemented Randomness factor for the questions
 
+=======================================
+
+Name: Kenneth Zheng
+Student ID: kza21
+Student number: 301289036
+
+Team role in Sprint 2: Repository Manager, Team member
+
+-   Performed the initial push of the project
+-   Implemented ClockVector.java, CrystalBall.java, QuestionVector.java classes in preparation for the final sprint
+-   Implemented all of VectorQuestionGenerator.java class used to generate the possible answers for VectorGameActivity.java 
+        with the exception of the method “getRandomInt,” which was borrowed from JP’s CalcQuestion.java
+-   Implemented VectorGameActivity.java as well as linking it to/from the other activities GameMenu.java and GameOverActivity.java
