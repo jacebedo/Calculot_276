@@ -11,9 +11,12 @@ import android.widget.TextView;
 import calculotprototype.g14.cmpt276.calculot_prototype.Databases.UserDatabaseHelper;
 import calculotprototype.g14.cmpt276.calculot_prototype.MainMenu;
 import calculotprototype.g14.cmpt276.calculot_prototype.R;
+import calculotprototype.g14.cmpt276.calculot_prototype.VectorGame.VectorGameActivity;
 import calculotprototype.g14.cmpt276.calculot_prototype.WhatToDo;
 
 public class GameOverActivity extends AppCompatActivity {
+
+    int GameType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +24,7 @@ public class GameOverActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_over);
 
         int xpgained = getIntent().getIntExtra("xp",0);
+        GameType = getIntent().getIntExtra("game",0);   //default is 0 -> gamediff, 1 -> vectorgameactivity
         xpgained = xpgained / 2;
 
         TextView XPField = (TextView)findViewById(R.id.gameOverXP);
@@ -39,7 +43,7 @@ public class GameOverActivity extends AppCompatActivity {
         tryAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToGameDiff();
+                goToGame();
             }
         });
 
@@ -64,8 +68,11 @@ public class GameOverActivity extends AppCompatActivity {
         startActivity(initMainMenu);
     }
 
-    private void goToGameDiff() {
-        Intent initGameDiff = new Intent(GameOverActivity.this,GameDiff.class);
-        startActivity(initGameDiff);
+    private void goToGame() {
+        Intent initGame;
+        if (GameType==0)
+            initGame = new Intent(GameOverActivity.this,GameDiff.class);
+        else initGame = new Intent(GameOverActivity.this,VectorGameActivity.class);
+        startActivity(initGame);
     }
 }

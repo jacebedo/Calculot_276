@@ -31,10 +31,26 @@ public class VectorQuestionGenerator {
     //fields
     /*(User sees Topic as the difficulty setting)
     0 Easy - only vectors/complex #s using pythagorean theorem,
+        current cases:
+            see Medium cases 0, 2, 4
 
     1 Medium - find a component of a vector or the real/imaginary part of the complex # which describes the question vector,
+        current cases:
+            0 - find radius/norm/modulus        given Re/x, Im/y
+            1 - find theta                      given Re/x, Im/y
+            2 - find Im/y                       given modulus/norm, Re/x
+            3 - find theta                      given modulus/norm, Re/x
+            4 - find Re/x                       given modulus/norm, Im/y
+            5 - find theta                      given modulus/norm, Im/y
+            6 - find Re/x                       given theta, radius
+            7 - find Im/y                       given theta, radius
+            8 - find radius/norm/modulus        given theta, Im/y
+            9 - find Re/x                       given theta, Im/y
+            10 - find radius/norm/modulus       given theta, Re/x
+            11 - find Im/y                      given theta, Re/x
 
     2 Hard - find the vector v=(x,y) which matches the question vector -> user needs to find both x,y components of the vector or the x+iy parts of a complex #
+    To be implemented in sprint 3 -> note: for most questions at least one of the required components is given
         Phase A may have both components generated from the Easy section
         Phase B may have one component from the Easy section and the other from the Medium section
         Phase C may be either a more complex Phase 2 question or have both components from the Medium section
@@ -54,6 +70,7 @@ public class VectorQuestionGenerator {
     int EasyLevel;
     int MediumLevel;
     int HardLevel;
+    int MaxShells;      //Max shells of Crystal Ball depends on difficulty and level
 
     //Drawing Coordinates
     int HalfWidth = 250;    //set as the x origin of the grid
@@ -71,8 +88,8 @@ public class VectorQuestionGenerator {
     String Question;
     String QuestionInfo;
     String[] AnswerArray;
-    int AnswerArrayIndex;   //Which one is the right answer?
-    int AnswerArraySize;    //# of choices changes depending on difficulty?
+    int AnswerArrayIndex;   //Index of the correct answer in the array
+    int AnswerArraySize;    //Number of choices depends on difficulty
     int QuestionTime;   //in seconds
 
     //Question/Answer Form
@@ -89,7 +106,7 @@ public class VectorQuestionGenerator {
     String NormComponent;
 
     //My Children
-    CrystalBall crystalBall = new CrystalBall(4);   //max shell level currently 4
+    CrystalBall crystalBall;
     QuestionVector questionVector;
     ClockVector clockVector;
 
@@ -360,6 +377,9 @@ public class VectorQuestionGenerator {
             AnswerArraySize = min(getRandomInt(2, max(EasyLevel,2)),6);
             AnswerArray = new String[AnswerArraySize];
             QuestionTime = 10; //+ Math.round( 5 / Math.max( EasyLevel , 1));
+            MaxShells = 3 + min(EasyLevel, 2);
+
+            crystalBall = new CrystalBall(MaxShells);
             generateEasyQuestion();
         }
         else if (Topic == 1) {
@@ -368,6 +388,9 @@ public class VectorQuestionGenerator {
             AnswerArraySize = 6;//min(getRandomInt(2, max(MediumLevel,2)),6);
             AnswerArray = new String[AnswerArraySize];
             QuestionTime = 15;
+
+            MaxShells = 2 + min(MediumLevel, 3);
+            crystalBall = new CrystalBall(MaxShells);
             generateMediumQuestion();
         }
         else {  //Topic == 2
@@ -376,6 +399,9 @@ public class VectorQuestionGenerator {
             AnswerArraySize = min(getRandomInt(2, max(HardLevel,2)),6);
             AnswerArray = new String[AnswerArraySize];
             QuestionTime = 20;
+
+            MaxShells = 2 + min(HardLevel, 4);
+            crystalBall = new CrystalBall(MaxShells);
             //generateHardQuestion();
         }
     }

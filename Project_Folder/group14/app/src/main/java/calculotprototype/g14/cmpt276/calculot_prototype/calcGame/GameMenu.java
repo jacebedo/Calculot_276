@@ -32,7 +32,10 @@ public class GameMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent initVectorGame = new Intent(GameMenu.this,VectorGameActivity.class);
+                initVectorGame.putExtra("Difficulty",1);    //Medium
+                initVectorGame.putExtra("EasyLevel",1);
                 initVectorGame.putExtra("MediumLevel",1);
+                initVectorGame.putExtra("HardLevel",1);
                 startActivity(initVectorGame);
             }
         });
