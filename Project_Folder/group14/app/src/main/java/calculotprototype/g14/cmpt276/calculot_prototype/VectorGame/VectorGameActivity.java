@@ -161,6 +161,7 @@ public class VectorGameActivity extends AppCompatActivity {
         gameOver.putExtra("xp", TotalGain*2);   //since gameoveractivity divides XP by 2
         gameOver.putExtra("game", 1);
         Timer.cancel();
+        finish();   //pop this activity off the stack
         startActivity(gameOver);
     }
 
@@ -237,5 +238,11 @@ public class VectorGameActivity extends AppCompatActivity {
         }
 
         startTimer();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //finish activities to avoid large stack of activities?
+        finish();   //this in turn calls goToGameOver() which cancels the timer
     }
 }
