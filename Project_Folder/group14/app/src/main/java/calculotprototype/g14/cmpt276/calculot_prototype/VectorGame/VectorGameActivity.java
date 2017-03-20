@@ -29,8 +29,6 @@ public class VectorGameActivity extends AppCompatActivity {
     int MediumLevel;
     int HardLevel;
 
-    int GainedXP = 0;
-
     VectorQuestionGenerator TheGenerator;
 
     //Multiple Choice: Question, QuestionInfo, (2-5) Answer choices
@@ -51,10 +49,16 @@ public class VectorGameActivity extends AppCompatActivity {
     TextView TextTimer;
     int TextTime = 0;       //the time left for the current question vector
     int QuestionTime;   //the time for each question at that particular level
+    TextView TextLevel; //the level textview
+    int Level;
 
     // set toast for right/wrong answer
     Toast wrongAnswer;
     Toast rightAnswer;
+
+    //Question points
+    int TotalGain = 0;  //XP
+    int PotentialGain;  //from XP -> shell points in final sprint
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,49 +75,87 @@ public class VectorGameActivity extends AppCompatActivity {
         MultipleChoice = (LinearLayout) findViewById(R.id.vectorMultipleChoiceLayout);
         GameInfo = (LinearLayout) findViewById(R.id.vectorGameInfoLayout);
 
-        //Textview for timer
-        TextTimer = new TextView(this);
-        TextTimer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        //TextTimer.setText("Time Left: "+String.valueOf(TextTime));
-
-        GameInfo.addView(TextTimer);
 
         wrongAnswer = Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT);
         rightAnswer = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
 
         TheGenerator = new VectorQuestionGenerator(Difficulty, EasyLevel, MediumLevel, HardLevel);
-        TheGenerator.generateQuestion();
+
+        //TextView for Level
+        TextLevel = new TextView(this);
+        TextLevel.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        Level = getLevel();
+
+        TextLevel.setText("Level: "+String.valueOf(Level));
+        GameInfo.addView(TextLevel);
+
+        //Textview for timer
+        TextTimer = new TextView(this);
+        TextTimer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        //TextTimer.setText("Time Left: "+String.valueOf(TextTime));
+        GameInfo.addView(TextTimer);
+
         startQuestion();
+    }
+
+    private int getLevel() {
+        if (Difficulty == 0)
+            return EasyLevel;
+        else if (Difficulty == 1)
+            return MediumLevel;
+        else return HardLevel;
+    }
+
+    private void changeLevel(int _changelevel) {
+        if (Difficulty == 0) {
+            EasyLevel = _changelevel;
+            TheGenerator.setEasyLevel(EasyLevel);
+        }
+        else if (Difficulty == 1) {
+            MediumLevel = _changelevel;
+            TheGenerator.setMediumLevel(MediumLevel);
+        }
+        else {
+            HardLevel = _changelevel;
+            TheGenerator.setHardLevel(HardLevel);
+        }
     }
 
     private void startTimer() {
         // Set up countdown timer depending on difficulty
         TextTime = QuestionTime;
         TextTimer.setText("Time Left: "+String.valueOf(TextTime));
+
+        //temporary
+        PotentialGain = TextTime * 10;
         Timer = new CountDownTimer(QuestionTime * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 TextTime--;
                 TextTimer.setText("Test Time Left: "+String.valueOf(TextTime));
+
+                //temporary;
+                PotentialGain = TextTime * 10;
             }
 
             @Override
             public void onFinish() {
-
                 //game over scenario
-                if (true)   //placeholder
-                {
-                    gameOver.putExtra("xp", GainedXP);
-                    gameOver.putExtra("game", 1);
-                    this.cancel();
-                    startActivity(gameOver);
-                }
+                goToGameOver();
             }
         };
         Timer.start();
     }
 
+    private void goToGameOver() {
+        gameOver.putExtra("xp", TotalGain);
+        gameOver.putExtra("game", 1);
+        Timer.cancel();
+        startActivity(gameOver);
+    }
+
     private void startQuestion() {
+        TheGenerator.generateQuestion();
         //Multiple Choice: Question, QuestionInfo, (2-7) Answer choices depending on difficulty
         AnswerArray = TheGenerator.getAnswerArray();
         AnswerArraySize = TheGenerator.getAnswerArraySize();
@@ -148,6 +190,14 @@ public class VectorGameActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         //implement
                         rightAnswer.show();
+
+                        Timer.cancel();
+                        if((MultipleChoice).getChildCount() > 0)
+                            (MultipleChoice).removeAllViews();
+
+                        TotalGain += PotentialGain;
+                        changeLevel( getLevel() + 1 );  //increment level by 1
+                        startQuestion();
                     }
                 });
             }
@@ -158,6 +208,12 @@ public class VectorGameActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         //implement
                         wrongAnswer.show();
+
+                        Timer.cancel();
+                        if((MultipleChoice).getChildCount() > 0)
+                            (MultipleChoice).removeAllViews();
+
+                        goToGameOver();
                     }
                 });
             }

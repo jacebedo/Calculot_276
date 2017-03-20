@@ -387,7 +387,7 @@ public class VectorQuestionGenerator {
 
             AnswerArraySize = 6;//min(getRandomInt(2, max(MediumLevel,2)),6);
             AnswerArray = new String[AnswerArraySize];
-            QuestionTime = 15;
+            QuestionTime = 15+10;   //more time to test
 
             MaxShells = 2 + min(MediumLevel, 3);
             crystalBall = new CrystalBall(MaxShells);
@@ -1002,5 +1002,17 @@ public class VectorQuestionGenerator {
 
     public int getQuestionTime() {
         return QuestionTime;
+    }
+
+    public void setEasyLevel(int _easylevel) {
+        EasyLevel = _easylevel;
+    }
+
+    public void setMediumLevel(int _mediumlevel) {
+        MediumLevel = _mediumlevel;
+    }
+
+    public void setHardLevel(int _hardlevel) {
+        HardLevel = _hardlevel;
     }
 }

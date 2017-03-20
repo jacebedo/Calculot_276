@@ -8,13 +8,13 @@
     tools:context="calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameActivity">
 
     <LinearLayout
+        android:id="@+id/vectorGameInfoLayout"
         android:layout_width="match_parent"
         android:layout_height="34dp"
-        android:layout_marginBottom="172dp"
-        android:orientation="vertical"
-        android:id="@+id/vectorGameInfoLayout"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"></LinearLayout>
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="172dp"
+        android:orientation="vertical"></LinearLayout>
 
     <RelativeLayout
         android:id="@+id/crystalBallLayout"
