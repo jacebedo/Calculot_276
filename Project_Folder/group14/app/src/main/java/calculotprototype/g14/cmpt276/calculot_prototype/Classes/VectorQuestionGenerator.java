@@ -110,6 +110,9 @@ public class VectorQuestionGenerator {
     QuestionVector questionVector;
     ClockVector clockVector;
 
+    //Utility Variables
+    int WrongComponents = 0;    //number of wrong components -> random wrong answers must have this value greater than zero
+
     //Constructor
     public VectorQuestionGenerator(int _difficulty, int _easylevel, int _mediumlevel, int _hardlevel) {
         Topic = _difficulty;
@@ -187,7 +190,16 @@ public class VectorQuestionGenerator {
         int FractionDenominator = _powerdenominator;
         int RandomScalar = 1;
 
-        if (_iswrong) {
+        boolean Alter = false;
+        if (_iswrong && WrongComponents<=(2-Topic))    //if we are looking for a wrong answer and
+            // if the number of wrong components is <= (2-Difficulty) then we may decide to change alter the fraction so that the answer is incorrect
+                //2-Difficulty/Topic means # wrong component threshold is 0 for hard, 1 for Medium and 2 for Easy -> threshold being the maximum point where we are still open to altering the fraction
+                //too many alterations and the randomly generated question is way off and too easy to eliminate
+            //We may vary the number of wrongcomponents based on the level instead of Difficulty/Topic
+            Alter = generateRandomBoolean();
+
+        if (Alter) {
+            WrongComponents++;
             //change the value of the fraction
             int TempRandom = getRandomInt(0,3);
             int TempStore;
@@ -306,7 +318,11 @@ public class VectorQuestionGenerator {
         int Random;
         char Operation = _notchar;
 
-        while (Operation == _notchar) {
+        boolean CantBe = false;
+        if (WrongComponents==0)
+            CantBe = true;      //if no components are wrong then we must change the components by choosing a different char operation than _notchar otherwise choose a random one
+
+        do {
             Random = getRandomInt(0,3);
             if (Random == 0)
                 Operation = '+';
@@ -315,7 +331,10 @@ public class VectorQuestionGenerator {
             else if (Random == 2)
                 Operation = '*';
             else Operation = '/';   //Random == 3
-        }
+        } while (Operation == _notchar && CantBe);
+
+        if (Operation != _notchar)  //if we choose a different char operation then the answer is guaranteed to be wrong
+            WrongComponents++;
         return Operation;
     }
 
@@ -323,11 +342,18 @@ public class VectorQuestionGenerator {
         int Random;
         int Operation = _nottrig;
 
-        while (Operation == _nottrig) {
+        boolean CantBe = false;
+        if (WrongComponents==0)
+            CantBe = true;      //if no components are wrong then we must change the components by choosing a different char operation than _notchar otherwise choose a random one
+
+        do {
             Operation = getRandomInt(0,2);
             if (generateRandomBoolean())
                 Operation += 10;
-        }
+        } while (Operation == _nottrig && CantBe);
+
+        if (Operation != _nottrig)  //if we choose a different char operation then the answer is guaranteed to be wrong
+            WrongComponents++;
         return Operation;
     }
 
@@ -681,6 +707,7 @@ public class VectorQuestionGenerator {
         String ComponentA = "";
         String ComponentB = "";
         int RandomForm;
+        WrongComponents = 0;
 
         if (_type == 0) {   // need some more randomization of answers -> perhaps vary powers
 
@@ -864,6 +891,7 @@ public class VectorQuestionGenerator {
         String ComponentA = "";
         String ComponentB = "";
         int RandomForm;
+        WrongComponents = 0;
 
         if (_type == 0) {   //actually an EasyQuestion
             //given x, y    find Norm
