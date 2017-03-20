@@ -1,23 +1,18 @@
 package calculotprototype.g14.cmpt276.calculot_prototype.VectorGame;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Vector;
 
-import calculotprototype.g14.cmpt276.calculot_prototype.Classes.CalcQuestion;
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.VectorQuestionGenerator;
 import calculotprototype.g14.cmpt276.calculot_prototype.R;
 import calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameOverActivity;
-import calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameWinActivity;
 
 public class VectorGameActivity extends AppCompatActivity {
 
@@ -58,6 +53,7 @@ public class VectorGameActivity extends AppCompatActivity {
 
     //Question points
     int TotalGain = 0;  //XP
+    TextView TextTotalGain;
     int PotentialGain;  //from XP -> shell points in final sprint
 
     @Override
@@ -85,14 +81,25 @@ public class VectorGameActivity extends AppCompatActivity {
         TextLevel = new TextView(this);
         TextLevel.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         Level = getLevel();
-
         TextLevel.setText("Level: "+String.valueOf(Level));
+        TextLevel.setTextColor(getResources().getColor(R.color.colorPrimary));
+
         GameInfo.addView(TextLevel);
+
+        //TextView for total XP gain
+        TextTotalGain = new TextView(this);
+        TextTotalGain.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        TextTotalGain.setText("Total XP gained: "+String.valueOf(TotalGain));
+        TextTotalGain.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+        GameInfo.addView(TextTotalGain);
 
         //Textview for timer
         TextTimer = new TextView(this);
         TextTimer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         //TextTimer.setText("Time Left: "+String.valueOf(TextTime));
+        TextTimer.setTextColor(getResources().getColor(R.color.colorAccent));
+
         GameInfo.addView(TextTimer);
 
         startQuestion();
@@ -151,7 +158,7 @@ public class VectorGameActivity extends AppCompatActivity {
     }
 
     private void goToGameOver() {
-        gameOver.putExtra("xp", TotalGain);
+        gameOver.putExtra("xp", TotalGain*2);   //since gameoveractivity divides XP by 2
         gameOver.putExtra("game", 1);
         Timer.cancel();
         startActivity(gameOver);
@@ -177,6 +184,9 @@ public class VectorGameActivity extends AppCompatActivity {
         addQuestion.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         addQuestionInfo.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
+        addQuestion.setTextColor(getResources().getColor(R.color.colorGreen));
+        addQuestionInfo.setTextColor(getResources().getColor(R.color.colorGreen));
+
         MultipleChoice.addView(addQuestion);
         MultipleChoice.addView(addQuestionInfo);
 
@@ -199,6 +209,8 @@ public class VectorGameActivity extends AppCompatActivity {
                             (MultipleChoice).removeAllViews();
 
                         TotalGain += PotentialGain;
+
+                        TextTotalGain.setText("Total XP gained: "+String.valueOf(TotalGain));
                         changeLevel( getLevel() + 1 );  //increment level by 1
                         startQuestion();
                     }
