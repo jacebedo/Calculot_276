@@ -244,7 +244,6 @@ public class VectorGameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //finish activities to avoid large stack of activities?
-        finish();
         goToGameOver(); //call goToGameOver() which cancels the timer
     }
 }
