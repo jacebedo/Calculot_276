@@ -143,7 +143,7 @@ public class VectorGameActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 TextTime--;
-                TextTimer.setText("Test Time Left: "+String.valueOf(TextTime));
+                TextTimer.setText("Time Left: "+String.valueOf(TextTime));
 
                 //temporary;
                 PotentialGain = TextTime * 10;

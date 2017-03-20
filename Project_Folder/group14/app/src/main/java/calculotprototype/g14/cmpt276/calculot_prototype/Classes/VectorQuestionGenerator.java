@@ -333,6 +333,9 @@ public class VectorQuestionGenerator {
             else Operation = '/';   //Random == 3
         } while (Operation == _notchar && CantBe);
 
+        if (WrongComponents>0 && CantBe == false && getRandomInt(1,min (getLevel()+1, 6))>3)    //as the level progresses user knows what operations apply to which questions given certain components
+            Operation = _notchar;   //so we can simply duplicate more of the right answer operations
+
         if (Operation != _notchar)  //if we choose a different char operation then the answer is guaranteed to be wrong
             WrongComponents++;
         return Operation;
@@ -352,6 +355,9 @@ public class VectorQuestionGenerator {
                 Operation += 10;
         } while (Operation == _nottrig && CantBe);
 
+        if (WrongComponents>0 && CantBe == false && getRandomInt(1,min (getLevel()+1, 6))>3)    //as the level progresses user knows what trig functions apply to which questions given certain components
+            Operation = _nottrig;   //so we can simply duplicate more of the right answer trig
+
         if (Operation != _nottrig)  //if we choose a different char operation then the answer is guaranteed to be wrong
             WrongComponents++;
         return Operation;
@@ -361,6 +367,14 @@ public class VectorQuestionGenerator {
         //level may be easylevel, mediumlevel, or hardlevel
         // componentnumber-1 represents the amount of changes we have already applied
         return getRandomInt( (int)(_level*0.5) , _level+10)>(_componentnumber*2);
+    }
+
+    private int getLevel() {
+        if (Topic == 0)
+            return EasyLevel;
+        else if (Topic == 1)
+            return MediumLevel;
+        else return HardLevel;
     }
 
     //Question Strings
@@ -411,7 +425,7 @@ public class VectorQuestionGenerator {
         else if (Topic == 1) {
             ScoreMultiplier = 1.5 + (MediumLevel)/10;
 
-            AnswerArraySize = 6;//min(getRandomInt(2, max(MediumLevel,2)),6);
+            AnswerArraySize = 6+min(MediumLevel,1+2)-1;//min(getRandomInt(2, max(MediumLevel,2)),6); choices currently between 6-8
             AnswerArray = new String[AnswerArraySize];
             QuestionTime = 45-min(MediumLevel,10)+1;   //more time to test depending on level (currently 45-35 seconds)
 
