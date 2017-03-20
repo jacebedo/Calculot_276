@@ -1,7 +1,7 @@
 Name: Jean Pierre Acebedo
 Student ID: jacebedo
 Student number: 301284530
-=======================================
+
 Team role in iteration 1: Scrum Master, Team member
 Tasks: 
 - Kept track of project backlog until group branched off into different tasks
@@ -11,3 +11,20 @@ Tasks:
 - Implemented most of CalcQuestion.java - The interface used for "Defense of Calculot"
 	- The Randomness factor for the questions was implemented by Levent Kylych
 - Implemented all of GameActivity.class, GameDiff.Class and GameMenu.class
+
+=======================================
+
+Name: Ryan Peterson
+Student ID: repeters
+Student number: 301279616
+
+Team role in iteration 1: Team member
+Assigned work: UI design and implementation
+    - With Levent Kylych
+    - Mostly worked on the UI and getting the UI to work properly with the back end of the project
+Work completed:
+    - Most of UI design and implementation for things before the game and learn activities
+    - Implemented all or most of MainActivity, MainMenu, Login, AddUser, ConfirmPassword, and Profile classes, and accompanying xml layout files
+Not delivered:
+    - Achievements section in profile page
+
