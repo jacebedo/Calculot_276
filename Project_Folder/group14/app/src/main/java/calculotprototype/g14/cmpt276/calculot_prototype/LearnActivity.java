@@ -58,11 +58,11 @@ public class LearnActivity extends YouTubeBaseActivity {
                                     if (q51.getText().toString().equals("lna"))
                                         if(q61.getText().toString().equals("e")){
                                             dif.setTextColor(Color.GREEN);
-                                            btn.setText("Back to profile");
+                                            btn.setText("Back to Main Menu");
                                         }
                 }
                 else{
-                    Intent profile = new Intent(LearnActivity.this, Profile.class);
+                    Intent profile = new Intent(LearnActivity.this, WhatToDo.class);
                     startActivity(profile);
                 }
             }
