@@ -1,3 +1,10 @@
+﻿
+
+CALCULOT DEVELOPMENT TEAM:
+GitLab URL: https://csil-git1.cs.surrey.sfu.ca/kza21/group14/tree/master/Project_Folder/group14/app
+Source URL: https://csil-git1.cs.surrey.sfu.ca/kza21/group14/tree/master
+
+
 Name: Jean Pierre Acebedo
 Student ID: jacebedo
 Student number: 301284530
