@@ -119,6 +119,9 @@ public class VectorGameActivity extends AppCompatActivity {
             HardLevel = _changelevel;
             TheGenerator.setHardLevel(HardLevel);
         }
+
+        Level = getLevel();
+        TextLevel.setText("Level: "+String.valueOf(Level));
     }
 
     private void startTimer() {
