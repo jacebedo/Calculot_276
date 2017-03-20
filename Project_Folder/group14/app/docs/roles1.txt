@@ -28,3 +28,17 @@ Work completed:
 Not delivered:
     - Achievements section in profile page
 
+=======================================
+
+Name: Levent Kylych
+Student ID: lkylych
+Student number: 301269953
+
+Team role in iteration 1: Team member
+Worked with Ryan Peterson on UI design and implementation
+Task:
+    - Implement Learn Activity with educational video and questions to test user's knowledge
+Work completed:
+    - Implemented Learn Activities for 2 topics
+    - Implemented Randomness factor for the questions
+

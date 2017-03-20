@@ -43,13 +43,14 @@ public class IntegrationActivity extends YouTubeBaseActivity {
                 EditText q1 = (EditText) findViewById(R.id.intq1);
                 EditText q2 = (EditText) findViewById(R.id.intq2);
                 EditText q3 = (EditText) findViewById(R.id.intq3);
-
+                EditText q4 = (EditText) findViewById(R.id.intq4);
                 TextView integral = (TextView) findViewById(R.id.intR);
                 if(integral.getCurrentTextColor() != Color.GREEN) {
                     if (q1.getText().toString().equals("f(x)g(x)"))
                         if (q2.getText().toString().equals("g(f(x))"))
                             if (q3.getText().toString().equals("-ln|cosx|"))
-                                {
+                                if(q4.getText().toString().equals("f(x)"))
+                                        {
                                             integral.setTextColor(Color.GREEN);
                                             btn.setText("Back to Main Menu");
                                         }
