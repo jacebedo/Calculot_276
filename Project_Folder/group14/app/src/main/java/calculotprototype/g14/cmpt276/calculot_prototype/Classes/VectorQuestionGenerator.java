@@ -413,7 +413,7 @@ public class VectorQuestionGenerator {
 
             AnswerArraySize = 6;//min(getRandomInt(2, max(MediumLevel,2)),6);
             AnswerArray = new String[AnswerArraySize];
-            QuestionTime = 15+10;   //more time to test
+            QuestionTime = 45-min(MediumLevel,10)+1;   //more time to test depending on level (currently 45-35 seconds)
 
             MaxShells = 2 + min(MediumLevel, 3);
             crystalBall = new CrystalBall(MaxShells);
