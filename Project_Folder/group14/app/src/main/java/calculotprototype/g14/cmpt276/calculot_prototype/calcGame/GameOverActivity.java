@@ -60,11 +60,13 @@ public class GameOverActivity extends AppCompatActivity {
         super.onBackPressed();
         // goes to game menu
         Intent goToMainMenu = new Intent(GameOverActivity.this,GameMenu.class);
+        finish();
         startActivity(goToMainMenu);
     }
 
     private void goToMainMenu() {
         Intent initMainMenu = new Intent(GameOverActivity.this, WhatToDo.class);
+        finish();
         startActivity(initMainMenu);
     }
 
@@ -73,6 +75,7 @@ public class GameOverActivity extends AppCompatActivity {
         if (GameType==0)
             initGame = new Intent(GameOverActivity.this,GameDiff.class);
         else initGame = new Intent(GameOverActivity.this,VectorGameActivity.class);
+        finish();
         startActivity(initGame);
     }
 }

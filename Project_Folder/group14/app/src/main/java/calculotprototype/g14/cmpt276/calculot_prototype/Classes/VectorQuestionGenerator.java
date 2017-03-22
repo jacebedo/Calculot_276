@@ -414,9 +414,9 @@ public class VectorQuestionGenerator {
         if (Topic == 0) {
             ScoreMultiplier = 1 + (EasyLevel)/20;
 
-            AnswerArraySize = min(getRandomInt(2, max(EasyLevel,2)),6);
+            AnswerArraySize = 2+min(EasyLevel,1+2)-1; //choices currently between 2-5
             AnswerArray = new String[AnswerArraySize];
-            QuestionTime = 10; //+ Math.round( 5 / Math.max( EasyLevel , 1));
+            QuestionTime = 45-min(EasyLevel,10)+1;   //more time to test depending on level (currently 45-35 seconds)
             MaxShells = 3 + min(EasyLevel, 2);
 
             crystalBall = new CrystalBall(MaxShells);
@@ -425,9 +425,9 @@ public class VectorQuestionGenerator {
         else if (Topic == 1) {
             ScoreMultiplier = 1.5 + (MediumLevel)/10;
 
-            AnswerArraySize = 6+min(MediumLevel,1+2)-1;//min(getRandomInt(2, max(MediumLevel,2)),6); choices currently between 6-8
+            AnswerArraySize = 3+min(MediumLevel,1+3)-1;//min(getRandomInt(2, max(MediumLevel,2)),6); choices currently between 3-6
             AnswerArray = new String[AnswerArraySize];
-            QuestionTime = 50-min(MediumLevel,15)+1;   //more time to test depending on level (currently 50-35 seconds)
+            QuestionTime = 40-min(MediumLevel,10)+1;   //more time to test depending on level (currently 40-30 seconds)
 
             MaxShells = 2 + min(MediumLevel, 3);
             crystalBall = new CrystalBall(MaxShells);
@@ -436,9 +436,9 @@ public class VectorQuestionGenerator {
         else {  //Topic == 2
             ScoreMultiplier = 2 + (HardLevel)/5;
 
-            AnswerArraySize = min(getRandomInt(2, max(HardLevel,2)),6);
+            AnswerArraySize = 3+min(HardLevel,1+3)-1;//choices currently between 3-6
             AnswerArray = new String[AnswerArraySize];
-            QuestionTime = 20;
+            QuestionTime = 50-min(HardLevel,15)+1;   //more time to test depending on level (currently 50-35 seconds)
 
             MaxShells = 2 + min(HardLevel, 4);
             crystalBall = new CrystalBall(MaxShells);

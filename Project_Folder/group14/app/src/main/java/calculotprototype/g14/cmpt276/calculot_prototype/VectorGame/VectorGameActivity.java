@@ -196,6 +196,7 @@ public class VectorGameActivity extends AppCompatActivity {
             //need to set onclick listeners for correct/incorrect answers
             TextView addText = new TextView(this);  //scope of addText is within this for loop
             addText.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            addText.setTextSize(17);
             addText.setText(AnswerArray[i]);
 
             if (i == AnswerArrayIndex) {
