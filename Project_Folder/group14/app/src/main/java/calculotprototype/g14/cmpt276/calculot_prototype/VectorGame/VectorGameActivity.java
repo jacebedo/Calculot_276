@@ -30,9 +30,10 @@ public class VectorGameActivity extends AppCompatActivity {
     //Multiple Choice: Question, QuestionInfo, (2-5) Answer choices
     LinearLayout MultipleChoice;
     String[] AnswerArray;
-    TextView[] ChoiceArray; //Index: 0 - Question, 1 - QuestionInfo, 2 and beyond correspond to the AnswerArray index i+2
+    TextView[] ChoiceArray; //Index: 0 - Question, 1 - QuestionInfo, 2 and beyond correspond to the AnswerArray index i+2; unneeded?
     int AnswerArraySize;
     int AnswerArrayIndex;
+    int AnswerChoices;      //number of answer choices left -> decrement by 1 if incorrect answer chosen -> if 1 then fail current question
     String Question;
     String QuestionInfo;
 
@@ -44,18 +45,22 @@ public class VectorGameActivity extends AppCompatActivity {
     CountDownTimer Timer;
     TextView TextTimer;
     int TextTime = 0;       //the time left for the current question vector
-    int QuestionTime;   //the time for each question at that particular level
-    TextView TextLevel; //the level textview
+    int QuestionTime;       //the time for each question at that particular level
+    TextView TextLevel;     //the level textview
     int Level;
+    int DecreaseAmount;  //+180 when a user picks the wrong option -> if >0, the user input is frozen and points/time decrease rapidly
 
     // set toast for right/wrong answer
     Toast wrongAnswer;
     Toast rightAnswer;
 
     //Question points
-    int TotalGain = 0;  //XP
-    TextView TextTotalGain;
-    int PotentialGain;  //from XP -> shell points in final sprint
+    int Shell;              //base shell level 1
+    int MaxShell;           //the shell level required to progress to the next level
+    int ShellPoints;        //Points in the current shell: 1-360 -> upon reaching 0, decrement shell value
+    int TotalGain = 0;      //XP to be gained
+    TextView TextTotalGain; //display total XP to be gained
+    int PotentialGain;      //current question potential change in points: -360 to 360 -> upon reaching less than -360, fail current question
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -33,24 +33,82 @@ public class VectorQuestionGenerator {
     0 Easy - only vectors/complex #s using pythagorean theorem,
         current cases:
             see Medium cases 0, 2, 4
-
+==========================================
     1 Medium - find a component of a vector or the real/imaginary part of the complex # which describes the question vector,
         current cases:
             0 - find radius/norm/modulus        given Re/x, Im/y
-            1 - find theta                      given Re/x, Im/y
-            2 - find Im/y                       given modulus/norm, Re/x
-            3 - find theta                      given modulus/norm, Re/x
-            4 - find Re/x                       given modulus/norm, Im/y
-            5 - find theta                      given modulus/norm, Im/y
-            6 - find Re/x                       given theta, radius
-            7 - find Im/y                       given theta, radius
-            8 - find radius/norm/modulus        given theta, Im/y
-            9 - find Re/x                       given theta, Im/y
-            10 - find radius/norm/modulus       given theta, Re/x
-            11 - find Im/y                      given theta, Re/x
+            Answer form (shown using vector components only):    sqrt( x^2 + y^2 )
+                subtotal combinations: 2*3 = 6
 
+            1 - find theta                      given Re/x, Im/y
+            Answer form:    arctan( y / x )
+                subtotal: 2
+
+            2 - find Im/y                       given modulus/norm, Re/x
+            Answer form:    sqrt( norm^2 - x^2 )
+                subtotal: 2*2 = 4
+
+            3 - find theta                      given modulus/norm, Re/x
+            Answer form:    arccos( x / norm )
+                subtotal: 2
+
+            4 - find Re/x                       given modulus/norm, Im/y
+            Answer form:    sqrt( norm^2 - y^2 )
+                subtotal 2*2 = 4
+
+            5 - find theta                      given modulus/norm, Im/y
+            Answer form:    arcsin( y / norm )
+                subtotal: 2
+
+            6 - find Re/x                       given theta, radius
+            Answer form:    norm * cos( theta )
+                subtotal: 2
+
+            7 - find Im/y                       given theta, radius
+            Answer form:    norm * sin( theta )
+                subtotal: 2
+
+            8 - find radius/norm/modulus        given theta, Im/y
+            Answer form:    y / sin( theta )
+                subtotal: 2*3 = 6
+
+            9 - find Re/x                       given theta, Im/y
+            Answer form:    y / tan( theta )
+                subtotal: 2*2 = 4
+
+            10 - find radius/norm/modulus       given theta, Re/x
+            Answer form:    x / cos( theta )
+                subtotal: 2*3 = 6
+
+            11 - find Im/y                      given theta, Re/x
+            Answer form:    x * tan( theta )
+                subtotal: 2*2 = 4
+
+            Total: 44 unique question/answer types
+                11 unique answer forms (ie using specific trig functions or operations)
+
+
+                Implemented so far:
+
+                random generation through the use of interdependent modular methods
+                Power variability -> as a negative, a reciprocal, a negative reciprocal, a decimal, a scaled fraction numerator/denominator/both by 2 or 10
+                Commutative operations -> addition, subtraction, multiplication, division -> also may be raised to a negative exponent which in turn is randomized by power variability
+
+                Amount of variability controlled by decideComplexity boolean method which takes into account level and how many components are already going to be randomized
+                Number of wrong components changes the difficulty -> less wrong components means harder to figure out the right or wrong answer -> # of wrong components is randomized with input from player level
+
+                As the player progresses through the levels they have acquainted themselves to the answer forms -> now we can test their ability to spot small mistakes
+                To closely match an answer we present similar trig functions depending on the user level
+
+                To be implemented:
+                Showing powers as superscripts and fractions as actual fractions
+                complex composition to show a given component value as either the sum of two numbers or the difference of two numbers
+
+                etc.
+==========================================
     2 Hard - find the vector v=(x,y) which matches the question vector -> user needs to find both x,y components of the vector or the x+iy parts of a complex #
     To be implemented in sprint 3 -> note: for most questions at least one of the required components is given
+    Note: Change phases
         Phase A may have both components generated from the Easy section
         Phase B may have one component from the Easy section and the other from the Medium section
         Phase C may be either a more complex Phase 2 question or have both components from the Medium section
@@ -417,8 +475,8 @@ public class VectorQuestionGenerator {
             AnswerArraySize = 2+min(EasyLevel,1+2)-1; //choices currently between 2-5
             AnswerArray = new String[AnswerArraySize];
             QuestionTime = 45-min(EasyLevel,10)+1;   //more time to test depending on level (currently 45-35 seconds)
-            MaxShells = 3 + min(EasyLevel, 2);
 
+            MaxShells = 2 + min(EasyLevel, 2);      //max shells between 3-4
             crystalBall = new CrystalBall(MaxShells);
             generateEasyQuestion();
         }
@@ -429,7 +487,7 @@ public class VectorQuestionGenerator {
             AnswerArray = new String[AnswerArraySize];
             QuestionTime = 40-min(MediumLevel,10)+1;   //more time to test depending on level (currently 40-30 seconds)
 
-            MaxShells = 2 + min(MediumLevel, 3);
+            MaxShells = 2 + min(MediumLevel, 3);        //max shells between 3-5
             crystalBall = new CrystalBall(MaxShells);
             generateMediumQuestion();
         }
@@ -440,7 +498,7 @@ public class VectorQuestionGenerator {
             AnswerArray = new String[AnswerArraySize];
             QuestionTime = 50-min(HardLevel,15)+1;   //more time to test depending on level (currently 50-35 seconds)
 
-            MaxShells = 2 + min(HardLevel, 4);
+            MaxShells = 2 + min(HardLevel, 4);      //max shells between 3-6
             crystalBall = new CrystalBall(MaxShells);
             //generateHardQuestion();
         }
