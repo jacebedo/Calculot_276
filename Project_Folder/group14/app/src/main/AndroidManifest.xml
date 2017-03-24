@@ -34,7 +34,8 @@
         <activity android:name=".calcGame.GameMenu" />
         <activity android:name=".calcGame.GameDiff" />
         <activity android:name=".StudyActivity" />
-        <activity android:name=".IntegrationActivity"></activity>
+        <activity android:name=".IntegrationActivity" />
+        <activity android:name=".VectorActivity"></activity>
     </application>
 
 </manifest>
