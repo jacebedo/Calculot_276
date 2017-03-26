@@ -2,39 +2,60 @@ package calculotprototype.g14.cmpt276.calculot_prototype.Classes;
 
 public class ClockVector {
     //fields
-    private int StartTheta;
-    private int CurrentTheta;
+    VectorQuestionGenerator TheGenerator;
+    CrystalBall Crystal;
+    private float StartTheta;
+    private float CurrentTheta;
+    private float PotentialGain;    //360 to -360
     private float X;
     private float Y;
-    private int Norm;   //or stage?
-    private int Speed;
+    private float Norm;   //or stage?
+    private float Speed;
 
     //Constructor
-    public ClockVector(CrystalBall crystalBall, int _starttheta, int _speed) {
+    public ClockVector(CrystalBall _crystalball, float _starttheta, float _norm, float _speed) {
+        //TheGenerator = _thegenerator;
+        Crystal = _crystalball;
+
         StartTheta = _starttheta;
         CurrentTheta = StartTheta;
-        setX(CurrentTheta);
-        setY(CurrentTheta);
-        //Norm = _norm; crystalBall.getShellLevel/getMass
+        setX();
+        setY();
+        Norm = _norm;
         Speed = _speed;
     }
 
-    //methods
-    public int getCurrentTheta() {
+    //Private Methods
+    private void incrementAngle() {
+        PotentialGain += Speed;
+        CurrentTheta = StartTheta + PotentialGain;
+        setX();
+        setY();
+    }
+
+    private void setX() {
+        //implement
+        X = (float) (Math.cos( (double) CurrentTheta ) * Norm);
+    }
+
+    private void setY() {
+        //implement
+        Y = (float) (Math.sin( (double) CurrentTheta ) * Norm);
+    }
+    //Public Methods
+    public float getX() {
+        return X;
+    }
+
+    public float getY() {
+        return Y;
+    }
+
+    public float getCurrentTheta() {
         return CurrentTheta;
     }
 
-    public void setX(int _theta) {
-        //implement
-        X = (float) (Math.cos( (double) _theta ) * Norm);
-    }
-
-    public void setY(int _theta) {
-        //implement
-        Y = (float) (Math.sin( (double) _theta ) * Norm);
-    }
-
-    public int getNorm() {
+    public float getNorm() {
         return Norm;
     }
 

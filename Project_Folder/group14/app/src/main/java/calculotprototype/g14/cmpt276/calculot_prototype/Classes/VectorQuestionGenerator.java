@@ -3,6 +3,8 @@ package calculotprototype.g14.cmpt276.calculot_prototype.Classes;
 import java.util.Arrays;
 import java.util.Random;
 
+import calculotprototype.g14.cmpt276.calculot_prototype.VectorGame.VectorGameActivity;
+
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.lang.Math.round;
@@ -131,7 +133,7 @@ public class VectorQuestionGenerator {
     int MaxShells;      //Max shells of Crystal Ball depends on difficulty and level
 
     //Drawing Coordinates
-    int HalfWidth = 250;    //set as the x origin of the grid
+    int HalfWidth = 300;    //set as the x origin of the grid
     int HalfHeight = 250;   //set as the y origin of the grid
     int MinimumAbsX = 50;   //minimum absolute x value of the vector
     int MinimumAbsY = 50;   //minimum absolute y value of the vector
@@ -476,8 +478,6 @@ public class VectorQuestionGenerator {
             AnswerArray = new String[AnswerArraySize];
             QuestionTime = 45-min(EasyLevel,10)+1;   //more time to test depending on level (currently 45-35 seconds)
 
-            MaxShells = 2 + min(EasyLevel, 2);      //max shells between 3-4
-            crystalBall = new CrystalBall(MaxShells);
             generateEasyQuestion();
         }
         else if (Topic == 1) {
@@ -487,8 +487,6 @@ public class VectorQuestionGenerator {
             AnswerArray = new String[AnswerArraySize];
             QuestionTime = 40-min(MediumLevel,10)+1;   //more time to test depending on level (currently 40-30 seconds)
 
-            MaxShells = 2 + min(MediumLevel, 3);        //max shells between 3-5
-            crystalBall = new CrystalBall(MaxShells);
             generateMediumQuestion();
         }
         else {  //Topic == 2
@@ -498,8 +496,6 @@ public class VectorQuestionGenerator {
             AnswerArray = new String[AnswerArraySize];
             QuestionTime = 50-min(HardLevel,15)+1;   //more time to test depending on level (currently 50-35 seconds)
 
-            MaxShells = 2 + min(HardLevel, 4);      //max shells between 3-6
-            crystalBall = new CrystalBall(MaxShells);
             //generateHardQuestion();
         }
     }
@@ -1106,13 +1102,30 @@ public class VectorQuestionGenerator {
 
     public void setEasyLevel(int _easylevel) {
         EasyLevel = _easylevel;
+
+        MaxShells = 2 + min(EasyLevel, 2);      //max shells between 3-4
+        crystalBall = new CrystalBall(MaxShells, min( HalfWidth, HalfHeight));
     }
 
     public void setMediumLevel(int _mediumlevel) {
         MediumLevel = _mediumlevel;
+
+        MaxShells = 2 + min(MediumLevel, 3);        //max shells between 3-5
+        crystalBall = new CrystalBall(MaxShells, min( HalfWidth, HalfHeight));
     }
 
     public void setHardLevel(int _hardlevel) {
         HardLevel = _hardlevel;
+
+        MaxShells = 2 + min(HardLevel, 4);      //max shells between 3-6
+        crystalBall = new CrystalBall(MaxShells, min( HalfWidth, HalfHeight));
+    }
+
+    public int getHalfWidth() {
+        return HalfWidth;
+    }
+
+    public int getHalfHeight() {
+        return HalfHeight;
     }
 }

@@ -5,15 +5,23 @@ public class CrystalBall {
     private int Mass = 360; //initial shell filled
     private int ShellLevel = 1;
     private int ShellLevelMax;
+    int ShellWidth;
 
     //Constructor
-    CrystalBall(int _ShellLevelMax) {
+    CrystalBall(int _ShellLevelMax, int _sidelength) {
         ShellLevelMax = _ShellLevelMax;
+        ShellWidth = _sidelength / _ShellLevelMax;
     }
 
-    //methods
+    //Private Methods
+    private int setShellLevel() {
+        return Mass % 360;
+    }
+
+    //Public Methods
     public void changeMass(int _mass) {
         Mass += _mass;
+        ShellLevel = setShellLevel();
     }
 
     public int getMass() {
@@ -22,5 +30,9 @@ public class CrystalBall {
 
     public int getShellLevel() {
         return ShellLevel;
+    }
+
+    public int getShellWidth() {
+        return ShellWidth;
     }
 }

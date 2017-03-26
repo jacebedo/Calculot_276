@@ -1,11 +1,17 @@
 package calculotprototype.g14.cmpt276.calculot_prototype.VectorGame;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +32,17 @@ public class VectorGameActivity extends AppCompatActivity {
     int HardLevel;
 
     VectorQuestionGenerator TheGenerator;
+
+    //Game View
+    RelativeLayout GameView;
+    Bitmap BMGrid;
+    Bitmap BMQuestionVector;
+    Bitmap BMClockVector; //includes potential gain
+    Bitmap BMCrystalBall;
+    int GameHeight;
+    int GameWidth;
+    Paint BlackPaint;
+    Canvas GameCanvas;
 
     //Multiple Choice: Question, QuestionInfo, (2-5) Answer choices
     LinearLayout MultipleChoice;
@@ -108,6 +125,26 @@ public class VectorGameActivity extends AppCompatActivity {
 
         GameInfo.addView(TextTimer);
 
+        //Initialize Game View
+        GameWidth = TheGenerator.getHalfWidth() * 2;
+        GameHeight = TheGenerator.getHalfHeight() * 2;
+
+        GameView = (RelativeLayout) findViewById(R.id.crystalBallLayout);
+        BMGrid = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
+        GameCanvas = new Canvas(BMGrid);
+
+        BlackPaint = new Paint();
+        BlackPaint.setColor(Color.BLACK);
+        BlackPaint.setStrokeWidth(3);
+
+        GameCanvas.drawLine(0, GameHeight/2, GameWidth, GameHeight/2, BlackPaint);  //x axis
+        GameCanvas.drawLine(GameWidth/2, 0, GameWidth/2, GameHeight, BlackPaint);  //y axis
+
+        ImageView Grid = new ImageView(this);
+        Grid.setImageBitmap(BMGrid);
+        GameView.addView(Grid);
+        //------
+
         startQuestion();
     }
 
@@ -173,6 +210,7 @@ public class VectorGameActivity extends AppCompatActivity {
 
     private void startQuestion() {
         TheGenerator.generateQuestion();
+        //
         //Multiple Choice: Question, QuestionInfo, (2-7) Answer choices depending on difficulty
         AnswerArray = TheGenerator.getAnswerArray();
         AnswerArraySize = TheGenerator.getAnswerArraySize();
