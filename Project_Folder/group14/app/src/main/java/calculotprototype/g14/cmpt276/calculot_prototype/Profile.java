@@ -69,9 +69,9 @@ public class Profile extends MainActivity {
 
         int avatarUse = user.getAvatar();
         ImageView avatarPicture = (ImageView) findViewById(R.id.profile_userImage);
-        if (avatarUse == 1) avatarPicture.setImageResource(R.drawable.avatar_1);
-        else if (avatarUse == 2) avatarPicture.setImageResource(R.drawable.avatar_2);
-        else if (avatarUse == 3) avatarPicture.setImageResource(R.drawable.avatar_3);
+        if (avatarUse == 1) avatarPicture.setImageResource(R.drawable.malewizard1);
+        else if (avatarUse == 2) avatarPicture.setImageResource(R.drawable.malewizard2);
+        else if (avatarUse == 3) avatarPicture.setImageResource(R.drawable.malewizard3);
         //Else leave at default
     }
 

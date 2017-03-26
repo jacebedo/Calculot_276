@@ -16,6 +16,7 @@ import calculotprototype.g14.cmpt276.calculot_prototype.R;
 
 public class GameActivity extends AppCompatActivity {
 
+    CountDownTimer timer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +43,16 @@ public class GameActivity extends AppCompatActivity {
         final TextView answer4 = (TextView) findViewById(R.id.game_answer4);
         final Intent gameOver = new Intent(GameActivity.this, GameOverActivity.class);
 
+        // Set up screen test;
+        RelativeLayout gameScreen = (RelativeLayout)findViewById(R.id.game_screen);
+        calcGameGraphics calcHelper = new calcGameGraphics(this);
+        calcHelper.setBackgroundColor(Color.WHITE);
+        gameScreen.addView(calcHelper);
 
         // set toast for taking damage
         final Toast damageTaken = Toast.makeText(getApplicationContext(),"You have lost a life!", Toast.LENGTH_SHORT);
         // Set up countdown timer ( 7 seconds currently - 1s = 1000ms)
-        final CountDownTimer timer = new CountDownTimer(8000,1000) {
+       timer = new CountDownTimer(8000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
             }
@@ -68,12 +74,7 @@ public class GameActivity extends AppCompatActivity {
        // Set the first answer field
         setQuestion(question, answer1, answer2, answer3, answer4, calc, timer);
 
-        // Set up screen test;
-        RelativeLayout gameScreen = (RelativeLayout)findViewById(R.id.game_screen);
-        calcGameGraphics calcHelper = new calcGameGraphics(this);
-        calcHelper.setBackgroundColor(Color.WHITE);
 
-        gameScreen.addView(calcHelper);
 
 
 
@@ -240,6 +241,8 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        timer.cancel();
+        finish();
+        super.onBackPressed();
     }
 }
