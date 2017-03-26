@@ -175,6 +175,13 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
             <Button
                 android:id="@+id/intBtn"
                 android:layout_width="match_parent"

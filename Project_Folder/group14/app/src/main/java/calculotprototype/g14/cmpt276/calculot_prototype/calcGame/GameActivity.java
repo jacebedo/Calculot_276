@@ -1,14 +1,17 @@
 package calculotprototype.g14.cmpt276.calculot_prototype.calcGame;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.CalcQuestion;
+import calculotprototype.g14.cmpt276.calculot_prototype.Classes.calcGameGraphics;
 import calculotprototype.g14.cmpt276.calculot_prototype.R;
 
 public class GameActivity extends AppCompatActivity {
@@ -64,6 +67,15 @@ public class GameActivity extends AppCompatActivity {
 
        // Set the first answer field
         setQuestion(question, answer1, answer2, answer3, answer4, calc, timer);
+
+        // Set up screen test;
+        RelativeLayout gameScreen = (RelativeLayout)findViewById(R.id.game_screen);
+        calcGameGraphics calcHelper = new calcGameGraphics(this);
+        calcHelper.setBackgroundColor(Color.WHITE);
+
+        gameScreen.addView(calcHelper);
+
+
 
         answer1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,8 +219,6 @@ public class GameActivity extends AppCompatActivity {
 
             ;
         }
-
-
     }
 
 

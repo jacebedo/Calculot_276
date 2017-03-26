@@ -14,6 +14,7 @@ public class StudyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_study);
         TextView btn = (TextView) findViewById(R.id.toDiff);
         TextView btn1 = (TextView) findViewById(R.id.toInt);
+        TextView btn2 = (TextView) findViewById(R.id.toVectors);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -26,6 +27,13 @@ public class StudyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent integral = new Intent(StudyActivity.this, IntegrationActivity.class);
                 startActivity(integral);
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent vector = new Intent(StudyActivity.this, VectorActivity.class);
+                startActivity(vector);
             }
         });
     }
