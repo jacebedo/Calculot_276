@@ -26,8 +26,7 @@ public class GameActivity extends AppCompatActivity {
         final int[] info = {7,0,1,0};
         final int topic = getIntent().getIntExtra("game_topic",0);
         final CalcQuestion calc = new CalcQuestion(topic,1);
-
-
+        
         // Set Initial TextViews
         final TextView healthfield = (TextView) findViewById(R.id.game_health);
         final TextView xpfield = (TextView) findViewById(R.id.game_xpgained);
