@@ -7,7 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 
 import calculotprototype.g14.cmpt276.calculot_prototype.R;
@@ -21,6 +23,8 @@ public class calcGameGraphics extends View {
 
     Bitmap background;
     Bitmap castle;
+
+
 
     public calcGameGraphics(Context context) {
         super(context);
@@ -50,19 +54,31 @@ public class calcGameGraphics extends View {
         paint.setColor(Color.GREEN);
 
         // Draw the items
-        canvas.drawBitmap(background,0,0,null);
+        //canvas.drawBitmap(background,0,0,null);
         canvas.drawRect(0,floor_start,floor_right,floor_bottom,paint);
         canvas.drawBitmap(castle,0,castle_top,null);
     }
 
 
-    // This method converts all jpeg and png images into bitmap objects, and prepares them for use.
+    // This method converts all jpeg and png images into bitmap objects, and prepares them for use. (BROKEN)
     private void setAssets() {
-        background =  BitmapFactory.decodeResource(getContext().getResources(), R.drawable.bg);
-        background = Bitmap.createScaledBitmap(background,1000,1000,true);
+
+        // get phone size
+        DisplayMetrics phoneSize = getContext().getResources().getDisplayMetrics();
+        int width =  phoneSize.widthPixels;
+        int height= phoneSize.heightPixels;
+
+        //background =  BitmapFactory.decodeResource(getContext().getResources(), R.drawable.bg);
+        //background = Bitmap.createScaledBitmap(background,1000,1000,true);
 
         castle = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.castle);
-        castle = Bitmap.createScaledBitmap(castle,200,400,true);
+
+        int castle_width = (int)Math.round(0.35*width);
+        int castle_height = (int)Math.round(0.35*height);
+        castle = Bitmap.createScaledBitmap(castle,castle_width,castle_height,true);
+
+
+
         makeTransparent(castle);
     }
 
@@ -83,9 +99,5 @@ public class calcGameGraphics extends View {
         }
         bmp.setHasAlpha(true);
     }
-
-
-
-
 
 }

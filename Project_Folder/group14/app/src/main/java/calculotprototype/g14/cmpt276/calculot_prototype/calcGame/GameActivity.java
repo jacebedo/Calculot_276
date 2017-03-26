@@ -69,12 +69,13 @@ public class GameActivity extends AppCompatActivity {
         setQuestion(question, answer1, answer2, answer3, answer4, calc, timer);
 
         // Set up screen test;
-        /*RelativeLayout gameScreen = (RelativeLayout)findViewById(R.id.game_screen);
+        RelativeLayout gameScreen = (RelativeLayout)findViewById(R.id.game_screen);
         calcGameGraphics calcHelper = new calcGameGraphics(this);
         calcHelper.setBackgroundColor(Color.WHITE);
+
         gameScreen.addView(calcHelper);
 
-        */
+
 
         answer1.setOnClickListener(new View.OnClickListener() {
             @Override
