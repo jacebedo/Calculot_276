@@ -16,9 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import calculotprototype.g14.cmpt276.calculot_prototype.Classes.ClockVector;
+import calculotprototype.g14.cmpt276.calculot_prototype.Classes.CrystalBall;
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.VectorQuestionGenerator;
 import calculotprototype.g14.cmpt276.calculot_prototype.R;
 import calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameOverActivity;
+
+import static android.graphics.Paint.Style.FILL;
 
 //kza21
 public class VectorGameActivity extends AppCompatActivity {
@@ -32,6 +36,7 @@ public class VectorGameActivity extends AppCompatActivity {
     int HardLevel;
 
     VectorQuestionGenerator TheGenerator;
+    CrystalBall TheCrystal;
 
     //Game View
     RelativeLayout GameView;
@@ -41,8 +46,12 @@ public class VectorGameActivity extends AppCompatActivity {
     Bitmap BMCrystalBall;
     int GameHeight;
     int GameWidth;
+    int GameXOrigin;
+    int GameYOrigin;
     Paint BlackPaint;
+    Paint ShellPaint;
     Canvas GameCanvas;
+    Canvas ShellCanvas;
 
     //Multiple Choice: Question, QuestionInfo, (2-5) Answer choices
     LinearLayout MultipleChoice;
@@ -128,6 +137,8 @@ public class VectorGameActivity extends AppCompatActivity {
         //Initialize Game View
         GameWidth = TheGenerator.getHalfWidth() * 2;
         GameHeight = TheGenerator.getHalfHeight() * 2;
+        GameXOrigin = TheGenerator.getHalfWidth();
+        GameYOrigin = TheGenerator.getHalfHeight();
 
         GameView = (RelativeLayout) findViewById(R.id.crystalBallLayout);
         BMGrid = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
@@ -137,12 +148,29 @@ public class VectorGameActivity extends AppCompatActivity {
         BlackPaint.setColor(Color.BLACK);
         BlackPaint.setStrokeWidth(3);
 
-        GameCanvas.drawLine(0, GameHeight/2, GameWidth, GameHeight/2, BlackPaint);  //x axis
-        GameCanvas.drawLine(GameWidth/2, 0, GameWidth/2, GameHeight, BlackPaint);  //y axis
+        GameCanvas.drawLine(0, GameYOrigin, GameWidth, GameYOrigin, BlackPaint);  //x axis
+        GameCanvas.drawLine(GameXOrigin, 0, GameXOrigin, GameHeight, BlackPaint);  //y axis
 
         ImageView Grid = new ImageView(this);
         Grid.setImageBitmap(BMGrid);
         GameView.addView(Grid);
+
+        //Shells
+        TheCrystal = TheGenerator.getCrystalBall();
+        ShellPaint = new Paint();
+        ShellPaint.setColor(Color.BLUE);
+        ShellPaint.setStrokeWidth(1);//TheGenerator.getCrystalBall().getShellWidth());
+        ShellPaint.setStyle(FILL);
+
+        BMCrystalBall = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
+        ShellCanvas = new Canvas(BMCrystalBall);
+
+        ShellCanvas.drawCircle(GameXOrigin, GameYOrigin, TheCrystal.getShellLevel() * TheCrystal.getShellWidth(), ShellPaint);
+
+        ImageView Shells = new ImageView(this);
+        Shells.setImageBitmap(BMCrystalBall);
+        GameView.addView(Shells);
+
         //------
 
         startQuestion();
@@ -210,7 +238,16 @@ public class VectorGameActivity extends AppCompatActivity {
 
     private void startQuestion() {
         TheGenerator.generateQuestion();
-        //
+        //draw question vector
+        BMQuestionVector = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
+        GameCanvas = new Canvas(BMGrid);
+        GameCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + TheGenerator.getX(), GameYOrigin + TheGenerator.getY(), BlackPaint);
+
+        ImageView QuestionVector = new ImageView(this);
+        QuestionVector.setImageBitmap(BMQuestionVector);
+
+        GameView.addView(QuestionVector);
+
         //Multiple Choice: Question, QuestionInfo, (2-7) Answer choices depending on difficulty
         AnswerArray = TheGenerator.getAnswerArray();
         AnswerArraySize = TheGenerator.getAnswerArraySize();

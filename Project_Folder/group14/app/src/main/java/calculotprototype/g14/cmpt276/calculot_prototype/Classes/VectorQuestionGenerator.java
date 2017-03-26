@@ -180,6 +180,7 @@ public class VectorQuestionGenerator {
         MediumLevel = _mediumlevel;
         HardLevel = _hardlevel;
 
+        generateCrystalBall();
         //generateQuestion(); //generate the first question automatically?
     }
 
@@ -1075,6 +1076,21 @@ public class VectorQuestionGenerator {
         return RandomAnswer;
     }
 
+    private void generateCrystalBall() {
+        if (Topic == 0) {
+            MaxShells = 2 + min(EasyLevel, 2);      //max shells between 3-4
+            crystalBall = new CrystalBall(MaxShells, min( HalfWidth, HalfHeight));
+        }
+        else if (Topic == 1) {
+            MaxShells = 2 + min(MediumLevel, 3);        //max shells between 3-5
+            crystalBall = new CrystalBall(MaxShells, min( HalfWidth, HalfHeight));
+        }
+        else {
+            MaxShells = 2 + min(HardLevel, 4);      //max shells between 3-6
+            crystalBall = new CrystalBall(MaxShells, min( HalfWidth, HalfHeight));
+        }
+    }
+
     //Public Methods
     public String getQuestion() {
         return Question;    //ie. String "Find the x component of the presented vector"
@@ -1102,23 +1118,17 @@ public class VectorQuestionGenerator {
 
     public void setEasyLevel(int _easylevel) {
         EasyLevel = _easylevel;
-
-        MaxShells = 2 + min(EasyLevel, 2);      //max shells between 3-4
-        crystalBall = new CrystalBall(MaxShells, min( HalfWidth, HalfHeight));
+        generateCrystalBall();
     }
 
     public void setMediumLevel(int _mediumlevel) {
         MediumLevel = _mediumlevel;
-
-        MaxShells = 2 + min(MediumLevel, 3);        //max shells between 3-5
-        crystalBall = new CrystalBall(MaxShells, min( HalfWidth, HalfHeight));
+        generateCrystalBall();
     }
 
     public void setHardLevel(int _hardlevel) {
         HardLevel = _hardlevel;
-
-        MaxShells = 2 + min(HardLevel, 4);      //max shells between 3-6
-        crystalBall = new CrystalBall(MaxShells, min( HalfWidth, HalfHeight));
+        generateCrystalBall();
     }
 
     public int getHalfWidth() {
@@ -1127,5 +1137,17 @@ public class VectorQuestionGenerator {
 
     public int getHalfHeight() {
         return HalfHeight;
+    }
+
+    public int getX() {
+        return Integer.parseInt(XComponent);
+    }
+
+    public int getY() {
+        return Integer.parseInt(YComponent);
+    }
+
+    public CrystalBall getCrystalBall() {
+        return crystalBall;
     }
 }
