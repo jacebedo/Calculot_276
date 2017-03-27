@@ -35,4 +35,8 @@ public class CrystalBall {
     public int getShellWidth() {
         return ShellWidth;
     }
+
+    public int getShellLevelMax() {
+        return ShellLevelMax;
+    }
 }

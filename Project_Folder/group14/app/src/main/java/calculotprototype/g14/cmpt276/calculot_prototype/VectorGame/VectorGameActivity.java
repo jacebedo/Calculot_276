@@ -140,6 +140,7 @@ public class VectorGameActivity extends AppCompatActivity {
 
         //Shells
         ShellPoints = TheCrystal.getMass();
+        MaxShell = TheCrystal.getShellLevelMax();
         setupDrawShells();
         drawShells();
         //------
@@ -206,7 +207,12 @@ public class VectorGameActivity extends AppCompatActivity {
             public void onFinish() {
                 //game over scenario
                 //TextTime = -QuestionTime;
-                TheCrystal.changeMass(-360);
+                if((MultipleChoice).getChildCount() > 0)
+                    (MultipleChoice).removeAllViews();
+                MultipleChoice.invalidate();
+
+                Timer.cancel();
+                TheCrystal.changeMass(-180);
                 ShellPoints = TheCrystal.getMass();
                 testShellPoints();
             }
@@ -261,14 +267,15 @@ public class VectorGameActivity extends AppCompatActivity {
                         Timer.cancel();
                         if((MultipleChoice).getChildCount() > 0)
                             (MultipleChoice).removeAllViews();
+                        MultipleChoice.invalidate();
 
-                        TheCrystal.changeMass((int)(TextTime/QuestionTime*360));
+                        TheCrystal.changeMass(Math.round(TextTime/QuestionTime*360));
                         ShellPoints = TheCrystal.getMass();
+                        drawShells();
 
                         TotalGain += (int) PotentialGain;
 
-                        TextTotalGain.setText("Total XP gained: "+String.valueOf(TotalGain));
-                        startQuestion();
+                        TextTotalGain.setText("Total XP gained: "+String.valueOf(TotalGain));   //String.valueOf(Math.round(TextTime/QuestionTime*360))
                         testShellPoints();
                     }
                 });
@@ -284,10 +291,16 @@ public class VectorGameActivity extends AppCompatActivity {
                         Timer.cancel();
                         if((MultipleChoice).getChildCount() > 0)
                             (MultipleChoice).removeAllViews();
+                        MultipleChoice.invalidate();
 
                         //temporary -> instant fail
-                        Timer.onFinish();
-                        Timer.cancel();
+                        TheCrystal.changeMass(-180);
+                        ShellPoints = TheCrystal.getMass();
+                        drawShells();
+
+                        //totalgain?
+                        //Timer.onFinish();
+                        //Timer.cancel();
                         testShellPoints();
                     }
                 });
@@ -304,7 +317,9 @@ public class VectorGameActivity extends AppCompatActivity {
             goToGameOver();
         else if ( Math.floor(ShellPoints / 360) >= MaxShell) {
             changeLevel( getLevel() + 1 );  //increment level by 1
+            TheCrystal = TheGenerator.getCrystalBall();
         }
+        else startQuestion();
     }
 
     //Draw Methods
@@ -371,6 +386,7 @@ public class VectorGameActivity extends AppCompatActivity {
     }
 
     private void drawShells() {
+        BMCrystalBall.eraseColor(Color.TRANSPARENT);
         ShellCanvas.drawCircle(GameXOrigin, GameYOrigin, TheCrystal.getMass() * TheCrystal.getShellWidth() / 360, ShellPaint);
 
         BlackPaint.setStrokeWidth(1);   //temporary use of thinner black paint
