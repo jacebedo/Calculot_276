@@ -40,18 +40,22 @@ public class VectorGameActivity extends AppCompatActivity {
 
     //Game View
     RelativeLayout GameView;
-    Bitmap BMGrid;
-    Bitmap BMQuestionVector;
-    Bitmap BMClockVector; //includes potential gain
-    Bitmap BMCrystalBall;
     int GameHeight;
     int GameWidth;
     int GameXOrigin;
     int GameYOrigin;
+    Bitmap BMGrid;
+    Bitmap BMQuestionVector;
+    Bitmap BMClockVector; //includes potential gain
+    Bitmap BMCrystalBall;
     Paint BlackPaint;
     Paint ShellPaint;
-    Canvas GameCanvas;
+    Canvas GridCanvas;
     Canvas ShellCanvas;
+    Canvas QuestionVectorCanvas;
+    Canvas ClockCanvas;
+    ImageView ShellImage;
+    ImageView QuestionVectorImage;
 
     //Multiple Choice: Question, QuestionInfo, (2-5) Answer choices
     LinearLayout MultipleChoice;
@@ -83,7 +87,7 @@ public class VectorGameActivity extends AppCompatActivity {
     //Question points
     int Shell;              //base shell level 1
     int MaxShell;           //the shell level required to progress to the next level
-    int ShellPoints;        //Points in the current shell: 1-360 -> upon reaching 0, decrement shell value
+    int ShellPoints;        //Points in total
     int TotalGain = 0;      //XP to be gained
     TextView TextTotalGain; //display total XP to be gained
     int PotentialGain;      //current question potential change in points: -360 to 360 -> upon reaching less than -360, fail current question
@@ -94,88 +98,48 @@ public class VectorGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vectorgame);
 
         gameOver = new Intent(VectorGameActivity.this, GameOverActivity.class);
-        //retrieve Difficulty and Respective Levels
+
+        //Retrieve Difficulty and Respective Levels
         Difficulty = getIntent().getIntExtra("Difficulty", 1);
         EasyLevel = getIntent().getIntExtra("EasyLevel", 1);
         MediumLevel = getIntent().getIntExtra("MediumLevel", 1);
         HardLevel = getIntent().getIntExtra("HardLevel", 1);
 
+        //Setup the Question Generator
+        TheGenerator = new VectorQuestionGenerator(Difficulty, EasyLevel, MediumLevel, HardLevel);
+        TheCrystal = TheGenerator.getCrystalBall();
+
+        //Layouts
         MultipleChoice = (LinearLayout) findViewById(R.id.vectorMultipleChoiceLayout);
         GameInfo = (LinearLayout) findViewById(R.id.vectorGameInfoLayout);
+        GameView = (RelativeLayout) findViewById(R.id.crystalBallLayout);
 
-
-        wrongAnswer = Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT);
-        rightAnswer = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
-
-        TheGenerator = new VectorQuestionGenerator(Difficulty, EasyLevel, MediumLevel, HardLevel);
-
-        //TextView for Level
-        TextLevel = new TextView(this);
-        TextLevel.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        Level = getLevel();
-        TextLevel.setText("Level: "+String.valueOf(Level));
-        TextLevel.setTextColor(getResources().getColor(R.color.colorPrimary));
-
-        GameInfo.addView(TextLevel);
-
-        //TextView for total XP gain
-        TextTotalGain = new TextView(this);
-        TextTotalGain.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        TextTotalGain.setText("Total XP gained: "+String.valueOf(TotalGain));
-        TextTotalGain.setTextColor(getResources().getColor(R.color.colorPrimary));
-
-        GameInfo.addView(TextTotalGain);
-
-        //Textview for timer
-        TextTimer = new TextView(this);
-        TextTimer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        //TextTimer.setText("Time Left: "+String.valueOf(TextTime));
-        TextTimer.setTextColor(getResources().getColor(R.color.colorAccent));
-
-        GameInfo.addView(TextTimer);
-
-        //Initialize Game View
+        //GameView Dimensions
         GameWidth = TheGenerator.getHalfWidth() * 2;
         GameHeight = TheGenerator.getHalfHeight() * 2;
         GameXOrigin = TheGenerator.getHalfWidth();
         GameYOrigin = TheGenerator.getHalfHeight();
 
-        GameView = (RelativeLayout) findViewById(R.id.crystalBallLayout);
-        BMGrid = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
-        GameCanvas = new Canvas(BMGrid);
+        //Toasts -> add potential gain?
+        wrongAnswer = Toast.makeText(getApplicationContext(), "Wrong!", Toast.LENGTH_SHORT);
+        rightAnswer = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
 
-        BlackPaint = new Paint();
-        BlackPaint.setColor(Color.BLACK);
-        BlackPaint.setStrokeWidth(3);
 
-        GameCanvas.drawLine(0, GameYOrigin, GameWidth, GameYOrigin, BlackPaint);  //x axis
-        GameCanvas.drawLine(GameXOrigin, 0, GameXOrigin, GameHeight, BlackPaint);  //y axis
+        //Setup GameInfo Textviews
+        drawGameInfo();
 
-        ImageView Grid = new ImageView(this);
-        Grid.setImageBitmap(BMGrid);
-        GameView.addView(Grid);
+        //Initialize Grid View
+        drawGrid();
 
         //Shells
-        TheCrystal = TheGenerator.getCrystalBall();
-        ShellPaint = new Paint();
-        ShellPaint.setColor(Color.BLUE);
-        ShellPaint.setStrokeWidth(1);//TheGenerator.getCrystalBall().getShellWidth());
-        ShellPaint.setStyle(FILL);
-
-        BMCrystalBall = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
-        ShellCanvas = new Canvas(BMCrystalBall);
-
-        ShellCanvas.drawCircle(GameXOrigin, GameYOrigin, TheCrystal.getShellLevel() * TheCrystal.getShellWidth(), ShellPaint);
-
-        ImageView Shells = new ImageView(this);
-        Shells.setImageBitmap(BMCrystalBall);
-        GameView.addView(Shells);
-
+        setupDrawShells();
+        drawShells();
         //------
 
         startQuestion();
     }
 
+    //Level Methods
     private int getLevel() {
         if (Difficulty == 0)
             return EasyLevel;
@@ -202,6 +166,15 @@ public class VectorGameActivity extends AppCompatActivity {
         TextLevel.setText("Level: "+String.valueOf(Level));
     }
 
+    private void goToGameOver() {
+        gameOver.putExtra("xp", TotalGain*2);   //since gameoveractivity divides XP by 2
+        gameOver.putExtra("game", 1);
+        Timer.cancel();
+        finish();   //pop this activity off the stack
+        startActivity(gameOver);
+    }
+
+    //Question Methods
     private void startTimer() {
         // Set up countdown timer depending on difficulty
         TextTime = QuestionTime;
@@ -228,25 +201,9 @@ public class VectorGameActivity extends AppCompatActivity {
         Timer.start();
     }
 
-    private void goToGameOver() {
-        gameOver.putExtra("xp", TotalGain*2);   //since gameoveractivity divides XP by 2
-        gameOver.putExtra("game", 1);
-        Timer.cancel();
-        finish();   //pop this activity off the stack
-        startActivity(gameOver);
-    }
-
     private void startQuestion() {
         TheGenerator.generateQuestion();
-        //draw question vector
-        BMQuestionVector = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
-        GameCanvas = new Canvas(BMGrid);
-        GameCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + TheGenerator.getX(), GameYOrigin + TheGenerator.getY(), BlackPaint);
-
-        ImageView QuestionVector = new ImageView(this);
-        QuestionVector.setImageBitmap(BMQuestionVector);
-
-        GameView.addView(QuestionVector);
+        drawQuestionVector();
 
         //Multiple Choice: Question, QuestionInfo, (2-7) Answer choices depending on difficulty
         AnswerArray = TheGenerator.getAnswerArray();
@@ -320,6 +277,87 @@ public class VectorGameActivity extends AppCompatActivity {
         }
 
         startTimer();
+    }
+
+    //Draw Methods
+    private void drawGrid() {
+        BMGrid = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
+        GridCanvas = new Canvas(BMGrid);
+
+        BlackPaint = new Paint();
+        BlackPaint.setColor(Color.BLACK);
+        BlackPaint.setStrokeWidth(3);
+
+        GridCanvas.drawLine(0, GameYOrigin, GameWidth, GameYOrigin, BlackPaint);  //x axis
+        GridCanvas.drawLine(GameXOrigin, 0, GameXOrigin, GameHeight, BlackPaint);  //y axis
+
+        ImageView Grid = new ImageView(this);
+        Grid.setImageBitmap(BMGrid);
+        GameView.addView(Grid);
+    }
+
+    private void drawGameInfo() {
+        //TextView for Level
+        TextLevel = new TextView(this);
+        TextLevel.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        Level = getLevel();
+        TextLevel.setText("Level: "+String.valueOf(Level));
+        TextLevel.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+        GameInfo.addView(TextLevel);
+
+        //TextView for total XP gain
+        TextTotalGain = new TextView(this);
+        TextTotalGain.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        TextTotalGain.setText("Total XP gained: "+String.valueOf(TotalGain));
+        TextTotalGain.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+        GameInfo.addView(TextTotalGain);
+
+        //Textview for Timer
+        TextTimer = new TextView(this);
+        TextTimer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        //TextTimer.setText("Time Left: "+String.valueOf(TextTime));
+        TextTimer.setTextColor(getResources().getColor(R.color.colorAccent));
+
+        GameInfo.addView(TextTimer);
+    }
+
+    private void setupDrawShells() {
+        ShellPaint = new Paint();
+        ShellPaint.setColor(Color.BLUE);
+        ShellPaint.setAlpha(160);
+        ShellPaint.setStrokeWidth(1);
+        ShellPaint.setStyle(FILL);
+
+        BMCrystalBall = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
+        ShellCanvas = new Canvas(BMCrystalBall);
+
+        ShellImage = new ImageView(this);
+        ShellImage.setImageBitmap(BMCrystalBall);
+        GameView.addView(ShellImage);
+    }
+
+    private void drawShells() {
+        ShellCanvas.drawCircle(GameXOrigin, GameYOrigin, TheCrystal.getMass() * TheCrystal.getShellWidth() / 360, ShellPaint);
+
+        BlackPaint.setStrokeWidth(1);   //temporary use of thinner black paint
+        for (int i=0; i<TheCrystal.getShellLevel(); i++) {
+            ShellCanvas.drawCircle(GameXOrigin, GameYOrigin, i * TheCrystal.getShellWidth(), BlackPaint);
+        }
+        BlackPaint.setStrokeWidth(3);
+    }
+
+    private void drawQuestionVector() {
+        //setup -> call only once in a separate method?
+        BMQuestionVector = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
+        QuestionVectorCanvas = new Canvas(BMQuestionVector);
+
+        QuestionVectorImage = new ImageView(this);
+        QuestionVectorImage.setImageBitmap(BMQuestionVector);
+        GameView.addView(QuestionVectorImage);
+        //draw
+        QuestionVectorCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + TheGenerator.getX(), GameYOrigin + TheGenerator.getY(), BlackPaint);
     }
 
     @Override

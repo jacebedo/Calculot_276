@@ -1116,6 +1116,7 @@ public class VectorQuestionGenerator {
         return QuestionTime;
     }
 
+    //Increment level
     public void setEasyLevel(int _easylevel) {
         EasyLevel = _easylevel;
         generateCrystalBall();
@@ -1131,6 +1132,7 @@ public class VectorQuestionGenerator {
         generateCrystalBall();
     }
 
+    //Get various info
     public int getHalfWidth() {
         return HalfWidth;
     }

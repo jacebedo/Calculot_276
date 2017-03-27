@@ -10,7 +10,7 @@ public class CrystalBall {
     //Constructor
     CrystalBall(int _ShellLevelMax, int _sidelength) {
         ShellLevelMax = _ShellLevelMax;
-        ShellWidth = _sidelength / _ShellLevelMax;
+        ShellWidth = _sidelength / (_ShellLevelMax + 1);
     }
 
     //Private Methods

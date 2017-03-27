@@ -1,6 +1,6 @@
 package calculotprototype.g14.cmpt276.calculot_prototype.Classes;
 
-public class QuestionVector {
+public class QuestionVector {   //class not needed?
     //fields
     private int Theta = 360;
     private int X;
