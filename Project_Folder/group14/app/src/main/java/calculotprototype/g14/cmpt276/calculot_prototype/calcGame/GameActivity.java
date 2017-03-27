@@ -5,28 +5,29 @@ import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.CalcQuestion;
+import calculotprototype.g14.cmpt276.calculot_prototype.Classes.Monster;
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.calcGameGraphics;
 import calculotprototype.g14.cmpt276.calculot_prototype.R;
 
 public class GameActivity extends AppCompatActivity {
 
-    CountDownTimer timer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
         // Health, XPGained, Level, Completed
-        final int[] info = {7,0,1,0};
-        final int topic = getIntent().getIntExtra("game_topic",0);
-        final CalcQuestion calc = new CalcQuestion(topic,1);
-        
+        final int[] info = {7, 0, 1, 0};
+        final int topic = getIntent().getIntExtra("game_topic", 0);
+
         // Set Initial TextViews
         final TextView healthfield = (TextView) findViewById(R.id.game_health);
         final TextView xpfield = (TextView) findViewById(R.id.game_xpgained);
@@ -42,158 +43,19 @@ public class GameActivity extends AppCompatActivity {
         final TextView answer4 = (TextView) findViewById(R.id.game_answer4);
         final Intent gameOver = new Intent(GameActivity.this, GameOverActivity.class);
 
+
+        Monster monster = new Monster(topic,info[2]);
+
         // Set up screen test;
-        RelativeLayout gameScreen = (RelativeLayout)findViewById(R.id.game_screen);
-        calcGameGraphics calcHelper = new calcGameGraphics(this);
+        RelativeLayout gameScreen = (RelativeLayout) findViewById(R.id.game_screen);
+        calcGameGraphics calcHelper = new calcGameGraphics(this,monster);
         calcHelper.setBackgroundColor(Color.WHITE);
         gameScreen.addView(calcHelper);
-
-        // set toast for taking damage
-        final Toast damageTaken = Toast.makeText(getApplicationContext(),"You have lost a life!", Toast.LENGTH_SHORT);
-        // Set up countdown timer ( 7 seconds currently - 1s = 1000ms)
-       timer = new CountDownTimer(8000,1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-            @Override
-            public void onFinish() {
-                info[0]--;
-                damageTaken.show();
-                calc.getNewQuestion(topic, info[2]);
-                setQuestion(question, answer1, answer2, answer3, answer4, calc, this);
-                healthfield.setText("Health: " + Integer.toString(info[0]));
-                if (info[0] <= 0) {
-                    this.cancel();
-                    gameOver.putExtra("xp",info[1]);
-                    startActivity(gameOver);
-                }
-            }
-        };
-
-       // Set the first answer field
-        setQuestion(question, answer1, answer2, answer3, answer4, calc, timer);
-
-
-
-
-
-        answer1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (calc.isCorrect(answer1) == true) {
-                    // Do something if correct
-                    info[3]++;
-                    checkLevel(info);
-
-                    calc.getNewQuestion(topic, info[2]);
-                    setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
-                } else {
-                    // Do something else if incorrect
-                    info[0]--;
-                    damageTaken.show();
-                    calc.getNewQuestion(topic, info[2]);
-                    setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
-                }
-                xpfield.setText("XP Gained: " + Integer.toString(info[1]));
-                healthfield.setText("Health: " + Integer.toString(info[0]));
-                if(info[0]<=0){
-                    timer.cancel();
-                    gameOver.putExtra("xp",info[1]);
-                    startActivity(gameOver);
-                }
-            }
-        });
-
-        // Set up the second answer field
-        answer2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (calc.isCorrect(answer2) == true) {
-                    // Do something if correct
-                    info[3]++;
-                    checkLevel(info);
-
-                    calc.getNewQuestion(topic, info[2]);
-                    setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
-                } else {
-                    // Do something else if wrong
-                    info[0]--;
-                    damageTaken.show();
-                    calc.getNewQuestion(topic, info[2]);
-                    setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
-                }
-                xpfield.setText("XP Gained: " + Integer.toString(info[1]));
-                healthfield.setText("Health: " + Integer.toString(info[0]));
-                if(info[0]<=0){
-                    timer.cancel();
-                    gameOver.putExtra("xp",info[1]);
-                    startActivity(gameOver);
-                }
-            }
-        });
-
-        // Set up the third answer field
-        answer3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (calc.isCorrect(answer3) == true) {
-                    // Do something if correct
-                    info[3]++;
-                    checkLevel(info);
-
-                    calc.getNewQuestion(topic, info[2]);
-                    setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
-                } else {
-                    // Do something else if wrong
-                    info[0]--;
-                    damageTaken.show();
-                    calc.getNewQuestion(topic, info[2]);
-                    setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
-                }
-                xpfield.setText("XP Gained: " + Integer.toString(info[1]));
-                healthfield.setText("Health: " + Integer.toString(info[0]));
-                if(info[0]<=0){
-                    timer.cancel();
-                    gameOver.putExtra("xp",info[1]);
-                    startActivity(gameOver);
-                }
-            }
-        });
-
-        // Set up the fourth answer field
-        answer4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (calc.isCorrect(answer4) == true) {
-                    // Do something if correct
-                    info[3]++;
-                    checkLevel(info);
-
-                    calc.getNewQuestion(topic, info[2]);
-                    setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
-                } else {
-                    // Do something else if wrong
-                    info[0]--;
-                    damageTaken.show();
-                    calc.getNewQuestion(topic, info[2]);
-                    setQuestion(question, answer1, answer2, answer3, answer4, calc,timer);
-                }
-                xpfield.setText("XP Gained: " + Integer.toString(info[1]));
-                healthfield.setText("Health: " + Integer.toString(info[0]));
-                if(info[0]<=0){
-                    timer.cancel();
-                    gameOver.putExtra("xp",info[1]);
-                    startActivity(gameOver);
-                }
-            }
-        });
-
 
     }
 
     // Checks if the user can advance into the next level
     private void checkLevel(int[] info) {
-
         // End the game ( Level 3 and the user has answered 10 questions at level 3)
         if (info[2] == 3 && info[3] % 10 == 0) {
             info[1] += 200;
@@ -209,15 +71,14 @@ public class GameActivity extends AppCompatActivity {
             if (info[2] == 2) {
                 info[1] += 50;
                 info[0]++;
-            Toast.makeText(getApplicationContext(),"LEVEL: 2",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"LEVEL: 2",Toast.LENGTH_SHORT).show();
             }
             if (info[2] == 3) {
                 info[1] += 100;
                 info[0]++;
                 Toast.makeText(getApplicationContext(),"LEVEL: 3",Toast.LENGTH_SHORT).show();
-                ;}
 
-            ;
+            }
         }
     }
 
@@ -240,7 +101,7 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        timer.cancel();
+
         finish();
         super.onBackPressed();
     }
