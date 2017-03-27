@@ -501,6 +501,10 @@ public class VectorQuestionGenerator {
         }
     }
 
+    private void generateClockVector() {
+        clockVector = new ClockVector(crystalBall, Float.parseFloat(ThetaComponent), QuestionTime);
+    }
+
     private void generateEasyQuestion() {
         //implement
         QuestionComplex = generateRandomBoolean();
@@ -514,6 +518,8 @@ public class VectorQuestionGenerator {
         YComponent = Integer.toString(generateRandomY());
         setNormFromXY();
         setThetaFromXY();
+
+        generateClockVector();
 
         if (RandomChoice == 0) {
             //find norm     given x and y
@@ -622,6 +628,8 @@ public class VectorQuestionGenerator {
         YComponent = Integer.toString(generateRandomY());
         setNormFromXY();
         setThetaFromXY();
+
+        generateClockVector();
 
         //Ask Question
         Question = findAnswer(QuestionType);

@@ -13,16 +13,15 @@ public class ClockVector {
     private float Speed;
 
     //Constructor
-    public ClockVector(CrystalBall _crystalball, float _starttheta, float _norm, float _speed) {
-        //TheGenerator = _thegenerator;
+    public ClockVector(CrystalBall _crystalball, float _starttheta, int _time) {
         Crystal = _crystalball;
 
         StartTheta = _starttheta;
         CurrentTheta = StartTheta;
         setX();
         setY();
-        Norm = _norm;
-        Speed = _speed;
+        Norm = (Crystal.getMass() + 360) * Crystal.getShellWidth() / 360;   //radius of clock vector for potential gain > 0
+        Speed = - 360 / ((float) _time * 20);   //increment every 20th of a second or 50 ms
     }
 
     //Private Methods
@@ -59,4 +58,15 @@ public class ClockVector {
         return Norm;
     }
 
+    public float getInnerRadius() {
+        if (PotentialGain>0) {
+            return Crystal.getMass() * Crystal.getShellWidth() / 360;
+        }
+        else {
+            float InnerRadius = (Crystal.getMass() - 360) * Crystal.getShellWidth() / 360;
+            if (InnerRadius>0)
+                return InnerRadius;
+            else return 0;
+        }
+    }
 }

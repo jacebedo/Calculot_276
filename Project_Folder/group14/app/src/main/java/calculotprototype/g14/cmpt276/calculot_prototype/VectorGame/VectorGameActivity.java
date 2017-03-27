@@ -50,12 +50,16 @@ public class VectorGameActivity extends AppCompatActivity {
     Bitmap BMCrystalBall;
     Paint BlackPaint;
     Paint ShellPaint;
+    Paint PotentialGainPaint;
+    Paint PotentialLossPaint;
     Canvas GridCanvas;
     Canvas ShellCanvas;
     Canvas QuestionVectorCanvas;
-    Canvas ClockCanvas;
+    Canvas ClockVectorCanvas;
+    ImageView GridImage;
     ImageView ShellImage;
     ImageView QuestionVectorImage;
+    ImageView ClockVectorImage;
 
     //Multiple Choice: Question, QuestionInfo, (2-5) Answer choices
     LinearLayout MultipleChoice;
@@ -91,6 +95,7 @@ public class VectorGameActivity extends AppCompatActivity {
     int TotalGain = 0;      //XP to be gained
     TextView TextTotalGain; //display total XP to be gained
     int PotentialGain;      //current question potential change in points: -360 to 360 -> upon reaching less than -360, fail current question
+    final int BasePoints = 100; //Theoretical maximum points per question is 100 * multiplier
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +131,7 @@ public class VectorGameActivity extends AppCompatActivity {
 
 
         //Setup GameInfo Textviews
+        setBlackPaint(false);
         drawGameInfo();
 
         //Initialize Grid View
@@ -181,7 +187,7 @@ public class VectorGameActivity extends AppCompatActivity {
         TextTimer.setText("Time Left: "+String.valueOf(TextTime));
 
         //temporary
-        PotentialGain = TextTime * 10;
+        PotentialGain = 0; //TextTime * 10;
         Timer = new CountDownTimer(QuestionTime * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -189,7 +195,7 @@ public class VectorGameActivity extends AppCompatActivity {
                 TextTimer.setText("Time Left: "+String.valueOf(TextTime));
 
                 //temporary;
-                PotentialGain = TextTime * 10;
+                PotentialGain = 0;//TextTime * 10;
             }
 
             @Override
@@ -280,20 +286,24 @@ public class VectorGameActivity extends AppCompatActivity {
     }
 
     //Draw Methods
+    private void setBlackPaint(boolean _declared) {
+        if (!_declared) {
+            BlackPaint = new Paint();
+            BlackPaint.setColor(Color.BLACK);
+        }
+        BlackPaint.setStrokeWidth(3);
+    }
+
     private void drawGrid() {
         BMGrid = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
         GridCanvas = new Canvas(BMGrid);
 
-        BlackPaint = new Paint();
-        BlackPaint.setColor(Color.BLACK);
-        BlackPaint.setStrokeWidth(3);
-
         GridCanvas.drawLine(0, GameYOrigin, GameWidth, GameYOrigin, BlackPaint);  //x axis
         GridCanvas.drawLine(GameXOrigin, 0, GameXOrigin, GameHeight, BlackPaint);  //y axis
 
-        ImageView Grid = new ImageView(this);
-        Grid.setImageBitmap(BMGrid);
-        GameView.addView(Grid);
+        GridImage = new ImageView(this);
+        GridImage.setImageBitmap(BMGrid);
+        GameView.addView(GridImage);
     }
 
     private void drawGameInfo() {
@@ -326,7 +336,7 @@ public class VectorGameActivity extends AppCompatActivity {
     private void setupDrawShells() {
         ShellPaint = new Paint();
         ShellPaint.setColor(Color.BLUE);
-        ShellPaint.setAlpha(160);
+        //ShellPaint.setAlpha(160);
         ShellPaint.setStrokeWidth(1);
         ShellPaint.setStyle(FILL);
 
@@ -345,7 +355,11 @@ public class VectorGameActivity extends AppCompatActivity {
         for (int i=0; i<TheCrystal.getShellLevel(); i++) {
             ShellCanvas.drawCircle(GameXOrigin, GameYOrigin, i * TheCrystal.getShellWidth(), BlackPaint);
         }
-        BlackPaint.setStrokeWidth(3);
+        setBlackPaint(true);    //reset black paint settings
+
+        GameView.bringChildToFront(GridImage);
+        GameView.bringChildToFront(QuestionVectorImage);
+        GameView.invalidate();
     }
 
     private void drawQuestionVector() {
