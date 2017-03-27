@@ -14,7 +14,7 @@ public class Monster{
     private float X_coordinate;
     private int Y_coordinate;
     private boolean isAlive;
-
+    private int rateofSpeed = 720;
     // Question Information
     private int topic;
     private int difficulty;
@@ -44,8 +44,8 @@ public class Monster{
     public int getDifficulty() { return difficulty; }
 
     // COORDINATE MOVE METHODS
-    public void moveMonster() {
-        X_coordinate-= 0.8;
+    public void moveMonster(int _width) {
+        X_coordinate-= _width/rateofSpeed;
 
     }
 

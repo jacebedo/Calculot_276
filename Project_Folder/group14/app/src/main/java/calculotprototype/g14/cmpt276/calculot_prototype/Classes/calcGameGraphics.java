@@ -101,10 +101,9 @@ public class calcGameGraphics extends View {
     private void drawMonster(Canvas canvas){
         if (monster.getXCoord() <= (castle_width)) {
             monster.respawnMonster(spawn_left);
-            Log.i("jacebedo","LIFE IS LOST");
         }else {
             canvas.drawBitmap(monster_img,monster.getXCoord(),monster_top,null);
-            monster.moveMonster();
+            monster.moveMonster(width);
         }
 
     }
