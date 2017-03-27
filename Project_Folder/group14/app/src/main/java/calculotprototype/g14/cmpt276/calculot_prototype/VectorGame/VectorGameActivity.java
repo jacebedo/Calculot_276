@@ -318,6 +318,12 @@ public class VectorGameActivity extends AppCompatActivity {
         else if ( Math.floor(ShellPoints / 360) >= MaxShell) {
             changeLevel( getLevel() + 1 );  //increment level by 1
             TheCrystal = TheGenerator.getCrystalBall();
+
+            ShellPoints = TheCrystal.getMass();
+            MaxShell = TheCrystal.getShellLevelMax();
+            drawShells();
+
+            startQuestion();
         }
         else startQuestion();
     }
@@ -389,8 +395,9 @@ public class VectorGameActivity extends AppCompatActivity {
         BMCrystalBall.eraseColor(Color.TRANSPARENT);
         ShellCanvas.drawCircle(GameXOrigin, GameYOrigin, TheCrystal.getMass() * TheCrystal.getShellWidth() / 360, ShellPaint);
 
+        BlackPaint.setStyle(Paint.Style.STROKE);
         BlackPaint.setStrokeWidth(1);   //temporary use of thinner black paint
-        for (int i=0; i<TheCrystal.getShellLevel(); i++) {
+        for (int i=1; i<=TheCrystal.getShellLevel(); i++) {
             ShellCanvas.drawCircle(GameXOrigin, GameYOrigin, i * TheCrystal.getShellWidth(), BlackPaint);
         }
         setBlackPaint(true);    //reset black paint settings
