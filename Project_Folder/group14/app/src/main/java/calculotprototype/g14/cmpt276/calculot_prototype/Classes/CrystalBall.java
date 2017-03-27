@@ -15,7 +15,7 @@ public class CrystalBall {
 
     //Private Methods
     private int setShellLevel() {
-        return Mass % 360;
+        return (int) Math.floor(Mass / 360);
     }
 
     //Public Methods

@@ -1160,4 +1160,8 @@ public class VectorQuestionGenerator {
     public CrystalBall getCrystalBall() {
         return crystalBall;
     }
+
+    public double getScoreMultiplier() {
+        return ScoreMultiplier;
+    }
 }

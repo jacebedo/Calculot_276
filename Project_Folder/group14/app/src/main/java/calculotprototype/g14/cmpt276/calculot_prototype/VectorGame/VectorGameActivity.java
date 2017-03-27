@@ -78,7 +78,7 @@ public class VectorGameActivity extends AppCompatActivity {
     LinearLayout GameInfo;
     CountDownTimer Timer;
     TextView TextTimer;
-    int TextTime = 0;       //the time left for the current question vector
+    float TextTime = 0;       //the time left for the current question vector
     int QuestionTime;       //the time for each question at that particular level
     TextView TextLevel;     //the level textview
     int Level;
@@ -94,8 +94,9 @@ public class VectorGameActivity extends AppCompatActivity {
     int ShellPoints;        //Points in total
     int TotalGain = 0;      //XP to be gained
     TextView TextTotalGain; //display total XP to be gained
-    int PotentialGain;      //current question potential change in points: -360 to 360 -> upon reaching less than -360, fail current question
-    final int BasePoints = 100; //Theoretical maximum points per question is 100 * multiplier
+    float PotentialGain;      //current question potential change in points: -360 to 360 -> upon reaching less than -360, fail current question
+    final int BaseGainAmount = 100; //Theoretical maximum points per question is 100 * multiplier
+    double ScoreMultiplier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,10 +139,12 @@ public class VectorGameActivity extends AppCompatActivity {
         drawGrid();
 
         //Shells
+        ShellPoints = TheCrystal.getMass();
         setupDrawShells();
         drawShells();
         //------
 
+        setupDrawQuestionVector();
         startQuestion();
     }
 
@@ -187,21 +190,25 @@ public class VectorGameActivity extends AppCompatActivity {
         TextTimer.setText("Time Left: "+String.valueOf(TextTime));
 
         //temporary
-        PotentialGain = 0; //TextTime * 10;
-        Timer = new CountDownTimer(QuestionTime * 1000, 1000) {
+        PotentialGain = (float) Math.round(TextTime / QuestionTime * BaseGainAmount * ScoreMultiplier);
+        final float PotentialGainDecrement = (float) -( 0.05 * BaseGainAmount * ScoreMultiplier / QuestionTime);
+        Timer = new CountDownTimer(QuestionTime * 2 * 1000, 50) {   //every 20th of a second
             @Override
             public void onTick(long millisUntilFinished) {
-                TextTime--;
+                TextTime -= 0.05;
                 TextTimer.setText("Time Left: "+String.valueOf(TextTime));
 
                 //temporary;
-                PotentialGain = 0;//TextTime * 10;
+                PotentialGain += PotentialGainDecrement;
             }
 
             @Override
             public void onFinish() {
                 //game over scenario
-                goToGameOver();
+                //TextTime = -QuestionTime;
+                TheCrystal.changeMass(-360);
+                ShellPoints = TheCrystal.getMass();
+                testShellPoints();
             }
         };
         Timer.start();
@@ -209,6 +216,7 @@ public class VectorGameActivity extends AppCompatActivity {
 
     private void startQuestion() {
         TheGenerator.generateQuestion();
+        ScoreMultiplier = TheGenerator.getScoreMultiplier();
         drawQuestionVector();
 
         //Multiple Choice: Question, QuestionInfo, (2-7) Answer choices depending on difficulty
@@ -254,11 +262,14 @@ public class VectorGameActivity extends AppCompatActivity {
                         if((MultipleChoice).getChildCount() > 0)
                             (MultipleChoice).removeAllViews();
 
-                        TotalGain += PotentialGain;
+                        TheCrystal.changeMass((int)(TextTime/QuestionTime*360));
+                        ShellPoints = TheCrystal.getMass();
+
+                        TotalGain += (int) PotentialGain;
 
                         TextTotalGain.setText("Total XP gained: "+String.valueOf(TotalGain));
-                        changeLevel( getLevel() + 1 );  //increment level by 1
                         startQuestion();
+                        testShellPoints();
                     }
                 });
             }
@@ -274,7 +285,10 @@ public class VectorGameActivity extends AppCompatActivity {
                         if((MultipleChoice).getChildCount() > 0)
                             (MultipleChoice).removeAllViews();
 
-                        goToGameOver();
+                        //temporary -> instant fail
+                        Timer.onFinish();
+                        Timer.cancel();
+                        testShellPoints();
                     }
                 });
             }
@@ -283,6 +297,14 @@ public class VectorGameActivity extends AppCompatActivity {
         }
 
         startTimer();
+    }
+
+    public void testShellPoints() { //next level or fail level
+        if (ShellPoints <= 0)
+            goToGameOver();
+        else if ( Math.floor(ShellPoints / 360) >= MaxShell) {
+            changeLevel( getLevel() + 1 );  //increment level by 1
+        }
     }
 
     //Draw Methods
@@ -362,16 +384,20 @@ public class VectorGameActivity extends AppCompatActivity {
         GameView.invalidate();
     }
 
-    private void drawQuestionVector() {
-        //setup -> call only once in a separate method?
+    private void setupDrawQuestionVector() {
         BMQuestionVector = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
         QuestionVectorCanvas = new Canvas(BMQuestionVector);
 
         QuestionVectorImage = new ImageView(this);
         QuestionVectorImage.setImageBitmap(BMQuestionVector);
         GameView.addView(QuestionVectorImage);
+    }
+
+    private void drawQuestionVector() {
         //draw
+        BMQuestionVector.eraseColor(Color.TRANSPARENT);
         QuestionVectorCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + TheGenerator.getX(), GameYOrigin + TheGenerator.getY(), BlackPaint);
+        GameView.invalidate();
     }
 
     @Override
