@@ -74,8 +74,9 @@ public class VectorGameActivity extends AppCompatActivity {
     TextView addQuestion;
     TextView addQuestionInfo;
 
-    //Game Info: Timer
-    LinearLayout GameInfo;
+    //Game Info: Timer, Level, Shell Level, etc.
+    LinearLayout GameInfoTop;
+    LinearLayout GameInfoBot;
     CountDownTimer Timer;
     TextView TextTimer;
     float TextTime = 0;       //the time left for the current question vector
@@ -83,6 +84,7 @@ public class VectorGameActivity extends AppCompatActivity {
     TextView TextLevel;     //the level textview
     int Level;
     int DecreaseAmount;  //+180 when a user picks the wrong option -> if >0, the user input is frozen and points/time decrease rapidly
+    TextView ShellLevel;
 
     // set toast for right/wrong answer
     Toast wrongAnswer;
@@ -115,9 +117,13 @@ public class VectorGameActivity extends AppCompatActivity {
         TheGenerator = new VectorQuestionGenerator(Difficulty, EasyLevel, MediumLevel, HardLevel);
         TheCrystal = TheGenerator.getCrystalBall();
 
+        ShellPoints = TheCrystal.getMass();
+        MaxShell = TheCrystal.getShellLevelMax();
+
         //Layouts
         MultipleChoice = (LinearLayout) findViewById(R.id.vectorMultipleChoiceLayout);
-        GameInfo = (LinearLayout) findViewById(R.id.vectorGameInfoLayout);
+        GameInfoTop = (LinearLayout) findViewById(R.id.vectorGameTopInfoLayout);
+        GameInfoBot = (LinearLayout) findViewById(R.id.vectorGameBottomInfoLayout);
         GameView = (RelativeLayout) findViewById(R.id.crystalBallLayout);
 
         //GameView Dimensions
@@ -131,7 +137,7 @@ public class VectorGameActivity extends AppCompatActivity {
         rightAnswer = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
 
 
-        //Setup GameInfo Textviews
+        //Setup GameInfoTop Textviews
         setBlackPaint(false);
         drawGameInfo();
 
@@ -139,8 +145,6 @@ public class VectorGameActivity extends AppCompatActivity {
         drawGrid();
 
         //Shells
-        ShellPoints = TheCrystal.getMass();
-        MaxShell = TheCrystal.getShellLevelMax();
         setupDrawShells();
         drawShells();
         //------
@@ -188,7 +192,7 @@ public class VectorGameActivity extends AppCompatActivity {
     private void startTimer() {
         // Set up countdown timer depending on difficulty
         TextTime = QuestionTime;
-        TextTimer.setText("Time Left: "+String.valueOf(TextTime));
+        TextTimer.setText("Time: "+String.format("%.1f",TextTime)+"/"+String.valueOf(QuestionTime));
 
         //temporary
         PotentialGain = (float) Math.round(TextTime / QuestionTime * BaseGainAmount * ScoreMultiplier);
@@ -197,7 +201,7 @@ public class VectorGameActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 TextTime -= 0.05;
-                TextTimer.setText("Time Left: "+String.valueOf(TextTime));
+                TextTimer.setText("Time: "+String.format("%.1f",TextTime)+"/"+String.valueOf(QuestionTime));
 
                 //temporary;
                 PotentialGain += PotentialGainDecrement;
@@ -275,7 +279,7 @@ public class VectorGameActivity extends AppCompatActivity {
 
                         TotalGain += (int) PotentialGain;
 
-                        TextTotalGain.setText("Total XP gained: "+String.valueOf(TotalGain));   //String.valueOf(Math.round(TextTime/QuestionTime*360))
+                        updateDrawTotalGain();
                         testShellPoints();
                     }
                 });
@@ -321,14 +325,28 @@ public class VectorGameActivity extends AppCompatActivity {
 
             ShellPoints = TheCrystal.getMass();
             MaxShell = TheCrystal.getShellLevelMax();
+
+            updateDrawShellLevel();
             drawShells();
 
             startQuestion();
         }
-        else startQuestion();
+        else {
+            updateDrawShellLevel();
+            startQuestion();
+        }
     }
 
     //Draw Methods
+    private void updateDrawShellLevel() {
+        Shell = TheCrystal.getShellLevel();
+        ShellLevel.setText("\t\tShell: "+String.valueOf(Shell)+"/"+String.valueOf(MaxShell));
+    }
+
+    private void updateDrawTotalGain() {
+        TextTotalGain.setText("\t\tTotal XP+: "+String.valueOf(TotalGain));
+    }
+
     private void setBlackPaint(boolean _declared) {
         if (!_declared) {
             BlackPaint = new Paint();
@@ -350,30 +368,42 @@ public class VectorGameActivity extends AppCompatActivity {
     }
 
     private void drawGameInfo() {
+        //Top Info
+
         //TextView for Level
         TextLevel = new TextView(this);
-        TextLevel.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        TextLevel.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         Level = getLevel();
-        TextLevel.setText("Level: "+String.valueOf(Level));
+        TextLevel.setText("Level "+String.valueOf(Level));
         TextLevel.setTextColor(getResources().getColor(R.color.colorPrimary));
 
-        GameInfo.addView(TextLevel);
+        GameInfoTop.addView(TextLevel);
+
+        //TextView for Shell Level
+        ShellLevel = new TextView(this);
+        ShellLevel.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        ShellLevel.setTextColor(getResources().getColor(R.color.colorPrimary));
+        updateDrawShellLevel();
+
+        GameInfoTop.addView(ShellLevel);
 
         //TextView for total XP gain
         TextTotalGain = new TextView(this);
-        TextTotalGain.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        TextTotalGain.setText("Total XP gained: "+String.valueOf(TotalGain));
+        TextTotalGain.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        updateDrawTotalGain();
         TextTotalGain.setTextColor(getResources().getColor(R.color.colorPrimary));
 
-        GameInfo.addView(TextTotalGain);
+        GameInfoTop.addView(TextTotalGain);
+
+        //Bottom View
 
         //Textview for Timer
         TextTimer = new TextView(this);
-        TextTimer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        //TextTimer.setText("Time Left: "+String.valueOf(TextTime));
+        TextTimer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        //TextTimer.setText("Time: "+String.format("%.1f",String.valueOf(TextTime))+"/"+String.valueOf(QuestionTime));
         TextTimer.setTextColor(getResources().getColor(R.color.colorAccent));
 
-        GameInfo.addView(TextTimer);
+        GameInfoBot.addView(TextTimer);
     }
 
     private void setupDrawShells() {
