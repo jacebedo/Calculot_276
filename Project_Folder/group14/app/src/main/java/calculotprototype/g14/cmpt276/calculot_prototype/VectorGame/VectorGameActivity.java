@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -478,7 +479,22 @@ public class VectorGameActivity extends AppCompatActivity {
         GameView.addView(ShellImage);
     }
 
+    private void setupDrawPotentialShell() {
+        PotentialGainPaint = new Paint();
+        PotentialGainPaint.setColor(Color.BLUE);
+        PotentialGainPaint.setAlpha(128);
+        PotentialGainPaint.setStrokeWidth(1);
+        PotentialGainPaint.setStyle(FILL);
+
+        PotentialLossPaint = new Paint();
+        PotentialLossPaint.setColor(Color.RED);
+        PotentialLossPaint.setAlpha(160);
+        PotentialLossPaint.setStrokeWidth(1);
+        PotentialLossPaint.setStyle(FILL);
+    }
+
     private void setupDrawClockVector() {
+        setupDrawPotentialShell();
         BMClockVector = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
         ClockVectorCanvas = new Canvas(BMClockVector);
 
@@ -498,9 +514,9 @@ public class VectorGameActivity extends AppCompatActivity {
         }
         setBlackPaint(true);    //reset black paint settings
 
-        GameView.bringChildToFront(GridImage);
-        GameView.bringChildToFront(QuestionVectorImage);
         GameView.bringChildToFront(ClockVectorImage);
+        GameView.bringChildToFront(QuestionVectorImage);
+        GameView.bringChildToFront(GridImage);
         GameView.invalidate();
     }
 
@@ -521,8 +537,33 @@ public class VectorGameActivity extends AppCompatActivity {
     }
 
     private void drawClockVector() {
-        //draw
+        //erase
         BMClockVector.eraseColor(Color.TRANSPARENT);
+
+        //draw shells
+        RectF ClockRect = new RectF(GameXOrigin - clockVector.getNorm(),
+                GameYOrigin - clockVector.getNorm(),
+                GameXOrigin + clockVector.getNorm(),
+                GameYOrigin + clockVector.getNorm());
+
+        if (PotentialGain>=0) {
+            ClockVectorCanvas.drawArc(ClockRect,
+                    clockVector.getCurrentTheta(),
+                    ((360-clockVector.getPotentialGainAngle()) % 360),
+                    true,
+                    PotentialGainPaint
+                    );
+        }
+        else {
+            ClockVectorCanvas.drawArc(ClockRect,
+                    clockVector.getStartTheta(),
+                    (clockVector.getPotentialGainAngle() % 360),
+                    true,
+                    PotentialLossPaint
+            );
+        }
+
+        //draw clock vector
         ClockVectorCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + clockVector.getX(), GameYOrigin + clockVector.getY(), BlackPaint);
         GameView.invalidate();
     }

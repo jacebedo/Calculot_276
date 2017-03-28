@@ -40,6 +40,8 @@ public class ClockVector {
         CurrentTheta = StartTheta + PotentialGain;
         setX();
         setY();
+        if (PotentialGain<0)
+            Norm = (Crystal.getMass()) * Crystal.getShellWidth() / 360;
     }
 
     public float getX() {
@@ -54,8 +56,16 @@ public class ClockVector {
         return CurrentTheta;
     }
 
+    public float getStartTheta() {
+        return StartTheta;
+    }
+
     public float getNorm() {
         return Norm;
+    }
+
+    public float getPotentialGainAngle() {
+        return PotentialGain;
     }
 
     public float getInnerRadius() {
