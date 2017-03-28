@@ -57,7 +57,7 @@ public class GameActivity extends AppCompatActivity {
         UserDatabaseHelper DB = new UserDatabaseHelper(this);
         User user = DB.getUser(username); //Gets User object from database (includes all user info)
         int userLevel = user.getlevel();
-        
+
         // Set up screen;
         RelativeLayout gameScreen = (RelativeLayout) findViewById(R.id.game_screen);
         final calcGameGraphics calcHelper = new calcGameGraphics(this,monster,info,healthfield,userLevel);
@@ -187,6 +187,27 @@ public class GameActivity extends AppCompatActivity {
         _answer2.setText(getResources().getString(R.string.ans2));
         _answer3.setText(getResources().getString(R.string.ans3));
         _answer4.setText(getResources().getString(R.string.ans4));
+
+        _answer1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        _answer2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        _answer3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        _answer4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
     }
 
     private void setMonsterQuestion(TextView _question, TextView _answer1, TextView _answer2, TextView _answer3, TextView _answer4,Monster monster)  {
