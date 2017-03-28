@@ -1,6 +1,7 @@
 package calculotprototype.g14.cmpt276.calculot_prototype.calcGame;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,9 @@ import android.widget.Toast;
 
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.CalcQuestion;
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.Monster;
+import calculotprototype.g14.cmpt276.calculot_prototype.Classes.User;
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.calcGameGraphics;
+import calculotprototype.g14.cmpt276.calculot_prototype.Databases.UserDatabaseHelper;
 import calculotprototype.g14.cmpt276.calculot_prototype.R;
 
 public class GameActivity extends AppCompatActivity {
@@ -48,9 +51,16 @@ public class GameActivity extends AppCompatActivity {
 
         final Monster monster = new Monster(topic,info[2]);
 
-        // Set up screen test;
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",0);
+        String username = pref.getString("username",null); //Gets current logged in username from SharedPreferences
+
+        UserDatabaseHelper DB = new UserDatabaseHelper(this);
+        User user = DB.getUser(username); //Gets User object from database (includes all user info)
+        int userLevel = user.getlevel();
+        
+        // Set up screen;
         RelativeLayout gameScreen = (RelativeLayout) findViewById(R.id.game_screen);
-        final calcGameGraphics calcHelper = new calcGameGraphics(this,monster,info,healthfield);
+        final calcGameGraphics calcHelper = new calcGameGraphics(this,monster,info,healthfield,userLevel);
         calcHelper.setBackgroundColor(Color.WHITE);
         gameScreen.addView(calcHelper);
 

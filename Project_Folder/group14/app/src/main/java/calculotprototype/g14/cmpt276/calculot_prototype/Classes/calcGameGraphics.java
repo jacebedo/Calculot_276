@@ -67,9 +67,10 @@ public class calcGameGraphics extends View {
     Context c;
     int[] info;
     TextView hpfield;
+    int userLevel;
 
     // Initialization
-    public calcGameGraphics(Context context, Monster _monster, int[] _info,TextView _hpfield) {
+    public calcGameGraphics(Context context, Monster _monster, int[] _info,TextView _hpfield, int _Level) {
         super(context);
         c = context;
         monster = _monster;
@@ -78,6 +79,7 @@ public class calcGameGraphics extends View {
         monster.spawnMonster(spawn_left);
         info = _info;
         hpfield = _hpfield;
+        userLevel = _Level;
     }
 
     // Drawing the game
@@ -157,7 +159,7 @@ public class calcGameGraphics extends View {
         makeTransparent(castle_img);
 
         // GENERATE CHARACTER
-        character_img = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.malewizard3);
+        character_img = getCharacter(userLevel);
         char_width = (int)Math.round(0.075*width);
         char_height= (int)Math.round(0.075*height);
         character_img = Bitmap.createScaledBitmap(character_img,char_width,char_height,true);
@@ -174,6 +176,20 @@ public class calcGameGraphics extends View {
         arrow_width = monster_width;
         arrow_img = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.arrow);
         arrow_img = Bitmap.createScaledBitmap(arrow_img,arrow_width,arrow_height,true);
+    }
+
+    private Bitmap getCharacter(int userLevel) {
+        if (userLevel >= 25) {
+            Bitmap bmp = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.malewizard3);
+            return bmp;
+        } else if (userLevel >= 10){
+            Bitmap bmp = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.malewizard2);
+            return bmp;
+        } else {
+            Bitmap bmp = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.malewizard1);
+            return bmp;
+        }
+
     }
 
     // This method turns all black pixels (0xffffff) into TRANSPARENT
