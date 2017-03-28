@@ -7,6 +7,11 @@
     <color name="colorRed">#C70039</color>
     <color name="colorOrange">#FF7400</color>
 
+    <color name="goldYellow">#E1933C</color>
+    <color name="steelSilver">#8a8583</color>
+    <color name="brightSilver">#CCCCCC</color>
+    <color name="answerBlue">#666699</color>
+
     <color name="skyblue">#5ad9f9</color>
     <color name="grassgreen">#01A611</color>
 </resources>

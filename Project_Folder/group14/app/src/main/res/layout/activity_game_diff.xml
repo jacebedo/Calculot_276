@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background = "@drawable/activity_background"
     tools:context="calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameDiff">
 
     <Button
@@ -13,9 +14,9 @@
         android:text="@string/gameDiff_Diff"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="93dp"
+        android:layout_marginBottom="60dp"
         android:layout_above="@+id/gameDiff_Int"
-        android:layout_alignStart="@+id/gameDiff_Int"
-        android:layout_marginBottom="88dp" />
+        android:layout_alignStart="@+id/gameDiff_Int" />
 
     <Button
         android:id="@+id/gameDiff_Int"
@@ -24,8 +25,8 @@
         android:text="@string/gameDiff_Int"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="189dp"
-        android:layout_marginBottom="140dp"
-        android:layout_alignBottom="@+id/gameDiff_Comb"
+        android:layout_marginBottom="65dp"
+        android:layout_above="@+id/gameDiff_Comb"
         android:layout_alignStart="@+id/gameDiff_Comb" />
 
     <Button

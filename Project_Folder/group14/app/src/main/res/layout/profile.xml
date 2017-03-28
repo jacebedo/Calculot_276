@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/activity_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="username"
                 android:textSize="32dp"
+                android:textColor="@color/goldYellow"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <Space
@@ -45,6 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="firstName"
+                android:textColor="@color/goldYellow"
                 android:textSize="16dp"/>
 
             <Space
@@ -55,6 +58,7 @@
                 android:id="@+id/profile_level"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/goldYellow"
                 android:text="level" />
         </LinearLayout>
     </LinearLayout>
@@ -67,6 +71,7 @@
         android:id="@+id/profile_learningXP_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/steelSilver"
         android:text="@string/learning_xp" />
 
     <ProgressBar
@@ -79,6 +84,7 @@
         android:id="@+id/profile_practiceXP_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/steelSilver"
         android:text="@string/practice_xp" />
 
     <ProgressBar

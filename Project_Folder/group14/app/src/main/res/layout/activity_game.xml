@@ -5,7 +5,8 @@
     android:id = "@+id/game_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameActivity">
+    tools:context="calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameActivity"
+    android:background="@drawable/activity_background">
 
     <RelativeLayout
         android:id="@+id/game_screen"
@@ -29,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/brightSilver"
             android:paddingLeft="5dp"
             android:text="health:" />
 
@@ -38,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="5dp"
+            android:textColor="@color/brightSilver"
             android:text="TextView"
             tools:text="xp gained" />
     </LinearLayout>
@@ -55,6 +58,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="TextView"
+            android:textColor="@color/goldYellow"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textSize="18sp" />
     </RelativeLayout>
@@ -78,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:clickable="true"
+                android:textColor="@color/answerBlue"
                 android:padding="25dp"
                 android:text="TextView" />
 
@@ -86,6 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/answerBlue"
                 android:clickable="true"
                 android:padding="25dp"
                 android:text="TextView" />
@@ -102,6 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/answerBlue"
                 android:clickable="true"
                 android:padding="25dp"
                 android:text="TextView" />
@@ -111,6 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/answerBlue"
                 android:clickable="true"
                 android:padding="25dp"
                 android:text="TextView" />

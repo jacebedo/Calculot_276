@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Calculot_Prototype</string>
+    <string name="app_name">Calculot</string>
     <string name="calculot_title">CALCULOT</string>
     <string name="sign_up_button">Sign Up</string>
     <string name="login_button">Login</string>

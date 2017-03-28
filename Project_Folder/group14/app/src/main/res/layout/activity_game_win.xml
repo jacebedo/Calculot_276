@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameWinActivity">
+    tools:context="calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameWinActivity"
+    android:background="@drawable/activity_background">
 
 
     <TextView
@@ -16,6 +17,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:text="TextView"
+        android:textColor="@color/brightSilver"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_conversion_absoluteHeight="132dp"
@@ -34,6 +36,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="94dp"
+        android:textColor="@color/goldYellow"
         android:text="@string/Congratulations"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textSize="43sp"
@@ -55,6 +58,7 @@
         android:text="@string/WinMessage"
         tools:layout_conversion_absoluteHeight="511dp"
         tools:layout_conversion_absoluteWidth="5dp"
+        android:textColor="@color/steelSilver"
         tools:layout_conversion_absoluteX="373dp"
         tools:layout_conversion_absoluteY="29dp"
         android:layout_marginRight="-64dp"
@@ -72,6 +76,7 @@
         android:layout_marginBottom="40dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:textColor="@color/goldYellow"
         android:text="@string/game_goToMainMenu"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -85,6 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="39dp"
         android:layout_marginRight="65dp"
+        android:textColor="@color/goldYellow"
         android:text="@string/TryAgain"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameMenu">
+    tools:context="calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameMenu"
+    android:background="@drawable/activity_background">
 
     <TextView
         android:id="@+id/gameMenu_Defense"
@@ -14,6 +15,7 @@
         android:textSize="18sp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="150dp"
+        android:textColor="@color/brightSilver"
         android:layout_marginBottom="82dp"
         android:layout_above="@+id/gameMenu_CrystalBall"
         android:layout_alignStart="@+id/gameMenu_CrystalBall" />
@@ -24,6 +26,7 @@
         android:layout_height="wrap_content"
         android:text="@string/game_WizardBall"
         android:textSize="18sp"
+        android:textColor="@color/goldYellow"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="280dp"
         android:layout_marginBottom="166dp"
