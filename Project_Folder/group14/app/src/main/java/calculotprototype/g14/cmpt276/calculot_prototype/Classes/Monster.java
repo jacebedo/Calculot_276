@@ -13,9 +13,12 @@ public class Monster extends CalcQuestion{
     // Monster information
     private float X_coordinate;
     private int Y_coordinate;
+    private float X_spawnCoordinate;
     private int rateofSpeed = 720;
     private int monster_width;
     private int monster_height;
+    private boolean monster_isSelected;
+
     // Question Information
     private int topic;
     private int difficulty;
@@ -29,6 +32,7 @@ public class Monster extends CalcQuestion{
         difficulty = 1;
         X_coordinate = 0;
         Y_coordinate = 0;
+        monster_isSelected = false;
     }
 
     // Customized Constructor
@@ -38,6 +42,7 @@ public class Monster extends CalcQuestion{
         difficulty = _difficulty;
         X_coordinate = 0;
         Y_coordinate = 0;
+        monster_isSelected = false;
     }
 
     //GET METHODS
@@ -47,10 +52,13 @@ public class Monster extends CalcQuestion{
     public int getDifficulty() { return difficulty; }
     public int getMonster_width() { return monster_width; }
     public int getMonster_height() { return monster_height; }
+    public boolean getMonster_selected() { return monster_isSelected; }
 
     public void setMonster_width(int _width){ monster_width = _width; }
     public void setMonster_height(int _height){ monster_height = _height; }
     public void setMonster_Y(int _y) { Y_coordinate = _y; }
+    public void selectMonster() { monster_isSelected = true; }
+    public void deselectMonster() { monster_isSelected = false; }
 
     // COORDINATE MOVE METHODS
     public void moveMonster(int _width) {
@@ -71,11 +79,13 @@ public class Monster extends CalcQuestion{
     // SPAWN METHODS
     public void spawnMonster(int _x) {
         X_coordinate = _x;
+        X_spawnCoordinate = _x;
     }
 
-    public void respawnMonster(int _x) {
-        this.getNewQuestion(topic,difficulty);
-        X_coordinate = _x;
+    public void respawnMonster(int _difficulty) {
+        this.deselectMonster();
+        this.getNewQuestion(topic,_difficulty);
+        X_coordinate = X_spawnCoordinate;
     }
 
 

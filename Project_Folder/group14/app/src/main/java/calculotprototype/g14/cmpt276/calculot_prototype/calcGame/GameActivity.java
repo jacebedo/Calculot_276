@@ -50,7 +50,7 @@ public class GameActivity extends AppCompatActivity {
 
         // Set up screen test;
         RelativeLayout gameScreen = (RelativeLayout) findViewById(R.id.game_screen);
-        final calcGameGraphics calcHelper = new calcGameGraphics(this,monster);
+        final calcGameGraphics calcHelper = new calcGameGraphics(this,monster,info);
         calcHelper.setBackgroundColor(Color.WHITE);
         gameScreen.addView(calcHelper);
 
@@ -61,8 +61,86 @@ public class GameActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     if (checkBounds(event,monster) == true) {
+                        monster.selectMonster();
                         setMonsterQuestion(question,answer1,answer2,answer3,answer4,monster);
-                        // Wire on-touch listeners to do the old stuff!
+
+                        answer1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if ( monster.isCorrect(answer1)) {
+                                    info[3]++;
+                                    checkLevel(info);
+                                    monster.respawnMonster(info[2]);
+                                    setEmptyQuestion(question,answer1,answer2,answer3,answer4);
+                                } else {
+                                    info[0]--;
+                                    checkGameOver(info, gameOver);
+                                    healthfield.setText("Health: " + Integer.toString(info[0]));
+                                    monster.respawnMonster(info[2]);
+                                    setEmptyQuestion(question,answer1,answer2,answer3,answer4);
+                                }
+                                xpfield.setText("XP Gained: " + Integer.toString(info[1]));
+                            }
+                        });
+                        answer2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if ( monster.isCorrect(answer2)) {
+                                    info[3]++;
+                                    checkLevel(info);
+                                    monster.respawnMonster(info[2]);
+                                    setEmptyQuestion(question,answer1,answer2,answer3,answer4);
+                                } else {
+                                    info[0]--;
+                                    checkGameOver(info, gameOver);
+                                    healthfield.setText("Health: " + Integer.toString(info[0]));
+                                    monster.respawnMonster(info[2]);
+                                    setEmptyQuestion(question,answer1,answer2,answer3,answer4);
+                                }
+                                xpfield.setText("XP Gained: " + Integer.toString(info[1]));
+                            }
+                        });
+                        answer3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if ( monster.isCorrect(answer3)) {
+                                    info[3]++;
+                                    checkLevel(info);
+                                    monster.respawnMonster(info[2]);
+                                    setEmptyQuestion(question,answer1,answer2,answer3,answer4);
+                                } else {
+                                    info[0]--;
+                                    checkGameOver(info, gameOver);
+                                    healthfield.setText("Health: " + Integer.toString(info[0]));
+                                    monster.respawnMonster(info[2]);
+                                    setEmptyQuestion(question,answer1,answer2,answer3,answer4);
+                                }
+                                xpfield.setText("XP Gained: " + Integer.toString(info[1]));
+                            }
+                        });
+                        answer4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if ( monster.isCorrect(answer4)) {
+                                    info[3]++;
+                                    checkLevel(info);
+                                    monster.respawnMonster(info[2]);
+                                    setEmptyQuestion(question,answer1,answer2,answer3,answer4);
+                                } else {
+                                    info[0]--;
+                                    checkGameOver(info, gameOver);
+                                    healthfield.setText("Health: " + Integer.toString(info[0]));
+                                    monster.respawnMonster(info[2]);
+                                    setEmptyQuestion(question,answer1,answer2,answer3,answer4);
+                                }
+                                xpfield.setText("XP Gained: " + Integer.toString(info[1]));
+                            }
+                        });
+
+                    }
+                    else {
+                        monster.deselectMonster();
+                        setEmptyQuestion(question,answer1,answer2,answer3,answer4);
                     }
                 }
 
@@ -70,6 +148,13 @@ public class GameActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void checkGameOver(int[] info, Intent gameOver) {
+        if (info[0] <= 0) {
+            gameOver.putExtra("xp",info[1]);
+            startActivity(gameOver);
+        }
     }
 
     private boolean checkBounds(MotionEvent event, Monster monster){

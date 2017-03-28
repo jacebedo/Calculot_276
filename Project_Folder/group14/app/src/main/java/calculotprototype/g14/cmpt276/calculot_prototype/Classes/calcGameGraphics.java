@@ -55,14 +55,21 @@ public class calcGameGraphics extends View {
     int monster_height;
     Bitmap monster_img;
 
+    // ARROW MEMBERS
+    Bitmap arrow_img;
+    int arrow_width;
+    int arrow_height;
+
+    int[] info;
+
     // Initialization
-    public calcGameGraphics(Context context, Monster _monster) {
+    public calcGameGraphics(Context context, Monster _monster, int[] _info) {
         super(context);
         monster = _monster;
         setAssets();
         spawn_left = width;
         monster.spawnMonster(spawn_left);
-
+        info = _info;
     }
 
     // Drawing the game
@@ -96,9 +103,15 @@ public class calcGameGraphics extends View {
 
     private void drawMonster(Canvas canvas){
         if (monster.getXCoord() <= (castle_width)) {
-            monster.respawnMonster(spawn_left);
+            monster.respawnMonster(info[2]);
+            monster.deselectMonster();
+
+
         }else {
             sendMonsterTop();
+            if (monster.getMonster_selected() == true) {
+                canvas.drawBitmap(arrow_img,monster.getXCoord(),monster_top - monster_height,null);
+            }
             canvas.drawBitmap(monster_img,monster.getXCoord(),monster_top,null);
             monster.moveMonster(width);
         }
@@ -136,6 +149,12 @@ public class calcGameGraphics extends View {
         monster_height = (int)Math.round(0.125*height);
         monster_img = Bitmap.createScaledBitmap(monster_img,monster_width,monster_height,true);
         sendMonsterDimension();
+
+        // GENERATE ARROW
+        arrow_height = (int)Math.round(0.5*monster_height);
+        arrow_width = monster_width;
+        arrow_img = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.arrow);
+        arrow_img = Bitmap.createScaledBitmap(arrow_img,arrow_width,arrow_height,true);
     }
 
     // This method turns all black pixels (0xffffff) into TRANSPARENT
