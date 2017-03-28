@@ -96,7 +96,7 @@ public class calcGameGraphics extends View {
         floor_right = canvas.getWidth();
         floor_bottom = canvas.getHeight();
         floor_top = (int) Math.round(0.9*floor_bottom);
-        castle_top = floor_bottom - castle_img.getHeight();
+        castle_top = (int) Math.round( floor_bottom - castle_img.getHeight()-(0.5*(floor_bottom - floor_top)));
         char_left = (int)Math.round(castle_width / 2);
         char_top = castle_top - character_img.getHeight();
         monster_top = (int) ((floor_bottom - floor_top) * 0.75 + floor_top - monster_height);
@@ -153,10 +153,10 @@ public class calcGameGraphics extends View {
 
         // GENERATE CASTLE
         castle_img = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.castle);
-        castle_width = (int)Math.round(0.35*width);
-        int castle_height = (int)Math.round(0.35*height);
+        castle_width = (int)Math.round(0.25*width);
+        int castle_height = (int)Math.round(0.30*height);
         castle_img = Bitmap.createScaledBitmap(castle_img,castle_width,castle_height,true);
-        makeTransparent(castle_img);
+        //makeTransparent(castle_img);
 
         // GENERATE CHARACTER
         character_img = getCharacter(userLevel);
