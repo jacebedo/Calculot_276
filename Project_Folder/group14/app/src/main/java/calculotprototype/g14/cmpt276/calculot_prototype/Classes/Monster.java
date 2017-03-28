@@ -8,31 +8,34 @@ import android.util.Log;
  */
 
 
-public class Monster{
+public class Monster extends CalcQuestion{
 
     // Monster information
     private float X_coordinate;
     private int Y_coordinate;
-    private boolean isAlive;
     private int rateofSpeed = 720;
+    private int monster_width;
+    private int monster_height;
     // Question Information
     private int topic;
     private int difficulty;
-    CalcQuestion currentQuestion = new CalcQuestion(0,1);
 
 
+
+    // Default Constructor
     public Monster() {
+        super(0,1);
         topic = 0;
         difficulty = 1;
-        currentQuestion.getNewQuestion(0,1);
         X_coordinate = 0;
         Y_coordinate = 0;
     }
 
+    // Customized Constructor
     public Monster(int _topic, int _difficulty){
+        super(_topic,_difficulty);
         topic = _topic;
         difficulty = _difficulty;
-        currentQuestion.getNewQuestion(topic,difficulty);
         X_coordinate = 0;
         Y_coordinate = 0;
     }
@@ -42,6 +45,12 @@ public class Monster{
     public int getYCoord() { return Y_coordinate; }
     public int getTopic() { return topic; }
     public int getDifficulty() { return difficulty; }
+    public int getMonster_width() { return monster_width; }
+    public int getMonster_height() { return monster_height; }
+
+    public void setMonster_width(int _width){ monster_width = _width; }
+    public void setMonster_height(int _height){ monster_height = _height; }
+    public void setMonster_Y(int _y) { Y_coordinate = _y; }
 
     // COORDINATE MOVE METHODS
     public void moveMonster(int _width) {
@@ -51,7 +60,7 @@ public class Monster{
 
     // QUESTION CORRECTNESS CHECKING
     public boolean isQuestionCorrect(String _answer) {
-        if (currentQuestion.getCorrect().equals(_answer)) { return true; }
+        if (this.getCorrect().equals(_answer)) { return true; }
         return false;
     }
     public void getNewParams(int _topic, int _difficulty) {
@@ -65,8 +74,9 @@ public class Monster{
     }
 
     public void respawnMonster(int _x) {
-        currentQuestion.getNewQuestion(topic,difficulty);
+        this.getNewQuestion(topic,difficulty);
         X_coordinate = _x;
     }
+
 
 }

@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,15 +44,62 @@ public class GameActivity extends AppCompatActivity {
         final TextView answer4 = (TextView) findViewById(R.id.game_answer4);
         final Intent gameOver = new Intent(GameActivity.this, GameOverActivity.class);
 
+        setEmptyQuestion(question,answer1,answer2,answer3,answer4);
 
-        Monster monster = new Monster(topic,info[2]);
+        final Monster monster = new Monster(topic,info[2]);
 
         // Set up screen test;
         RelativeLayout gameScreen = (RelativeLayout) findViewById(R.id.game_screen);
-        calcGameGraphics calcHelper = new calcGameGraphics(this,monster);
+        final calcGameGraphics calcHelper = new calcGameGraphics(this,monster);
         calcHelper.setBackgroundColor(Color.WHITE);
         gameScreen.addView(calcHelper);
 
+
+        calcHelper.setOnTouchListener(new View.OnTouchListener(){
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (checkBounds(event,monster) == true) {
+                        setMonsterQuestion(question,answer1,answer2,answer3,answer4,monster);
+                        // Wire on-touch listeners to do the old stuff!
+                    }
+                }
+
+                return true;
+            }
+
+        });
+    }
+
+    private boolean checkBounds(MotionEvent event, Monster monster){
+        int x = (int) Math.round(event.getX());
+        int y = (int) Math.round(event.getY());
+
+        if (x >= monster.getXCoord() && x <= monster.getXCoord() + monster.getMonster_width() &&
+                y >= monster.getYCoord() && y <= monster.getYCoord() + monster.getMonster_height() ) {
+            return true;
+        }
+            return false;
+    }
+
+
+
+
+    private void setEmptyQuestion(TextView _question, TextView _answer1, TextView _answer2, TextView _answer3, TextView _answer4)  {
+        _question.setText(getResources().getString(R.string.emptyQuestion));
+        _answer1.setText(getResources().getString(R.string.ans1));
+        _answer2.setText(getResources().getString(R.string.ans2));
+        _answer3.setText(getResources().getString(R.string.ans3));
+        _answer4.setText(getResources().getString(R.string.ans4));
+    }
+
+    private void setMonsterQuestion(TextView _question, TextView _answer1, TextView _answer2, TextView _answer3, TextView _answer4,Monster monster)  {
+        _question.setText(monster.getQuestion());
+        _answer1.setText(monster.getAnswer_1());
+        _answer2.setText(monster.getAnswer_2());
+        _answer3.setText(monster.getAnswer_3());
+        _answer4.setText(monster.getAnswer_4());
     }
 
     // Checks if the user can advance into the next level

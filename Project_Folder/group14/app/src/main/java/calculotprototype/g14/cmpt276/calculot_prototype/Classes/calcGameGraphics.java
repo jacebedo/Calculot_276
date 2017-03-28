@@ -60,7 +60,6 @@ public class calcGameGraphics extends View {
         super(context);
         monster = _monster;
         setAssets();
-
         spawn_left = width;
         monster.spawnMonster(spawn_left);
 
@@ -84,10 +83,7 @@ public class calcGameGraphics extends View {
         char_left = (int)Math.round(castle_width / 2);
         char_top = castle_top - character_img.getHeight();
         monster_top = (int) ((floor_bottom - floor_top) * 0.75 + floor_top - monster_height);
-        // Draw the items
-        //canvas.drawBitmap(background,0,0,null);
 
-        // Temporary
         paintSky.setColor(skyblue);
         canvas.drawRect(0,0,floor_right,floor_bottom,paintSky);
 
@@ -102,6 +98,7 @@ public class calcGameGraphics extends View {
         if (monster.getXCoord() <= (castle_width)) {
             monster.respawnMonster(spawn_left);
         }else {
+            sendMonsterTop();
             canvas.drawBitmap(monster_img,monster.getXCoord(),monster_top,null);
             monster.moveMonster(width);
         }
@@ -138,6 +135,7 @@ public class calcGameGraphics extends View {
         monster_width = (int)Math.round(0.175*width);
         monster_height = (int)Math.round(0.125*height);
         monster_img = Bitmap.createScaledBitmap(monster_img,monster_width,monster_height,true);
+        sendMonsterDimension();
     }
 
     // This method turns all black pixels (0xffffff) into TRANSPARENT
@@ -156,6 +154,14 @@ public class calcGameGraphics extends View {
             }
         }
         bmp.setHasAlpha(true);
+    }
+
+    private void sendMonsterDimension(){
+        monster.setMonster_width(monster_width);
+        monster.setMonster_height(monster_height);
+    }
+    private void sendMonsterTop() {
+        monster.setMonster_Y(monster_top);
     }
 
 }
