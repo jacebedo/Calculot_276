@@ -21,27 +21,27 @@ public class ClockVector {
         setX();
         setY();
         Norm = (Crystal.getMass() + 360) * Crystal.getShellWidth() / 360;   //radius of clock vector for potential gain > 0
-        Speed = - 360 / ((float) _time * 20);   //increment every 20th of a second or 50 ms
+        Speed = 360 / ((float) _time * 20);   //increment every 20th of a second or 50 ms
     }
 
     //Private Methods
-    private void incrementAngle() {
+    private void setX() {
+        //implement
+        X = (float) (Math.cos( Math.toRadians(CurrentTheta) ) * Norm);
+    }
+
+    private void setY() {
+        //implement
+        Y = (float) (Math.sin( Math.toRadians(CurrentTheta) ) * Norm);
+    }
+    //Public Methods
+    public void incrementAngle() {
         PotentialGain += Speed;
         CurrentTheta = StartTheta + PotentialGain;
         setX();
         setY();
     }
 
-    private void setX() {
-        //implement
-        X = (float) (Math.cos( (double) CurrentTheta ) * Norm);
-    }
-
-    private void setY() {
-        //implement
-        Y = (float) (Math.sin( (double) CurrentTheta ) * Norm);
-    }
-    //Public Methods
     public float getX() {
         return X;
     }

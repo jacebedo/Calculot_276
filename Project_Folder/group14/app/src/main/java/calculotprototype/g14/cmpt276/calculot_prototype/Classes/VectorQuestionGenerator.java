@@ -502,7 +502,7 @@ public class VectorQuestionGenerator {
     }
 
     private void generateClockVector() {
-        clockVector = new ClockVector(crystalBall, Float.parseFloat(ThetaComponent), QuestionTime);
+        clockVector = new ClockVector(crystalBall, (360 - Float.parseFloat(ThetaComponent)) % 360, QuestionTime);
     }
 
     private void generateEasyQuestion() {
@@ -561,7 +561,7 @@ public class VectorQuestionGenerator {
 
     private void generateMediumQuestion() {
         //method is long -> refactor?
-        int QuestionType = getRandomInt(0,11); //range from 0-11
+        int QuestionType = 7;//getRandomInt(0,11); //range from 0-11
         int TempRandom;
 
         if (QuestionType <= 5) {
@@ -703,7 +703,10 @@ public class VectorQuestionGenerator {
 
     private void setThetaFromXY() {
         double Ratio = (double) Integer.parseInt(YComponent) / (double) Integer.parseInt(XComponent);
-        ThetaComponent = Integer.toString ( (int) Math.round( Math.toDegrees( Math.atan(Ratio) ) ) );
+        int TempAngle = (int) Math.round( Math.toDegrees( Math.atan(Ratio) ) );
+        if (Integer.parseInt(XComponent)<0)
+            TempAngle += 180;
+        ThetaComponent = Integer.toString ( (360 - TempAngle) % 360 );
     }
 
     private void setNormFromXY() {
@@ -1159,6 +1162,10 @@ public class VectorQuestionGenerator {
 
     public CrystalBall getCrystalBall() {
         return crystalBall;
+    }
+
+    public ClockVector getClockVector() {
+        return clockVector;
     }
 
     public double getScoreMultiplier() {

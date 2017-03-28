@@ -61,6 +61,9 @@ public class VectorGameActivity extends AppCompatActivity {
     ImageView QuestionVectorImage;
     ImageView ClockVectorImage;
 
+    //Clock Vector
+    ClockVector clockVector;
+
     //Multiple Choice: Question, QuestionInfo, (2-5) Answer choices
     LinearLayout MultipleChoice;
     String[] AnswerArray;
@@ -152,6 +155,7 @@ public class VectorGameActivity extends AppCompatActivity {
         //------
 
         setupDrawQuestionVector();
+        setupDrawClockVector();
         startQuestion();
     }
 
@@ -210,6 +214,8 @@ public class VectorGameActivity extends AppCompatActivity {
                 PotentialGain += PotentialGainDecrement;
 
                 updateDrawPotential();
+                clockVector.incrementAngle();
+                drawClockVector();
             }
 
             @Override
@@ -231,8 +237,10 @@ public class VectorGameActivity extends AppCompatActivity {
 
     private void startQuestion() {
         TheGenerator.generateQuestion();
+        clockVector = TheGenerator.getClockVector();
         ScoreMultiplier = TheGenerator.getScoreMultiplier();
         drawQuestionVector();
+        drawClockVector();
 
         //Multiple Choice: Question, QuestionInfo, (2-7) Answer choices depending on difficulty
         AnswerArray = TheGenerator.getAnswerArray();
@@ -365,6 +373,7 @@ public class VectorGameActivity extends AppCompatActivity {
             }
         }
     }
+
     private void updateDrawShellLevel() {
         Shell = TheCrystal.getShellLevel();
         ShellLevel.setText("\t\tShell: "+String.valueOf(Shell)+"/"+String.valueOf(MaxShell)+" (+"+String.format("%.0f", Math.floor( (float)(ShellPoints-360*Shell)/3.6))+"%)" );
@@ -469,6 +478,15 @@ public class VectorGameActivity extends AppCompatActivity {
         GameView.addView(ShellImage);
     }
 
+    private void setupDrawClockVector() {
+        BMClockVector = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
+        ClockVectorCanvas = new Canvas(BMClockVector);
+
+        ClockVectorImage = new ImageView(this);
+        ClockVectorImage.setImageBitmap(BMClockVector);
+        GameView.addView(ClockVectorImage);
+    }
+
     private void drawShells() {
         BMCrystalBall.eraseColor(Color.TRANSPARENT);
         ShellCanvas.drawCircle(GameXOrigin, GameYOrigin, TheCrystal.getMass() * TheCrystal.getShellWidth() / 360, ShellPaint);
@@ -482,6 +500,7 @@ public class VectorGameActivity extends AppCompatActivity {
 
         GameView.bringChildToFront(GridImage);
         GameView.bringChildToFront(QuestionVectorImage);
+        GameView.bringChildToFront(ClockVectorImage);
         GameView.invalidate();
     }
 
@@ -498,6 +517,13 @@ public class VectorGameActivity extends AppCompatActivity {
         //draw
         BMQuestionVector.eraseColor(Color.TRANSPARENT);
         QuestionVectorCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + TheGenerator.getX(), GameYOrigin + TheGenerator.getY(), BlackPaint);
+        GameView.invalidate();
+    }
+
+    private void drawClockVector() {
+        //draw
+        BMClockVector.eraseColor(Color.TRANSPARENT);
+        ClockVectorCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + clockVector.getX(), GameYOrigin + clockVector.getY(), BlackPaint);
         GameView.invalidate();
     }
 
