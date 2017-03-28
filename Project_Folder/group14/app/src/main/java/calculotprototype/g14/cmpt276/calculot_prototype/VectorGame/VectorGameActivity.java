@@ -565,6 +565,10 @@ public class VectorGameActivity extends AppCompatActivity {
 
         //draw clock vector
         ClockVectorCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + clockVector.getX(), GameYOrigin + clockVector.getY(), BlackPaint);
+
+        GameView.bringChildToFront(ClockVectorImage);
+        GameView.bringChildToFront(QuestionVectorImage);
+        GameView.bringChildToFront(GridImage);
         GameView.invalidate();
     }
 

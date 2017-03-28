@@ -11,6 +11,7 @@ public class ClockVector {
     private float Y;
     private float Norm;   //or stage?
     private float Speed;
+    private boolean Loss = false;
 
     //Constructor
     public ClockVector(CrystalBall _crystalball, float _starttheta, int _time) {
@@ -40,8 +41,10 @@ public class ClockVector {
         CurrentTheta = StartTheta + PotentialGain;
         setX();
         setY();
-        if (PotentialGain<0)
+        if (PotentialGain>360 && !Loss) {
+            Loss = true;
             Norm = (Crystal.getMass()) * Crystal.getShellWidth() / 360;
+        }
     }
 
     public float getX() {
