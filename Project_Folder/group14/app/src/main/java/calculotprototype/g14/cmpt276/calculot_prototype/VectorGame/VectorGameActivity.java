@@ -85,6 +85,8 @@ public class VectorGameActivity extends AppCompatActivity {
     int Level;
     int DecreaseAmount;  //+180 when a user picks the wrong option -> if >0, the user input is frozen and points/time decrease rapidly
     TextView ShellLevel;
+    TextView PotentialText;
+    int TimeFlash = 5;
 
     // set toast for right/wrong answer
     Toast wrongAnswer;
@@ -96,7 +98,7 @@ public class VectorGameActivity extends AppCompatActivity {
     int ShellPoints;        //Points in total
     int TotalGain = 0;      //XP to be gained
     TextView TextTotalGain; //display total XP to be gained
-    float PotentialGain;      //current question potential change in points: -360 to 360 -> upon reaching less than -360, fail current question
+    float PotentialGain = 0;      //current question potential change in points: -360 to 360 -> upon reaching less than -360, fail current question
     final int BaseGainAmount = 100; //Theoretical maximum points per question is 100 * multiplier
     double ScoreMultiplier;
 
@@ -190,21 +192,24 @@ public class VectorGameActivity extends AppCompatActivity {
 
     //Question Methods
     private void startTimer() {
+        //stop timer if the potential gain results in a shell mass <= 0
         // Set up countdown timer depending on difficulty
         TextTime = QuestionTime;
-        TextTimer.setText("Time: "+String.format("%.1f",TextTime)+"/"+String.valueOf(QuestionTime));
+        updateDrawTimer();
 
         //temporary
-        PotentialGain = (float) Math.round(TextTime / QuestionTime * BaseGainAmount * ScoreMultiplier);
+        PotentialGain = (float) Math.round(TextTime / QuestionTime * BaseGainAmount * ScoreMultiplier); //do calculations when drawing instead?
         final float PotentialGainDecrement = (float) -( 0.05 * BaseGainAmount * ScoreMultiplier / QuestionTime);
+        updateDrawPotential();
         Timer = new CountDownTimer(QuestionTime * 2 * 1000, 50) {   //every 20th of a second
             @Override
             public void onTick(long millisUntilFinished) {
                 TextTime -= 0.05;
-                TextTimer.setText("Time: "+String.format("%.1f",TextTime)+"/"+String.valueOf(QuestionTime));
+                updateDrawTimer();
 
-                //temporary;
                 PotentialGain += PotentialGainDecrement;
+
+                updateDrawPotential();
             }
 
             @Override
@@ -338,13 +343,48 @@ public class VectorGameActivity extends AppCompatActivity {
     }
 
     //Draw Methods
+    private void updateDrawTimer() {
+        if (TextTime>=0) {
+            TextTimer.setTextColor(getResources().getColor(R.color.colorAccent));
+            TextTimer.setText("Time: "+String.format("%.1f",TextTime)+"/"+String.valueOf(QuestionTime));
+        }
+        else {
+            if (TextTime >= 0) {
+                TextTimer.setTextColor(getResources().getColor(R.color.colorPrimary));
+                TextTimer.setText("\t\tPot'l XP: "+String.format("%.0f", PotentialGain)+" (+"+String.format("%.0f", Math.floor( TextTime * 100 / QuestionTime ))+"%)" );
+            }
+            else {
+                if (TimeFlash>-5)
+                    TimeFlash--;
+                else TimeFlash = 5;
+
+                if (TimeFlash >= 0)   //0 to 4
+                    TextTimer.setTextColor(getResources().getColor(R.color.colorRed));
+                else TextTimer.setTextColor(getResources().getColor(R.color.colorAccent)); //-1 to -5
+                TextTimer.setText("Time: " + String.format("%.1f", TextTime) + "/" + String.valueOf(QuestionTime));
+            }
+        }
+    }
     private void updateDrawShellLevel() {
         Shell = TheCrystal.getShellLevel();
-        ShellLevel.setText("\t\tShell: "+String.valueOf(Shell)+"/"+String.valueOf(MaxShell));
+        ShellLevel.setText("\t\tShell: "+String.valueOf(Shell)+"/"+String.valueOf(MaxShell)+" (+"+String.format("%.0f", Math.floor( (float)(ShellPoints-360*Shell)/3.6))+"%)" );
     }
 
     private void updateDrawTotalGain() {
         TextTotalGain.setText("\t\tTotal XP+: "+String.valueOf(TotalGain));
+    }
+
+    private void updateDrawPotential() {
+        if (TextTime >= 0) {
+            PotentialText.setTextColor(getResources().getColor(R.color.colorPrimary));
+            PotentialText.setText("\t\tPot'l XP: "+String.format("%.0f", PotentialGain)+" (+"+String.format("%.0f", Math.floor( TextTime * 100 / QuestionTime ))+"%)" );
+        }
+        else {
+            if (TimeFlash>=0)   //0 to 4
+                PotentialText.setTextColor(getResources().getColor(R.color.colorAccent));
+            else PotentialText.setTextColor(getResources().getColor(R.color.colorRed)); //-1 to -5
+            PotentialText.setText("\t\tPot'l XP: "+String.format("%.0f", PotentialGain)+" ("+String.format("%.0f", Math.floor( TextTime * 100 / QuestionTime ))+"%)" );
+        }
     }
 
     private void setBlackPaint(boolean _declared) {
@@ -397,13 +437,21 @@ public class VectorGameActivity extends AppCompatActivity {
 
         //Bottom View
 
-        //Textview for Timer
+        //TextView for Timer
         TextTimer = new TextView(this);
         TextTimer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         //TextTimer.setText("Time: "+String.format("%.1f",String.valueOf(TextTime))+"/"+String.valueOf(QuestionTime));
         TextTimer.setTextColor(getResources().getColor(R.color.colorAccent));
 
         GameInfoBot.addView(TextTimer);
+
+        //TextView for Potential -> % of shell or XP
+        PotentialText = new TextView(this);
+        PotentialText.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        updateDrawPotential();
+        PotentialText.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+        GameInfoBot.addView(PotentialText);
     }
 
     private void setupDrawShells() {
