@@ -50,10 +50,9 @@ public class GameActivity extends AppCompatActivity {
 
         // Set up screen test;
         RelativeLayout gameScreen = (RelativeLayout) findViewById(R.id.game_screen);
-        final calcGameGraphics calcHelper = new calcGameGraphics(this,monster,info);
+        final calcGameGraphics calcHelper = new calcGameGraphics(this,monster,info,healthfield);
         calcHelper.setBackgroundColor(Color.WHITE);
         gameScreen.addView(calcHelper);
-
 
         calcHelper.setOnTouchListener(new View.OnTouchListener(){
 
@@ -148,6 +147,7 @@ public class GameActivity extends AppCompatActivity {
             }
 
         });
+
     }
 
     private void checkGameOver(int[] info, Intent gameOver) {

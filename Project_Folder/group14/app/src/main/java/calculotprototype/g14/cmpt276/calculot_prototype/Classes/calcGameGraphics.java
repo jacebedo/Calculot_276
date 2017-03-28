@@ -1,6 +1,7 @@
 package calculotprototype.g14.cmpt276.calculot_prototype.Classes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -11,8 +12,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.widget.TextView;
 
 import calculotprototype.g14.cmpt276.calculot_prototype.R;
+import calculotprototype.g14.cmpt276.calculot_prototype.calcGame.GameOverActivity;
 
 
 /**
@@ -60,16 +63,21 @@ public class calcGameGraphics extends View {
     int arrow_width;
     int arrow_height;
 
+    // META MEMBERS
+    Context c;
     int[] info;
+    TextView hpfield;
 
     // Initialization
-    public calcGameGraphics(Context context, Monster _monster, int[] _info) {
+    public calcGameGraphics(Context context, Monster _monster, int[] _info,TextView _hpfield) {
         super(context);
+        c = context;
         monster = _monster;
         setAssets();
         spawn_left = width;
         monster.spawnMonster(spawn_left);
         info = _info;
+        hpfield = _hpfield;
     }
 
     // Drawing the game
@@ -103,6 +111,9 @@ public class calcGameGraphics extends View {
 
     private void drawMonster(Canvas canvas){
         if (monster.getXCoord() <= (castle_width)) {
+            info[0]--;
+            checkGameOver();
+            hpfield.setText("Health: " + Integer.toString(info[0]));
             monster.respawnMonster(info[2]);
             monster.deselectMonster();
 
@@ -116,6 +127,14 @@ public class calcGameGraphics extends View {
             monster.moveMonster(width);
         }
 
+    }
+
+    private void checkGameOver() {
+        if (info[0] <= 0) {
+            Intent goToGameOver = new Intent(c, GameOverActivity.class);
+            goToGameOver.putExtra("xp",info[1]);
+            c.startActivity(goToGameOver);
+        }
     }
 
     // This method converts all jpeg and png images into bitmap objects, and prepares them for use. (BROKEN BACKGROUND)
