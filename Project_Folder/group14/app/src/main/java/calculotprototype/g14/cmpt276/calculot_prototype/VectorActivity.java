@@ -17,6 +17,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 public class VectorActivity extends YouTubeBaseActivity {
     private YouTubePlayerView yView;
     private YouTubePlayer.OnInitializedListener listener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

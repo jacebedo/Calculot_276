@@ -88,9 +88,9 @@
                         android:id="@+id/inputV2"
                         android:layout_width="38dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1.76"
                         android:ems="10"
-                        android:inputType="textPersonName"
-                        android:layout_weight="1.76" />
+                        android:inputType="textPersonName" />
 
                     <TextView
                         android:id="@+id/qv22"
