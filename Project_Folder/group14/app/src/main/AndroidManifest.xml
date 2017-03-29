@@ -36,7 +36,8 @@
         <activity android:name=".StudyActivity" />
         <activity android:name=".IntegrationActivity" />
         <activity android:name=".VectorActivity" />
-        <activity android:name=".ComplexActivity"></activity>
+        <activity android:name=".ComplexActivity" />
+        <activity android:name=".PolarActivity"></activity>
     </application>
 
 </manifest>

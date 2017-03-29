@@ -16,6 +16,8 @@ public class StudyActivity extends AppCompatActivity {
         TextView btn1 = (TextView) findViewById(R.id.toInt);
         TextView btn2 = (TextView) findViewById(R.id.toVectors);
         TextView btn3 = (TextView) findViewById(R.id.toComplex);
+        TextView btn4 = (TextView) findViewById(R.id.toPolar);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +43,13 @@ public class StudyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent complex = new Intent(StudyActivity.this, ComplexActivity.class);
+                startActivity(complex);
+            }
+        });
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent complex = new Intent(StudyActivity.this, PolarActivity.class);
                 startActivity(complex);
             }
         });
