@@ -233,7 +233,7 @@ public class VectorGameActivity extends AppCompatActivity {
                 MultipleChoice.invalidate();
 
                 Timer.cancel();
-                TheCrystal.changeMass(-180);
+                TheCrystal.changeMass(-360);
                 ShellPoints = (int) TheCrystal.getMass();
 
                 drawShells();
@@ -319,7 +319,7 @@ public class VectorGameActivity extends AppCompatActivity {
                         MultipleChoice.invalidate();
 
                         //temporary -> instant fail
-                        TheCrystal.changeMass(-46);
+                        TheCrystal.changeMass(-360);
                         ShellPoints = (int) TheCrystal.getMass();
                         drawShells();
 
@@ -489,6 +489,17 @@ public class VectorGameActivity extends AppCompatActivity {
         ShellImage = new ImageView(this);
         ShellImage.setImageBitmap(BMCrystalBall);
         GameView.addView(ShellImage);
+
+        setupDrawShellOutline();
+    }
+
+    private void setupDrawShellOutline() {
+        BMShellOutline = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
+        ShellOutline = new Canvas(BMShellOutline);
+
+        ShellOutlineImage = new ImageView(this);
+        ShellOutlineImage.setImageBitmap(BMShellOutline);
+        GameView.addView(ShellOutlineImage);
     }
 
     private void setupDrawPotentialShell() {
@@ -519,17 +530,19 @@ public class VectorGameActivity extends AppCompatActivity {
         BMCrystalBall.eraseColor(Color.TRANSPARENT);
         ShellCanvas.drawCircle(GameXOrigin, GameYOrigin, (TheCrystal.getMass()/360) * TheCrystal.getShellWidth(), ShellPaint);
 
+        drawShellOutline();
+        refreshGameView();
+    }
+
+    private void drawShellOutline() {
+        BMShellOutline.eraseColor(Color.TRANSPARENT);
+
         BlackPaint.setStyle(Paint.Style.STROKE);
         BlackPaint.setStrokeWidth(1);   //temporary use of thinner black paint
         for (int i=1; i<=TheCrystal.getShellLevel(); i++) {
-            ShellCanvas.drawCircle(GameXOrigin, GameYOrigin, i * TheCrystal.getShellWidth(), BlackPaint);
+            ShellOutline.drawCircle(GameXOrigin, GameYOrigin, i * TheCrystal.getShellWidth(), BlackPaint);
         }
         setBlackPaint(true);    //reset black paint settings
-
-        GameView.bringChildToFront(ClockVectorImage);
-        GameView.bringChildToFront(QuestionVectorImage);
-        GameView.bringChildToFront(GridImage);
-        GameView.invalidate();
     }
 
     private void setupDrawQuestionVector() {
@@ -591,7 +604,12 @@ public class VectorGameActivity extends AppCompatActivity {
         //draw clock vector
         ClockVectorCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + clockVector.getX(), GameYOrigin + clockVector.getY(), BlackPaint);
 
+        refreshGameView();
+    }
+
+    private void refreshGameView() {
         GameView.bringChildToFront(ClockVectorImage);
+        GameView.bringChildToFront(ShellOutlineImage);
         GameView.bringChildToFront(QuestionVectorImage);
         GameView.bringChildToFront(GridImage);
         GameView.invalidate();

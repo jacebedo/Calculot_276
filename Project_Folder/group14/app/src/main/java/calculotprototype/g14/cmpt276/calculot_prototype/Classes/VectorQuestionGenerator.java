@@ -139,9 +139,9 @@ public class VectorQuestionGenerator {
     int MinimumAbsY = 50;   //minimum absolute y value of the vector
 
     //HardLevel Phases
-    final int PhaseALastLevel = 5;
-    final int PhaseBLastLevel = 10;
-    final int PhaseCLastLevel = 20;
+    //final int PhaseALastLevel = 5;
+    //final int PhaseBLastLevel = 10;
+    //final int PhaseCLastLevel = 20;
     //PhaseD has no last level
 
     //View - Question, info, and answers strings
@@ -486,7 +486,7 @@ public class VectorQuestionGenerator {
 
             AnswerArraySize = 3+min(MediumLevel,1+3)-1;//min(getRandomInt(2, max(MediumLevel,2)),6); choices currently between 3-6
             AnswerArray = new String[AnswerArraySize];
-            QuestionTime = -30+40-min(MediumLevel,10)+1;   //more time to test depending on level (currently 40-30 seconds)
+            QuestionTime = 40-min(MediumLevel,10)+1;   //more time to test depending on level (currently 40-30 seconds)
 
             generateMediumQuestion();
         }
@@ -561,7 +561,7 @@ public class VectorQuestionGenerator {
 
     private void generateMediumQuestion() {
         //method is long -> refactor?
-        int QuestionType = getRandomInt(0,11); //range from 0-11
+        int QuestionType = getRandomInt(0, 4 + min(MediumLevel, 8)-1 ); //range from 0-11; start with 0-4 (MediumLevel 1) -> add one more each level until all cases 0-11 unlocked (MediumLevel 8)
         int TempRandom;
 
         if (QuestionType <= 5) {
