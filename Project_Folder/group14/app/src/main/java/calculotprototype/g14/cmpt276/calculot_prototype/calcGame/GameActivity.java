@@ -175,7 +175,7 @@ public class GameActivity extends AppCompatActivity {
                 y >= monster.getYCoord() && y <= monster.getYCoord() + monster.getMonster_height() ) {
             return true;
         }
-            return false;
+        return false;
     }
 
 
