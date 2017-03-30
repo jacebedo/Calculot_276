@@ -486,7 +486,7 @@ public class VectorQuestionGenerator {
 
             AnswerArraySize = 3+min(MediumLevel,1+3)-1;//min(getRandomInt(2, max(MediumLevel,2)),6); choices currently between 3-6
             AnswerArray = new String[AnswerArraySize];
-            QuestionTime = 40-min(MediumLevel,10)+1;   //more time to test depending on level (currently 40-30 seconds)
+            QuestionTime = -30+40-min(MediumLevel,10)+1;   //more time to test depending on level (currently 40-30 seconds)
 
             generateMediumQuestion();
         }
@@ -561,7 +561,7 @@ public class VectorQuestionGenerator {
 
     private void generateMediumQuestion() {
         //method is long -> refactor?
-        int QuestionType = 7;//getRandomInt(0,11); //range from 0-11
+        int QuestionType = getRandomInt(0,11); //range from 0-11
         int TempRandom;
 
         if (QuestionType <= 5) {

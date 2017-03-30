@@ -10,7 +10,7 @@ public class ClockVector {
     private float X;
     private float Y;
     private float Norm;   //or stage?
-    private float Speed;
+    private double Speed;
     private boolean Loss = false;
 
     //Constructor
@@ -22,7 +22,7 @@ public class ClockVector {
         setX();
         setY();
         Norm = (Crystal.getMass() + 360) * Crystal.getShellWidth() / 360;   //radius of clock vector for potential gain > 0
-        Speed = 360 / ((float) _time * 20);   //increment every 20th of a second or 50 ms
+        Speed = 360 / ((double) _time * 20);   //increment every 20th of a second or 50 ms
     }
 
     //Private Methods
@@ -43,7 +43,7 @@ public class ClockVector {
         setY();
         if (PotentialGain>360 && !Loss) {
             Loss = true;
-            Norm = (Crystal.getMass()) * Crystal.getShellWidth() / 360;
+            Norm = (Crystal.getMass()/360) * Crystal.getShellWidth();
         }
     }
 
@@ -72,11 +72,11 @@ public class ClockVector {
     }
 
     public float getInnerRadius() {
-        if (PotentialGain>0) {
-            return Crystal.getMass() * Crystal.getShellWidth() / 360;
+        if (PotentialGain<=360) {
+            return (Crystal.getMass()/360) * Crystal.getShellWidth();
         }
         else {
-            float InnerRadius = (Crystal.getMass() - 360) * Crystal.getShellWidth() / 360;
+            float InnerRadius = ((Crystal.getMass() - 360)/360) * Crystal.getShellWidth();
             if (InnerRadius>0)
                 return InnerRadius;
             else return 0;

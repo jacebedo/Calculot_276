@@ -2,29 +2,30 @@ package calculotprototype.g14.cmpt276.calculot_prototype.Classes;
 
 public class CrystalBall {
     //fields
-    private int Mass = 360; //initial shell filled
-    private int ShellLevel = 1;
+    private float Mass = 720; //initial shell filled
+    private int ShellLevel = 2;
     private int ShellLevelMax;
-    int ShellWidth;
+    float ShellWidth;
 
     //Constructor
     CrystalBall(int _ShellLevelMax, int _sidelength) {
         ShellLevelMax = _ShellLevelMax;
         ShellWidth = _sidelength / (_ShellLevelMax + 1);
+        setShellLevel();
     }
 
     //Private Methods
-    private int setShellLevel() {
-        return (int) Math.floor(Mass / 360);
+    private void setShellLevel() {
+        ShellLevel = (int) Math.floor(Mass / 360);
     }
 
     //Public Methods
     public void changeMass(int _mass) {
-        Mass += _mass;
-        ShellLevel = setShellLevel();
+        Mass += (float) _mass;
+        setShellLevel();
     }
 
-    public int getMass() {
+    public float getMass() {
         return Mass;
     }
 
@@ -32,7 +33,7 @@ public class CrystalBall {
         return ShellLevel;
     }
 
-    public int getShellWidth() {
+    public float getShellWidth() {
         return ShellWidth;
     }
 

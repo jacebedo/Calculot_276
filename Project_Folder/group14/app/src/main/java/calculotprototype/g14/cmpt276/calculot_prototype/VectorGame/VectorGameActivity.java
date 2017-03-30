@@ -49,18 +49,22 @@ public class VectorGameActivity extends AppCompatActivity {
     Bitmap BMQuestionVector;
     Bitmap BMClockVector; //includes potential gain
     Bitmap BMCrystalBall;
+    Bitmap BMShellOutline;
     Paint BlackPaint;
     Paint ShellPaint;
     Paint PotentialGainPaint;
     Paint PotentialLossPaint;
+    Paint EraserPaint;
     Canvas GridCanvas;
     Canvas ShellCanvas;
     Canvas QuestionVectorCanvas;
     Canvas ClockVectorCanvas;
+    Canvas ShellOutline;
     ImageView GridImage;
     ImageView ShellImage;
     ImageView QuestionVectorImage;
     ImageView ClockVectorImage;
+    ImageView ShellOutlineImage;
 
     //Clock Vector
     ClockVector clockVector;
@@ -102,7 +106,7 @@ public class VectorGameActivity extends AppCompatActivity {
     int ShellPoints;        //Points in total
     int TotalGain = 0;      //XP to be gained
     TextView TextTotalGain; //display total XP to be gained
-    float PotentialGain = 0;      //current question potential change in points: -360 to 360 -> upon reaching less than -360, fail current question
+    double PotentialGain = 0;      //current question potential change in points: -360 to 360 -> upon reaching less than -360, fail current question
     final int BaseGainAmount = 100; //Theoretical maximum points per question is 100 * multiplier
     double ScoreMultiplier;
 
@@ -123,7 +127,7 @@ public class VectorGameActivity extends AppCompatActivity {
         TheGenerator = new VectorQuestionGenerator(Difficulty, EasyLevel, MediumLevel, HardLevel);
         TheCrystal = TheGenerator.getCrystalBall();
 
-        ShellPoints = TheCrystal.getMass();
+        ShellPoints = (int) TheCrystal.getMass();
         MaxShell = TheCrystal.getShellLevelMax();
 
         //Layouts
@@ -156,6 +160,7 @@ public class VectorGameActivity extends AppCompatActivity {
         //------
 
         setupDrawQuestionVector();
+        setupEraserPaint();
         setupDrawClockVector();
         startQuestion();
     }
@@ -203,8 +208,8 @@ public class VectorGameActivity extends AppCompatActivity {
         updateDrawTimer();
 
         //temporary
-        PotentialGain = (float) Math.round(TextTime / QuestionTime * BaseGainAmount * ScoreMultiplier); //do calculations when drawing instead?
-        final float PotentialGainDecrement = (float) -( 0.05 * BaseGainAmount * ScoreMultiplier / QuestionTime);
+        PotentialGain = (double) Math.round(TextTime / QuestionTime * BaseGainAmount * ScoreMultiplier); //do calculations when drawing instead?
+        final double PotentialGainDecrement = (double) -( 0.05 * BaseGainAmount * ScoreMultiplier / QuestionTime);
         updateDrawPotential();
         Timer = new CountDownTimer(QuestionTime * 2 * 1000, 50) {   //every 20th of a second
             @Override
@@ -229,7 +234,9 @@ public class VectorGameActivity extends AppCompatActivity {
 
                 Timer.cancel();
                 TheCrystal.changeMass(-180);
-                ShellPoints = TheCrystal.getMass();
+                ShellPoints = (int) TheCrystal.getMass();
+
+                drawShells();
                 testShellPoints();
             }
         };
@@ -288,7 +295,7 @@ public class VectorGameActivity extends AppCompatActivity {
                         MultipleChoice.invalidate();
 
                         TheCrystal.changeMass(Math.round(TextTime/QuestionTime*360));
-                        ShellPoints = TheCrystal.getMass();
+                        ShellPoints = (int) TheCrystal.getMass();
                         drawShells();
 
                         TotalGain += (int) PotentialGain;
@@ -312,8 +319,8 @@ public class VectorGameActivity extends AppCompatActivity {
                         MultipleChoice.invalidate();
 
                         //temporary -> instant fail
-                        TheCrystal.changeMass(-180);
-                        ShellPoints = TheCrystal.getMass();
+                        TheCrystal.changeMass(-46);
+                        ShellPoints = (int) TheCrystal.getMass();
                         drawShells();
 
                         //totalgain?
@@ -337,7 +344,7 @@ public class VectorGameActivity extends AppCompatActivity {
             changeLevel( getLevel() + 1 );  //increment level by 1
             TheCrystal = TheGenerator.getCrystalBall();
 
-            ShellPoints = TheCrystal.getMass();
+            ShellPoints = (int) TheCrystal.getMass();
             MaxShell = TheCrystal.getShellLevelMax();
 
             updateDrawShellLevel();
@@ -403,6 +410,11 @@ public class VectorGameActivity extends AppCompatActivity {
             BlackPaint.setColor(Color.BLACK);
         }
         BlackPaint.setStrokeWidth(3);
+    }
+
+    private void setupEraserPaint() {
+        EraserPaint = new Paint();
+        EraserPaint.setColor(Color.BLUE);
     }
 
     private void drawGrid() {
@@ -505,7 +517,7 @@ public class VectorGameActivity extends AppCompatActivity {
 
     private void drawShells() {
         BMCrystalBall.eraseColor(Color.TRANSPARENT);
-        ShellCanvas.drawCircle(GameXOrigin, GameYOrigin, TheCrystal.getMass() * TheCrystal.getShellWidth() / 360, ShellPaint);
+        ShellCanvas.drawCircle(GameXOrigin, GameYOrigin, (TheCrystal.getMass()/360) * TheCrystal.getShellWidth(), ShellPaint);
 
         BlackPaint.setStyle(Paint.Style.STROKE);
         BlackPaint.setStrokeWidth(1);   //temporary use of thinner black paint
@@ -560,6 +572,19 @@ public class VectorGameActivity extends AppCompatActivity {
                     (clockVector.getPotentialGainAngle() % 360),
                     true,
                     PotentialLossPaint
+            );
+
+            //erase middle of potential loss arc to make potential loss only one shell layer thick
+            RectF ClockInnerRect = new RectF(GameXOrigin - clockVector.getInnerRadius(),
+                    GameYOrigin - clockVector.getInnerRadius(),
+                    GameXOrigin + clockVector.getInnerRadius(),
+                    GameYOrigin + clockVector.getInnerRadius());
+
+            ClockVectorCanvas.drawArc(ClockInnerRect,
+                    clockVector.getStartTheta(),
+                    (clockVector.getPotentialGainAngle() % 360),
+                    true,
+                    EraserPaint
             );
         }
 
