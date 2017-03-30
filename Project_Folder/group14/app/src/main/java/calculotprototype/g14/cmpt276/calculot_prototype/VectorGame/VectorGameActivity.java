@@ -152,7 +152,7 @@ public class VectorGameActivity extends AppCompatActivity {
         drawGameInfo();
 
         //Initialize Grid View
-        drawGrid();
+        setupDrawGrid();
 
         //Shells
         setupDrawShells();
@@ -259,6 +259,7 @@ public class VectorGameActivity extends AppCompatActivity {
         ScoreMultiplier = TheGenerator.getScoreMultiplier();
         drawQuestionVector();
         drawClockVector();
+        drawGridLabels();
 
         //Multiple Choice: Question, QuestionInfo, (2-7) Answer choices depending on difficulty
         AnswerArray = TheGenerator.getAnswerArray();
@@ -429,24 +430,41 @@ public class VectorGameActivity extends AppCompatActivity {
         EraserPaint.setColor(Color.BLUE);
     }
 
-    private void drawGrid() {
+    private void setupDrawGrid() {
         BMGrid = Bitmap.createBitmap(GameWidth, GameHeight, Bitmap.Config.ARGB_8888);
         GridCanvas = new Canvas(BMGrid);
-
-        GridCanvas.drawLine(0, GameYOrigin, GameWidth, GameYOrigin, BlackPaint);  //x axis
-        GridCanvas.drawLine(GameXOrigin, 0, GameXOrigin, GameHeight, BlackPaint);  //y axis
-
-        //labels
-        BlackPaint.setTextSize(25);
-        BlackPaint.setStrokeWidth(2);
-        BlackPaint.setTextAlign(Paint.Align.RIGHT);
-        GridCanvas.drawText("Real/X-axis", GameWidth, GameYOrigin + 28, BlackPaint);
-        GridCanvas.drawText("Img./Y-axis", GameXOrigin - 3, 28, BlackPaint);
-        setBlackPaint(true);
 
         GridImage = new ImageView(this);
         GridImage.setImageBitmap(BMGrid);
         GameView.addView(GridImage);
+
+        drawGridLabels();
+    }
+
+    private void drawGridLabels() {
+        BMGrid.eraseColor(Color.TRANSPARENT);
+        GridCanvas.drawLine(0, GameYOrigin, GameWidth, GameYOrigin, BlackPaint);  //x axis
+        GridCanvas.drawLine(GameXOrigin, 0, GameXOrigin, GameHeight, BlackPaint);  //y axis
+
+        int XCoordinate = TheGenerator.getX();
+        int YCoordinate = TheGenerator.getY();
+        //labels
+        BlackPaint.setTextSize(25);
+        BlackPaint.setStrokeWidth(2);
+        BlackPaint.setTextAlign(Paint.Align.RIGHT);
+        GridCanvas.drawText("Img./Y-axis", GameXOrigin - 3, 28, BlackPaint);
+
+        //GridCanvas.drawLine(XCoordinate, GameYOrigin-5, XCoordinate, GameYOrigin+5, BlackPaint);    //x mark on x axis
+        //GridCanvas.drawLine(GameXOrigin-5, YCoordinate, GameXOrigin+5, YCoordinate, BlackPaint);    // y mark on y axis
+
+        if (XCoordinate<0) {
+            GridCanvas.drawText("Real/X-axis", GameWidth, GameYOrigin + 28, BlackPaint);    //String.valueOf(XCoordinate)
+        }
+        else {
+            BlackPaint.setTextAlign(Paint.Align.LEFT);
+            GridCanvas.drawText("Real/X-axis", 3, GameYOrigin + 28, BlackPaint);
+        }
+        setBlackPaint(true);
     }
 
     private void drawGameInfo() {

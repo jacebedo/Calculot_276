@@ -127,6 +127,7 @@ public class VectorQuestionGenerator {
         vector arrows + labels
         grid axis labels
         information labels + question mark label for the value we are looking for
+        fix angle in relation to x, y coordinates
 
         prevent guessing:
             only count total xp points if above a certain small threshold?
@@ -169,6 +170,8 @@ public class VectorQuestionGenerator {
     boolean AnswerPolar;
 
     //Vector Components
+    //int XCoordinate;
+    //int YCoordinate;
     String XComponent;
     String YComponent;  //y component without "i" regardless if imaginary
     String iYComponent; //if "i" is included then Y is imaginary
@@ -1163,11 +1166,15 @@ public class VectorQuestionGenerator {
     }
 
     public int getX() {
-        return Integer.parseInt(XComponent);
+        if (XComponent==null)
+            return 0;
+        else return Integer.parseInt(XComponent);
     }
 
     public int getY() {
-        return Integer.parseInt(YComponent);
+        if (YComponent==null)
+            return 0;
+        else return Integer.parseInt(YComponent);
     }
 
     public CrystalBall getCrystalBall() {
