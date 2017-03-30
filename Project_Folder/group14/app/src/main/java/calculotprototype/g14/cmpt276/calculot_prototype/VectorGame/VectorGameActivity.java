@@ -209,7 +209,7 @@ public class VectorGameActivity extends AppCompatActivity {
 
         //temporary
         PotentialGain = (double) Math.round(TextTime / QuestionTime * BaseGainAmount * ScoreMultiplier); //do calculations when drawing instead?
-        final double PotentialGainDecrement = (double) -( 0.05 * BaseGainAmount * ScoreMultiplier / QuestionTime);
+        final double PotentialGainDecrement = -( 0.05 * BaseGainAmount * ScoreMultiplier / QuestionTime);
         updateDrawPotential();
         Timer = new CountDownTimer(QuestionTime * 2 * 1000, 50) {   //every 20th of a second
             @Override
@@ -420,7 +420,7 @@ public class VectorGameActivity extends AppCompatActivity {
             BlackPaint = new Paint();
             BlackPaint.setColor(Color.BLACK);
         }
-        BlackPaint.setTextSize(25);
+        BlackPaint.setTextSize(20);
         BlackPaint.setTextAlign(Paint.Align.LEFT);
         BlackPaint.setStrokeWidth(3);
     }
@@ -449,20 +449,20 @@ public class VectorGameActivity extends AppCompatActivity {
         int XCoordinate = TheGenerator.getX();
         int YCoordinate = TheGenerator.getY();
         //labels
-        BlackPaint.setTextSize(25);
-        BlackPaint.setStrokeWidth(2);
+        BlackPaint.setTextSize(18);
+        BlackPaint.setStrokeWidth(1);
         BlackPaint.setTextAlign(Paint.Align.RIGHT);
-        GridCanvas.drawText("Img./Y-axis", GameXOrigin - 3, 28, BlackPaint);
+        GridCanvas.drawText("Img./Y-axis", GameXOrigin - 2, 20, BlackPaint);
 
         //GridCanvas.drawLine(XCoordinate, GameYOrigin-5, XCoordinate, GameYOrigin+5, BlackPaint);    //x mark on x axis
         //GridCanvas.drawLine(GameXOrigin-5, YCoordinate, GameXOrigin+5, YCoordinate, BlackPaint);    // y mark on y axis
 
         if (XCoordinate<0) {
-            GridCanvas.drawText("Real/X-axis", GameWidth, GameYOrigin + 28, BlackPaint);    //String.valueOf(XCoordinate)
+            GridCanvas.drawText("Real/X-axis", GameWidth, GameYOrigin + 20, BlackPaint);    //String.valueOf(XCoordinate)
         }
         else {
             BlackPaint.setTextAlign(Paint.Align.LEFT);
-            GridCanvas.drawText("Real/X-axis", 3, GameYOrigin + 28, BlackPaint);
+            GridCanvas.drawText("Real/X-axis", 2, GameYOrigin + 20, BlackPaint);
         }
         setBlackPaint(true);
     }
@@ -597,9 +597,13 @@ public class VectorGameActivity extends AppCompatActivity {
         BMQuestionVector.eraseColor(Color.TRANSPARENT);
         QuestionVectorCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + TheGenerator.getX(), GameYOrigin + TheGenerator.getY(), BlackPaint);
 
-        BlackPaint.setTextSize(25);
+        BlackPaint.setTextSize(20);
         BlackPaint.setStrokeWidth(2);
-        QuestionVectorCanvas.drawText("V", GameXOrigin + TheGenerator.getX(), GameYOrigin + TheGenerator.getY(), BlackPaint);
+        BlackPaint.setTextAlign(Paint.Align.CENTER);
+        double Angle = Math.atan2(TheGenerator.getY(), TheGenerator.getX());
+        int XCoord = TheGenerator.getX() + (int) Math.round(Math.cos(Angle) * 15);
+        int YCoord = TheGenerator.getY() + (int) Math.round(Math.sin(Angle) * 15);
+        QuestionVectorCanvas.drawText("V", GameXOrigin + XCoord, GameYOrigin + YCoord, BlackPaint);
         setBlackPaint(true);
 
         GameView.invalidate();
@@ -648,9 +652,13 @@ public class VectorGameActivity extends AppCompatActivity {
         //draw clock vector
         ClockVectorCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + clockVector.getX(), GameYOrigin + clockVector.getY(), BlackPaint);
         //draw text label
-        BlackPaint.setTextSize(25);
+        BlackPaint.setTextSize(20);
         BlackPaint.setStrokeWidth(1);
-        ClockVectorCanvas.drawText("CV", GameXOrigin + clockVector.getX(), GameYOrigin + clockVector.getY(), BlackPaint);
+        BlackPaint.setTextAlign(Paint.Align.CENTER);
+        double Angle = Math.atan2(clockVector.getY(), clockVector.getX());
+        int XCoord = Math.round(clockVector.getX()) + (int) Math.round(Math.cos(Angle) * 15);
+        int YCoord = Math.round(clockVector.getY()) + (int) Math.round(Math.sin(Angle) * 15);
+        ClockVectorCanvas.drawText("CV", GameXOrigin + XCoord, GameYOrigin + YCoord, BlackPaint);
         setBlackPaint(true);
 
         refreshGameView();

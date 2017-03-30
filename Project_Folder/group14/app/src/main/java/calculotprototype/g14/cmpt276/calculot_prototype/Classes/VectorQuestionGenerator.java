@@ -693,7 +693,7 @@ public class VectorQuestionGenerator {
 
     //Generating components of QuestionVector
     private int generateRandomX() {
-        int RandomX = getRandomInt(MinimumAbsX, HalfWidth);
+        int RandomX = getRandomInt(MinimumAbsX, min(MinimumAbsX, HalfWidth-50));
         if (generateRandomBoolean()) {
             RandomX *= -1;
         }
@@ -703,7 +703,7 @@ public class VectorQuestionGenerator {
     }
 
     private int generateRandomY() {
-        int RandomY = getRandomInt(MinimumAbsY, HalfHeight);
+        int RandomY = getRandomInt(MinimumAbsY, min(MinimumAbsY, HalfHeight-50));
         if (generateRandomBoolean()) {
             RandomY *= -1;
         }
@@ -1188,4 +1188,11 @@ public class VectorQuestionGenerator {
     public double getScoreMultiplier() {
         return ScoreMultiplier;
     }
+
+    /*use question vector class?
+    public int getNorm() {
+        if (NormComponent==null)
+            return 0;
+        else return Integer.parseInt(NormComponent);
+    }*/
 }
