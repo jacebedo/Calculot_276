@@ -2,7 +2,7 @@ package calculotprototype.g14.cmpt276.calculot_prototype.Classes;
 
 public class CrystalBall {
     //fields
-    private float Mass = 360; //initial shell filled
+    private float Mass = 360; //initial shell filled (+1%)? for second chance
     private int ShellLevel = 1;
     private int ShellLevelMax;
     float ShellWidth;

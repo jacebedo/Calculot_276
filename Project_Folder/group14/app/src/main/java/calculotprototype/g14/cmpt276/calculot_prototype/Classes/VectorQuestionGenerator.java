@@ -121,6 +121,16 @@ public class VectorQuestionGenerator {
                 addition, subtraction, multiplication, division -> avoid combining multiple operations to produce a component expression
                 as it may change the focus from the learned material too much as calculations become more difficult under time pressure
         As hardlevel increases -> user progresses through Phases from A to D
+        ======================================
+        End game early if potentialgain + shellpoints <= 0; speed up potential loss if shell points <360 to match earlier end time? change textview of total time left or add a red line vector
+        Save level # in database? decrease level number upon losing consecutively?
+        vector arrows + labels
+        grid axis labels
+        information labels + question mark label for the value we are looking for
+
+        prevent guessing:
+            only count total xp points if above a certain small threshold?
+        different color shells?
     */
     //Fields
 
@@ -561,7 +571,7 @@ public class VectorQuestionGenerator {
 
     private void generateMediumQuestion() {
         //method is long -> refactor?
-        int QuestionType = getRandomInt(0, 4 + min(MediumLevel, 8)-1 ); //range from 0-11; start with 0-4 (MediumLevel 1) -> add one more each level until all cases 0-11 unlocked (MediumLevel 8)
+        int QuestionType = getRandomInt(0,11);//(0, 4 + min(MediumLevel, 8)-1 ); //range from 0-11; start with 0-4 (MediumLevel 1) -> add one more each level until all cases 0-11 unlocked (MediumLevel 8)
         int TempRandom;
 
         if (QuestionType <= 5) {

@@ -222,6 +222,16 @@ public class VectorGameActivity extends AppCompatActivity {
                 updateDrawPotential();
                 clockVector.incrementAngle();
                 drawClockVector();
+
+                /*Early termination
+                if (ShellPoints+(int)PotentialGain <= 0) {
+                    //TextTime = -QuestionTime;
+                    Timer.cancel();
+                    TheCrystal.changeMass(- ((int) TheCrystal.getMass()) );
+                    ShellPoints = 0;
+
+                    testShellPoints();
+                }*/
             }
 
             @Override
@@ -409,6 +419,8 @@ public class VectorGameActivity extends AppCompatActivity {
             BlackPaint = new Paint();
             BlackPaint.setColor(Color.BLACK);
         }
+        BlackPaint.setTextSize(25);
+        BlackPaint.setTextAlign(Paint.Align.LEFT);
         BlackPaint.setStrokeWidth(3);
     }
 
@@ -423,6 +435,14 @@ public class VectorGameActivity extends AppCompatActivity {
 
         GridCanvas.drawLine(0, GameYOrigin, GameWidth, GameYOrigin, BlackPaint);  //x axis
         GridCanvas.drawLine(GameXOrigin, 0, GameXOrigin, GameHeight, BlackPaint);  //y axis
+
+        //labels
+        BlackPaint.setTextSize(25);
+        BlackPaint.setStrokeWidth(2);
+        BlackPaint.setTextAlign(Paint.Align.RIGHT);
+        GridCanvas.drawText("Real/X-axis", GameWidth, GameYOrigin + 28, BlackPaint);
+        GridCanvas.drawText("Img./Y-axis", GameXOrigin - 3, 28, BlackPaint);
+        setBlackPaint(true);
 
         GridImage = new ImageView(this);
         GridImage.setImageBitmap(BMGrid);
@@ -558,6 +578,12 @@ public class VectorGameActivity extends AppCompatActivity {
         //draw
         BMQuestionVector.eraseColor(Color.TRANSPARENT);
         QuestionVectorCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + TheGenerator.getX(), GameYOrigin + TheGenerator.getY(), BlackPaint);
+
+        BlackPaint.setTextSize(25);
+        BlackPaint.setStrokeWidth(2);
+        QuestionVectorCanvas.drawText("V", GameXOrigin + TheGenerator.getX(), GameYOrigin + TheGenerator.getY(), BlackPaint);
+        setBlackPaint(true);
+
         GameView.invalidate();
     }
 
@@ -603,6 +629,11 @@ public class VectorGameActivity extends AppCompatActivity {
 
         //draw clock vector
         ClockVectorCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + clockVector.getX(), GameYOrigin + clockVector.getY(), BlackPaint);
+        //draw text label
+        BlackPaint.setTextSize(25);
+        BlackPaint.setStrokeWidth(1);
+        ClockVectorCanvas.drawText("CV", GameXOrigin + clockVector.getX(), GameYOrigin + clockVector.getY(), BlackPaint);
+        setBlackPaint(true);
 
         refreshGameView();
     }
