@@ -11,16 +11,26 @@
 
     <LinearLayout
         android:id="@+id/learnLayout"
-        android:layout_width="390dp"
-        android:layout_height="518dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
         android:orientation="vertical"
         android:weightSum="1"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="-1dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:id="@+id/diffR"
-            android:layout_width="317dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
             android:text="Differentiation"
@@ -32,23 +42,23 @@
 
         <com.google.android.youtube.player.YouTubePlayerView
             android:id="@+id/diffView"
-            android:layout_width="320dp"
+            android:layout_width="match_parent"
 
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:layout_weight="0.60" />
+            android:layout_height="150dp"
+            android:layout_weight="0.60"
+            android:visibility="visible" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="305dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.04"
             android:text="Player should work on device with youtube app, but does not work on emulator"
-            android:textSize="16sp"
-            android:layout_weight="0.04" />
+            android:textSize="16sp" />
 
         <ScrollView
-            android:layout_width="315dp"
-            android:layout_height="266dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -186,9 +196,9 @@
                         android:id="@+id/inputq51"
                         android:layout_width="118dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="0.94"
                         android:ems="10"
-                        android:inputType="text"
-                        android:layout_weight="0.94" />
+                        android:inputType="text" />
 
                     <TextView
                         android:id="@+id/textView5"
@@ -230,4 +240,22 @@
         </ScrollView>
 
     </LinearLayout>
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline8"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline9"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="20dp"
+        tools:layout_editor_absoluteX="0dp" />
 </android.support.constraint.ConstraintLayout>

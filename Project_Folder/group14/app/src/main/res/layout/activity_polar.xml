@@ -5,46 +5,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="calculotprototype.g14.cmpt276.calculot_prototype.PolarActivity">
-    <LinearLayout
+
+    <RelativeLayout
         android:id="@+id/learnLayout"
-        android:layout_width="390dp"
-        android:layout_height="518dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="1dp"
         android:orientation="vertical"
         android:weightSum="1"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="-1dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp">
 
         <TextView
             android:id="@+id/polarText"
-            android:layout_width="317dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:fontFamily="sans-serif-condensed"
             android:text="Polar coordinates"
             android:textAlignment="center"
             android:textColor="@android:color/holo_red_light"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:typeface="normal" />
+            android:typeface="normal"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <com.google.android.youtube.player.YouTubePlayerView
             android:id="@+id/polarView"
-            android:layout_width="320dp"
+            android:layout_width="match_parent"
 
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/polarText"
             android:layout_weight="0.71"
             android:visibility="visible" />
 
         <TextView
-            android:id="@+id/tV2"
-            android:layout_width="305dp"
+            android:id="@+id/tP2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/polarView"
             android:layout_weight="0.04"
             android:text="Player should work on device with youtube app, but does not work on emulator"
-            android:textSize="16sp" />
+            android:textSize="14sp"
+            android:layout_alignParentEnd="true" />
 
         <ScrollView
-            android:layout_width="315dp"
-            android:layout_height="266dp">
+            android:id="@+id/scrollView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/tP2">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -92,7 +112,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="155dp"
+                    android:layout_width="134dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
@@ -100,14 +120,13 @@
                         android:id="@+id/qv31"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.04"
                         android:text=" y = " />
 
                     <EditText
                         android:id="@+id/inputP2"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.13"
+                        android:layout_weight="0.10"
                         android:ems="10"
                         android:inputType="textPersonName" />
 
@@ -123,21 +142,21 @@
                         android:id="@+id/qv41"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.15"
+                        android:layout_weight="0.07"
                         android:text=" r = " />
 
                     <EditText
                         android:id="@+id/inputP3"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.14"
+                        android:layout_weight="0.13"
                         android:ems="10"
                         android:inputType="textPersonName" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="197dp"
+                    android:layout_width="141dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
@@ -152,14 +171,14 @@
                         android:id="@+id/inputP4"
                         android:layout_width="86dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.31"
+                        android:layout_weight="1.13"
                         android:ems="10"
                         android:inputType="text" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="184dp"
+                    android:layout_width="140dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:weightSum="1">
@@ -174,6 +193,7 @@
                         android:id="@+id/inputP5"
                         android:layout_width="108dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="0.75"
                         android:ems="10"
                         android:inputType="textPersonName" />
                 </LinearLayout>
@@ -188,7 +208,25 @@
             </LinearLayout>
         </ScrollView>
 
-    </LinearLayout>
+    </RelativeLayout>
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline2"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline3"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="20dp"
+        tools:layout_editor_absoluteX="0dp" />
 
 
 </android.support.constraint.ConstraintLayout>

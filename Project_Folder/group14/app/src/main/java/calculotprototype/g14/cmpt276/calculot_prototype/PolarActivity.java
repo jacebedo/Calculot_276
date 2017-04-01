@@ -25,7 +25,7 @@ public class PolarActivity extends YouTubeBaseActivity {
         listener = new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.loadVideo("tKi05dfUhAA&t=69s");
+                youTubePlayer.loadVideo("tKi05dfUhAA");
             }
 
             @Override
