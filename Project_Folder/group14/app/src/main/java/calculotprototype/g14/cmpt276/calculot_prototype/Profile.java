@@ -74,10 +74,4 @@ public class Profile extends MainActivity {
         else if (avatarUse == 3) avatarPicture.setImageResource(R.drawable.malewizard3);
         //Else leave at default
     }
-
-    public void profile_onClick_addXP(View view){
-        user.setPracticeXP(user.getPracticeXP()+5);
-        Log.i("Profile","Button pressed");
-        updateUI();
-    }
 }
