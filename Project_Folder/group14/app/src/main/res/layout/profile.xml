@@ -71,7 +71,7 @@
         android:id="@+id/profile_learningXP_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/steelSilver"
+        android:textColor="@color/brightSilver"
         android:text="@string/learning_xp" />
 
     <ProgressBar
@@ -84,7 +84,7 @@
         android:id="@+id/profile_practiceXP_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/steelSilver"
+        android:textColor="@color/brightSilver"
         android:text="@string/practice_xp" />
 
     <ProgressBar
