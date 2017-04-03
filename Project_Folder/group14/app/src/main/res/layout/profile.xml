@@ -93,5 +93,68 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:id="@+id/profile_achievements_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/achievements"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/goldYellow"
+        android:textSize="32dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="4dp"
+        android:weightSum="3">
+
+        <ImageView
+            android:id="@+id/profile_achievement_image1"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/arrow" />
+
+        <TextView
+            android:id="@+id/profile_achievement_text1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Achievement 1"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/brightSilver"
+            android:textSize="32dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="4dp"
+        android:weightSum="3">
+
+        <ImageView
+            android:id="@+id/profile_achievement_image2"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/arrow" />
+
+        <TextView
+            android:id="@+id/profile_achievement_text2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textColor="@color/brightSilver"
+            android:text="Achievement 2"
+            android:textSize="32dp"/>
+    </LinearLayout>
+
 </LinearLayout>
 
