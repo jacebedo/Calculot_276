@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@drawable/activity_background"
     >
 
     <EditText
@@ -13,6 +14,8 @@
         android:ems="10"
         android:layout_marginTop="16dp"
         android:inputType="textCapWords|textNoSuggestions"
+        android:textColor="@color/brightSilver"
+        android:textColorHint="@color/brightSilver"
         android:hint="@string/first_name_hint" />
 
     <EditText
@@ -22,6 +25,8 @@
         android:ems="10"
         android:layout_marginTop="4dp"
         android:inputType="text"
+        android:textColor="@color/brightSilver"
+        android:textColorHint="@color/brightSilver"
         android:hint="@string/username_hint" />
 
     <EditText
@@ -31,6 +36,8 @@
         android:ems="10"
         android:layout_marginTop="4dp"
         android:inputType="textPassword"
+        android:textColor="@color/brightSilver"
+        android:textColorHint="@color/brightSilver"
         android:hint="@string/password_hint"/>
 
     <EditText
@@ -39,8 +46,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:ems="10"
-        android:hint="@string/retype_password_hint"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="@color/brightSilver"
+        android:textColorHint="@color/brightSilver"
+        android:hint="@string/retype_password_hint" />
 
     <Space
         android:layout_width="match_parent"
