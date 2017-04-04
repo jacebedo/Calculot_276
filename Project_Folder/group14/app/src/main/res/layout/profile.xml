@@ -68,19 +68,6 @@
         android:layout_height="16dp" />
 
     <TextView
-        android:id="@+id/profile_learningXP_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/brightSilver"
-        android:text="@string/learning_xp" />
-
-    <ProgressBar
-        android:id="@+id/profile_learningXP_progress"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
         android:id="@+id/profile_practiceXP_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -130,22 +117,31 @@
                 app:srcCompat="@drawable/bronze_grey" />
 
             <LinearLayout
-                android:id="@+id/profile_achievement1_text"
+                android:id="@+id/profile_achievement1_ll_text"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
                 android:layout_marginLeft="6dp"
-                android:orientation="horizontal">
+                android:layout_weight="2"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/profile_achievement1_title"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Reached level 5"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     android:textColor="@color/brightSilver"
-                    android:textSize="32dp" />
+                    android:textSize="26dp" />
+
+                <TextView
+                    android:id="@+id/profile_achievement1_lockstatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="20dp"
+                    android:textColor="@color/brightSilver"
+                    android:text="Locked" />
             </LinearLayout>
 
         </LinearLayout>
@@ -167,22 +163,31 @@
                 app:srcCompat="@drawable/silver_grey" />
 
             <LinearLayout
-                android:id="@+id/profile_achievement2_text"
+                android:id="@+id/profile_achievement2_ll_text"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
                 android:layout_marginLeft="6dp"
-                android:orientation="horizontal">
+                android:layout_weight="2"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/profile_achievement2_title"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Reached level 10"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     android:textColor="@color/brightSilver"
-                    android:textSize="32dp" />
+                    android:textSize="26dp" />
+
+                <TextView
+                    android:id="@+id/profile_achievement2_lockstatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/brightSilver"
+                    android:textSize="20dp"
+                    android:text="Locked" />
             </LinearLayout>
 
         </LinearLayout>
@@ -204,22 +209,31 @@
                 app:srcCompat="@drawable/gold_grey" />
 
             <LinearLayout
-                android:id="@+id/profile_achievement3_text"
+                android:id="@+id/profile_achievement3_ll_text"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
                 android:layout_marginLeft="6dp"
-                android:orientation="horizontal">
+                android:layout_weight="2"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/profile_achievement3_title"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Reached level 15"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     android:textColor="@color/brightSilver"
-                    android:textSize="32dp" />
+                    android:textSize="26dp" />
+
+                <TextView
+                    android:id="@+id/profile_achievement3_lockstatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/brightSilver"
+                    android:textSize="20dp"
+                    android:text="Locked" />
             </LinearLayout>
 
         </LinearLayout>
