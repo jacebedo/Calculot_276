@@ -107,54 +107,126 @@
         android:layout_height="8dp" />
 
     <LinearLayout
+        android:id="@+id/profile_ll_achievements"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="4dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:weightSum="3">
 
-        <ImageView
-            android:id="@+id/profile_achievement_image1"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/arrow" />
-
-        <TextView
-            android:id="@+id/profile_achievement_text1"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/profile_ll_achievement1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="Achievement 1"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@color/brightSilver"
-            android:textSize="32dp" />
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <ImageView
+                android:id="@+id/profile_achievement_image1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/bronze_grey" />
+
+            <LinearLayout
+                android:id="@+id/profile_achievement1_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:layout_marginLeft="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/profile_achievement1_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Reached level 5"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/brightSilver"
+                    android:textSize="32dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_ll_achievement2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <ImageView
+                android:id="@+id/profile_achievement_image2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/silver_grey" />
+
+            <LinearLayout
+                android:id="@+id/profile_achievement2_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:layout_marginLeft="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/profile_achievement2_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Reached level 10"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/brightSilver"
+                    android:textSize="32dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_ll_achievement3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <ImageView
+                android:id="@+id/profile_achievement_image3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/gold_grey" />
+
+            <LinearLayout
+                android:id="@+id/profile_achievement3_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:layout_marginLeft="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/profile_achievement3_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Reached level 15"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/brightSilver"
+                    android:textSize="32dp" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="4dp"
-        android:weightSum="3">
 
-        <ImageView
-            android:id="@+id/profile_achievement_image2"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/arrow" />
-
-        <TextView
-            android:id="@+id/profile_achievement_text2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:textColor="@color/brightSilver"
-            android:text="Achievement 2"
-            android:textSize="32dp"/>
-    </LinearLayout>
 
 </LinearLayout>
 
