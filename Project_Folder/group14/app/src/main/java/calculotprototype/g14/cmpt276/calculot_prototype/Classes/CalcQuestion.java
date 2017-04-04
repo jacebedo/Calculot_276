@@ -928,7 +928,7 @@ public class CalcQuestion {
                         return;
                     } else if (randomCorrect == 2) {
                         answer_2 = correct;
-                        answer_4 = Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
+                        answer_4 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
                         answer_1 = "(-" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(x)";
                         answer_3 = "-" + Integer.toString(constant_1 * constant_2) + "cos(" + Integer.toString(constant_2)+ "x)";
                         return;
