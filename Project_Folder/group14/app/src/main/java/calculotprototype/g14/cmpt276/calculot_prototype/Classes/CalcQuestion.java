@@ -697,12 +697,12 @@ public class CalcQuestion {
                     answer_3 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
 
                 }
-            } else if (difficulty == 3) {
+            } else  {
                 if (randomCorrect == 1) {
                     constant = getRandomInt(1, 13);
                     exponent = getRandomInt(-6, -3);
 
-                    question = "Integrate: \n" + Integer.toString(constant) + "/x^" + Integer.toString(-1 * exponent);
+                    question = "Integrate: \n" + Integer.toString(constant) + "x^" + Integer.toString(-1 * exponent);
                     correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
 
                     answer_1 = correct;
