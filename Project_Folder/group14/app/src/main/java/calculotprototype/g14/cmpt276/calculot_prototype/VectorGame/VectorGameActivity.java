@@ -595,7 +595,7 @@ public class VectorGameActivity extends AppCompatActivity {
     private void drawQuestionVector() {
         //draw
         BMQuestionVector.eraseColor(Color.TRANSPARENT);
-        QuestionVectorCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + TheGenerator.getX(), GameYOrigin + TheGenerator.getY(), BlackPaint);
+        QuestionVectorCanvas.drawLine(GameXOrigin, GameYOrigin, GameXOrigin + TheGenerator.getX(), GameYOrigin - TheGenerator.getY(), BlackPaint);
 
         BlackPaint.setTextSize(20);
         BlackPaint.setStrokeWidth(2);
@@ -603,7 +603,7 @@ public class VectorGameActivity extends AppCompatActivity {
         double Angle = Math.atan2(TheGenerator.getY(), TheGenerator.getX());
         int XCoord = TheGenerator.getX() + (int) Math.round(Math.cos(Angle) * 15);
         int YCoord = TheGenerator.getY() + (int) Math.round(Math.sin(Angle) * 15);
-        QuestionVectorCanvas.drawText("V", GameXOrigin + XCoord, GameYOrigin + YCoord, BlackPaint);
+        QuestionVectorCanvas.drawText("V", GameXOrigin + XCoord, GameYOrigin - YCoord, BlackPaint);
         setBlackPaint(true);
 
         GameView.invalidate();

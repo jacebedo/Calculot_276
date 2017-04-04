@@ -527,8 +527,8 @@ public class VectorQuestionGenerator {
 
         int RandomChoice = getRandomInt(0,2);   //decides if user should find norm, x, or y
 
-        XComponent = Integer.toString(generateRandomX());
-        YComponent = Integer.toString(generateRandomY());
+        generateRandomX();
+        generateRandomY();
         setNormFromXY();
         setThetaFromXY();
 
@@ -637,8 +637,10 @@ public class VectorQuestionGenerator {
             }
         }
 
-        XComponent = Integer.toString(generateRandomX());
-        YComponent = Integer.toString(generateRandomY());
+        //XComponent = Integer.toString(generateRandomX());
+        //YComponent = Integer.toString(generateRandomY());
+        generateRandomX();
+        generateRandomY();
         setNormFromXY();
         setThetaFromXY();
 
@@ -676,6 +678,7 @@ public class VectorQuestionGenerator {
             if (QuestionComplex)
                 QuestionInfo = "given Theta = "+ThetaComponent+", Im = "+iYComponent;
             else QuestionInfo = "given Theta = "+ThetaComponent+", Y = "+YComponent;
+                //QuestionInfo = QuestionInfo + " XComponent = "+XComponent; testing x y component values in relation to theta
         }
         else if (QuestionType <= 11) {
             //given theta, Re/x find (radius/norm/modulus) or Im/y
@@ -692,18 +695,18 @@ public class VectorQuestionGenerator {
     }
 
     //Generating components of QuestionVector
-    private int generateRandomX() {
-        int RandomX = getRandomInt(MinimumAbsX, min(MinimumAbsX, HalfWidth-50));
+    private void generateRandomX() {
+        int RandomX = getRandomInt(MinimumAbsX, max(MinimumAbsX, HalfWidth-50));
         if (generateRandomBoolean()) {
             RandomX *= -1;
         }
         XComponent = String.valueOf(RandomX);
 
-        return RandomX;
+        //return RandomX;
     }
 
-    private int generateRandomY() {
-        int RandomY = getRandomInt(MinimumAbsY, min(MinimumAbsY, HalfHeight-50));
+    private void generateRandomY() {
+        int RandomY = getRandomInt(MinimumAbsY, max(MinimumAbsY, HalfHeight-50));
         if (generateRandomBoolean()) {
             RandomY *= -1;
         }
@@ -711,15 +714,15 @@ public class VectorQuestionGenerator {
 
         iYComponent = toComplex(YComponent);
 
-        return RandomY;
+        //return RandomY;
     }
 
     private void setThetaFromXY() {
-        double Ratio = (double) Integer.parseInt(YComponent) / (double) Integer.parseInt(XComponent);
-        int TempAngle = (int) Math.round( Math.toDegrees( Math.atan(Ratio) ) );
-        if (Integer.parseInt(XComponent)<0)
-            TempAngle += 180;
-        ThetaComponent = Integer.toString ( (360 - TempAngle) % 360 );
+        //double Ratio = (double) Integer.parseInt(YComponent) / (double) Integer.parseInt(XComponent);
+        int TempAngle = (int) Math.round( Math.toDegrees( Math.atan2( (double) Integer.parseInt(YComponent), (double) Integer.parseInt(XComponent) ) ) );
+        if (TempAngle<0)
+            TempAngle += 360;
+        ThetaComponent = Integer.toString(TempAngle);//Integer.toString ( (360 - TempAngle) % 360 );
     }
 
     private void setNormFromXY() {
