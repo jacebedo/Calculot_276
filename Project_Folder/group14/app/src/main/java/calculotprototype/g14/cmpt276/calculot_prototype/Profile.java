@@ -30,7 +30,6 @@ public class Profile extends MainActivity {
 
         UserDatabaseHelper DB = new UserDatabaseHelper(this);
         user = DB.getUser(username); //Gets User object from database (includes all user info)
-        DB.addPracticeXP(username, 120);
 
         TextView usernameTV = (TextView) findViewById(R.id.profile_username);
         TextView firstNameTV = (TextView) findViewById(R.id.profile_firstName);
