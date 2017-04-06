@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.User;
+import calculotprototype.g14.cmpt276.calculot_prototype.Databases.AchievementDatabaseHelper;
 import calculotprototype.g14.cmpt276.calculot_prototype.Databases.UserDatabaseHelper;
 
 /**
@@ -47,11 +48,13 @@ public class AddUser extends MainActivity {
         String password2St = password2ET.getText().toString();
 
         UserDatabaseHelper DB = new UserDatabaseHelper(this);
+        AchievementDatabaseHelper achdb = new AchievementDatabaseHelper(this);
 
         if (!(passwordSt.equals(password2St)))password2ET.setError("Passwords do not match!");
         else if (DB.userNotTaken(usernameSt)){ //Do if username is available
             User newUser = new User(usernameSt, firstNameSt, passwordSt);
             DB.insertUser(newUser);
+            achdb.addUser(usernameSt);
             Log.i("InsertUser","User inserted!");
             Toast.makeText(this, "User created!", Toast.LENGTH_SHORT).show();
             finish();
