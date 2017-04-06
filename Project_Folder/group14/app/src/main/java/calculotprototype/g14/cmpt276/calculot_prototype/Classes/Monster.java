@@ -62,8 +62,10 @@ public class Monster extends CalcQuestion{
 
     // COORDINATE MOVE METHODS
     public void moveMonster(int _width) {
-        X_coordinate-= _width/rateofSpeed;
-
+        if (_width <= 480) { X_coordinate-= 1; }
+        else {
+            X_coordinate -= _width / rateofSpeed;
+        }
     }
 
     // QUESTION CORRECTNESS CHECKING

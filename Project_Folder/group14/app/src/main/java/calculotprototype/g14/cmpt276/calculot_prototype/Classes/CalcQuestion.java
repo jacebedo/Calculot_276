@@ -241,13 +241,13 @@ public class CalcQuestion {
                 if (randomCorrect == 1) {
                     answer_1 = correct;
 
-                    answer_2 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(exponent_1) + ")x^" + Integer.toString(exponent_1 + 1) + " + " +
+                    answer_4 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(exponent_1) + ")x^" + Integer.toString(exponent_1 + 1) + " + " +
                             Integer.toString(constant_2 * (exponent_2 + 1)) + "x^" + Integer.toString(exponent_2 - 1);
 
                     answer_3 = Integer.toString(constant_1) + "x^" + Integer.toString(exponent_1 - 1) + " + " +
                             Integer.toString(constant_2) + "x^" + Integer.toString(exponent_2 - 1);
 
-                    answer_4 = "(" + Integer.toString(constant_1) + " * " + Integer.toString(constant_2) + ")x^" + Integer.toString(exponent_1 + exponent_2);
+                    answer_2 = "(" + Integer.toString(constant_1) + " * " + Integer.toString(constant_2) + ")x^" + Integer.toString(exponent_1 + exponent_2);
                     return;
                 }
                 if (randomCorrect == 2) {
@@ -299,8 +299,8 @@ public class CalcQuestion {
 
                 if (randomCorrect == 1) {
                     answer_1 = correct;
-                    answer_2 = "xe^x";
-                    answer_3 = "1/x";
+                    answer_3 = "xe^x";
+                    answer_2 = "1/x";
                     answer_4 = "(x)e^x-1";
                     return;
                 }
@@ -338,9 +338,9 @@ public class CalcQuestion {
 
                 if (randomCorrect == 1) {
                     answer_1 = correct;
-                    answer_2 = s_constant + "xe^x";
+                    answer_4 = s_constant + "xe^x";
                     answer_3 = s_constant + "/x";
-                    answer_4 = "(" + s_constant + "/x" + ")e^x";
+                    answer_2 = "(" + s_constant + "/x" + ")e^x";
                     return;
                 } else if (randomCorrect == 2) {
                     answer_2 = correct;
@@ -372,8 +372,8 @@ public class CalcQuestion {
 
                 if (randomCorrect == 1) {
                     answer_1 = correct;
-                    answer_2 = Integer.toString(constant_1 * constant_2) + "e^x";
-                    answer_3 = Integer.toString(constant_1 * constant_2) + "/x";
+                    answer_3 = Integer.toString(constant_1 * constant_2) + "e^x";
+                    answer_2 = Integer.toString(constant_1 * constant_2) + "/x";
                     answer_4 = Integer.toString(constant_1 * constant_2) + "xe^" + Integer.toString(constant_2)+ "x";
                     return;
                 } else if (randomCorrect == 2) {
@@ -408,8 +408,8 @@ public class CalcQuestion {
                     if (randomCorrect == 1) {
                         answer_1 = correct;
                         answer_2 = "-sin(x)";
-                        answer_3 = "-cos(x)";
-                        answer_4 = "sin(x)";
+                        answer_4 = "-cos(x)";
+                        answer_3 = "sin(x)";
                         return;
                     } else if (randomCorrect == 2) {
                         answer_2 = correct;
@@ -697,12 +697,12 @@ public class CalcQuestion {
                     answer_3 = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent) + ")x^" + Integer.toString(exponent);
 
                 }
-            } else if (difficulty == 3) {
+            } else  {
                 if (randomCorrect == 1) {
                     constant = getRandomInt(1, 13);
                     exponent = getRandomInt(-6, -3);
 
-                    question = "Integrate: \n" + Integer.toString(constant) + "/x^" + Integer.toString(-1 * exponent);
+                    question = "Integrate: \n" + Integer.toString(constant) + "x^" + Integer.toString(-1 * exponent);
                     correct = "(" + Integer.toString(constant) + "/" + Integer.toString(exponent + 1) + ")x^" + Integer.toString(exponent + 1);
 
                     answer_1 = correct;
@@ -796,9 +796,9 @@ public class CalcQuestion {
 
                 if (randomCorrect == 1) {
                     answer_1 = correct;
-                    answer_2 = s_constant + "xe^x";
-                    answer_3 = s_constant + "/x";
-                    answer_4 = "(" + s_constant + "/x" + ")e^x";
+                    answer_3 = s_constant + "xe^x";
+                    answer_4 = s_constant + "/x";
+                    answer_2 = "(" + s_constant + "/x" + ")e^x";
                     return;
                 } else if (randomCorrect == 2) {
                     answer_2 = correct;
@@ -828,8 +828,8 @@ public class CalcQuestion {
 
                 if (randomCorrect == 1) {
                     answer_1 = correct;
-                    answer_2 = Integer.toString(constant_1 * constant_2) + "e^" + Integer.toString(constant_2) + "x";
-                    answer_3 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")e^x";
+                    answer_3 = Integer.toString(constant_1 * constant_2) + "e^" + Integer.toString(constant_2) + "x";
+                    answer_2 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")e^x";
                     answer_4 = Integer.toString(constant_1 * constant_2) + "e^x";
                     return;
                 } else if (randomCorrect == 2) {
@@ -860,9 +860,9 @@ public class CalcQuestion {
 
                     if (randomCorrect == 1) {
                         answer_1 = correct;
-                        answer_2 = "cos(x)";
+                        answer_4 = "cos(x)";
                         answer_3 = "-sin(x)";
-                        answer_4 = "sin(x)";
+                        answer_2 = "sin(x)";
                         return;
                     } else if (randomCorrect == 2) {
                         answer_2 = correct;
@@ -928,7 +928,7 @@ public class CalcQuestion {
                         return;
                     } else if (randomCorrect == 2) {
                         answer_2 = correct;
-                        answer_4 = Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
+                        answer_4 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
                         answer_1 = "(-" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(x)";
                         answer_3 = "-" + Integer.toString(constant_1 * constant_2) + "cos(" + Integer.toString(constant_2)+ "x)";
                         return;
@@ -1017,8 +1017,8 @@ public class CalcQuestion {
                     if (randomCorrect == 1) {
                         answer_1 = correct;
                         answer_4 ="(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")cos(" + Integer.toString(constant_2) + "x)";
-                        answer_2 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")sin(x)";
-                        answer_3 = Integer.toString(constant_1 * constant_2) + "sin(" + Integer.toString(constant_2)+ "x)";
+                        answer_3 = "(" + Integer.toString(constant_1) + "/" + Integer.toString(constant_2) + ")sin(x)";
+                        answer_2 = Integer.toString(constant_1 * constant_2) + "sin(" + Integer.toString(constant_2)+ "x)";
                         return;
                     } else if (randomCorrect == 2) {
                         answer_2 = correct;

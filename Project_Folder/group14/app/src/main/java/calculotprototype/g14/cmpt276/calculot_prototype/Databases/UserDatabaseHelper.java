@@ -10,7 +10,7 @@ import android.util.Log;
 import calculotprototype.g14.cmpt276.calculot_prototype.Classes.User;
 
 /**
- * Created by ephronax on 3/7/2017.
+ * Created by jacebedo on 3/7/2017.
  */
 
 public class UserDatabaseHelper extends SQLiteOpenHelper {
@@ -71,7 +71,11 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         cv.put(TABLE_LEARNINGXP, 0);
         cv.put(TABLE_PRACTICEXP, 0);
 
-        return db.insert(TABLE_NAME, null, cv);
+        long retval = db.insert(TABLE_NAME, null, cv);
+
+        db.close();
+
+        return retval;
 
     }
 

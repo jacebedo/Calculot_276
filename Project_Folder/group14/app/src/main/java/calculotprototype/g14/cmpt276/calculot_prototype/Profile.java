@@ -83,7 +83,8 @@ public class Profile extends MainActivity {
         //Update achievements if applicable
         if (user.getlevel() >= 5){
             achievement1img.setImageResource(R.drawable.bronze);
-            achievement1text.setText("Unlocked"); }
+            achievement1text.setText("Unlocked");
+        }
         if (user.getlevel() >= 10){
             achievement2img.setImageResource(R.drawable.silver);
             achievement2text.setText("Unlocked"); }
