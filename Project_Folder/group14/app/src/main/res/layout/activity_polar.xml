@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/library_background"
     tools:context="calculotprototype.g14.cmpt276.calculot_prototype.PolarActivity">
 
     <RelativeLayout
@@ -48,23 +49,13 @@
             android:layout_weight="0.71"
             android:visibility="visible" />
 
-        <TextView
-            android:id="@+id/tP2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/polarView"
-            android:layout_weight="0.04"
-            android:text="Player should work on device with youtube app, but does not work on emulator"
-            android:textSize="14sp"
-            android:layout_alignParentEnd="true" />
-
         <ScrollView
             android:id="@+id/scrollView3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/tP2">
+            android:layout_below="@+id/polarView">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,7 +71,9 @@
                         android:id="@+id/qc2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" The polar coordinates r and θ are defined in terms" />
+                        android:text=" The polar coordinates r and θ are defined in terms"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -93,7 +86,9 @@
                         android:id="@+id/qv21"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" of Cartesian coordinates by x=" />
+                        android:text=" of Cartesian coordinates by x="
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/inputP1"
@@ -101,14 +96,17 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1.86"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/holo_red_light" />
 
                     <TextView
                         android:id="@+id/qv22"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="  and" />
+                        android:text="  and"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -120,7 +118,9 @@
                         android:id="@+id/qv31"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" y = " />
+                        android:text=" y = "
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/inputP2"
@@ -128,7 +128,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.10"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/holo_red_light" />
 
                 </LinearLayout>
 
@@ -143,7 +144,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.07"
-                        android:text=" r = " />
+                        android:text=" r = "
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/inputP3"
@@ -151,7 +154,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.13"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/holo_red_light" />
 
                 </LinearLayout>
 
@@ -165,7 +169,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.13"
-                        android:text=" tanθ = " />
+                        android:text=" tanθ = "
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/inputP4"
@@ -173,7 +179,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1.13"
                         android:ems="10"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textColor="@android:color/holo_red_light" />
 
                 </LinearLayout>
 
@@ -187,7 +194,9 @@
                         android:id="@+id/textView7"
                         android:layout_width="49dp"
                         android:layout_height="wrap_content"
-                        android:text=" θ = " />
+                        android:text=" θ = "
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/inputP5"
@@ -195,7 +204,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.75"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/holo_red_light" />
                 </LinearLayout>
 
                 <Button

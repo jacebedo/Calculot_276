@@ -5,9 +5,11 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/library_background"
     tools:context="calculotprototype.g14.cmpt276.calculot_prototype.LearnActivity"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="81dp">
+
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/learnLayout"
@@ -20,16 +22,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.294"
-        tools:layout_editor_absoluteY="-6dp">
+        app:layout_constraintVertical_bias="0.294">
 
         <TextView
             android:id="@+id/diffR"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="-2dp"
             android:fontFamily="sans-serif-condensed"
             android:text="Differentiation"
             android:textAlignment="center"
@@ -37,7 +37,6 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:typeface="normal"
-            app:layout_constraintHorizontal_bias="0.562"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -46,52 +45,37 @@
 
         <com.google.android.youtube.player.YouTubePlayerView
             android:id="@+id/diffView"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
 
             android:layout_height="150dp"
-            android:layout_marginBottom="0dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView4"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/diffR"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:text="Player should work on device with youtube app, but does not work on emulator"
-            android:textSize="16sp"
-            app:layout_constraintLeft_toLeftOf="@+id/diffView"
-            app:layout_constraintRight_toRightOf="@+id/diffView"
-            app:layout_constraintTop_toBottomOf="@+id/diffView"
             tools:layout_constraintLeft_creator="1"
             tools:layout_constraintRight_creator="1" />
 
         <ScrollView
             android:id="@+id/scrollView4"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="@+id/textView2"
-            app:layout_constraintRight_toRightOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1"
-            tools:layout_constraintTop_creator="1">
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/diffView">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -102,23 +86,26 @@
                     <TextView
                         android:id="@+id/q11"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Slope = change in" />
+                        android:layout_height="37dp"
+                        android:text="Slope = change in"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/inputq11"
                         android:layout_width="38dp"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textColor="@android:color/holo_red_light" />
 
                     <TextView
                         android:id="@+id/q12"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="divided by change in" />
+                        android:layout_height="40dp"
+                        android:text="divided by change in"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/inputq12"
@@ -138,21 +125,27 @@
                         android:id="@+id/q21"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tangent line at a point a is a" />
+                        android:text="Tangent line at a point a is a"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/inputq21"
                         android:layout_width="38dp"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/holo_red_light" />
 
                     <TextView
                         android:id="@+id/q22"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="of (f(a+h)-f(a))/h" />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="of (f(a+h)-f(a))/h"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -165,7 +158,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.22"
-                        android:text="d/dx A*f(x) = " />
+                        android:text="d/dx A*f(x) = "
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/inputq31"
@@ -173,14 +168,17 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.58"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/holo_red_light" />
 
                     <TextView
                         android:id="@+id/q32"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="*d/dx f(x)" />
+                        android:text="*d/dx f(x)"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -193,21 +191,26 @@
                         android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="d/dx(" />
+                        android:text="d/dx("
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/inputq41"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/holo_red_light" />
 
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text=") = d/dx f(x) + d/dx g(x)" />
+                        android:text=") = d/dx f(x) + d/dx g(x)"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -219,7 +222,9 @@
                         android:id="@+id/textView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="d/dx a^x = " />
+                        android:text="d/dx a^x = "
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/inputq51"
@@ -227,14 +232,17 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.94"
                         android:ems="10"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textColor="@android:color/holo_red_light" />
 
                     <TextView
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.58"
-                        android:text="*a^x" />
+                        android:text="*a^x"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -247,7 +255,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.38"
-                        android:text="d/dx e = " />
+                        android:text="d/dx e = "
+                        android:textColor="@android:color/holo_red_light"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/inputq61"
@@ -255,7 +265,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.28"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/holo_red_light" />
                 </LinearLayout>
 
                 <Button
@@ -268,59 +279,7 @@
             </LinearLayout>
         </ScrollView>
 
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="20dp"
-            tools:layout_editor_absoluteX="20dp"
-            tools:layout_editor_absoluteY="81dp" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="20dp"
-            tools:layout_editor_absoluteX="20dp"
-            tools:layout_editor_absoluteY="81dp" />
 
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.constraint.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/guideline8"
-        app:layout_constraintGuide_begin="20dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="20dp" />
-
-    <android.support.constraint.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/guideline9"
-        app:layout_constraintGuide_begin="20dp"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteY="20dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <android.support.constraint.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/guideline10"
-        app:layout_constraintGuide_begin="20dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="20dp" />
-
-    <android.support.constraint.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/guideline11"
-        app:layout_constraintGuide_begin="20dp"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteY="20dp"
-        tools:layout_editor_absoluteX="0dp" />
 </android.support.constraint.ConstraintLayout>
